@@ -1,0 +1,19 @@
+# Specifies intentionally untracked files to ignore when using Git
+# http://git-scm.com/docs/gitignore
+node_modules/
+platforms/
+plugins/
+www/js/environment.js
+www/js/environment.js.bk
+www/js/saved-environment.js
+environment.js.bk
+engine
+engine/
+*#
+*~
+*.#*
+.DS_Store
+my-resources
+*.apk
+jobspeaker.app.keystore
+.bundle
