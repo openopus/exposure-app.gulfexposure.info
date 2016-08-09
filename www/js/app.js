@@ -1,4 +1,4 @@
-var App = angular.module('Exposure', ['ionic', 'exposure.controllers', 'exposure.factories']);
+var App = angular.module('Exposure', ['ionic', 'exposure.controllers', 'exposure.factories', 'ngMaps']);
 
 App.run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -6,9 +6,8 @@ App.run(function($ionicPlatform) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
       cordova.plugins.Keyboard.disableScroll(true);
     }
-    if (window.StatusBar) {
-      StatusBar.styleDefault();
-    }
+
+    if (window.StatusBar) { StatusBar.styleDefault(); }
   });
 });
 
@@ -17,35 +16,39 @@ App.config(function($stateProvider, $urlRouterProvider) {
 
   .state('app', {
     url: '/app',
-    'templateUrl': 'templates/exposure/index.html',
-    'controller': 'AppController'
+    'templateUrl': 'exposure/index.html',
+    'controller': 'ExposureController'
   })
 
   .state('app.home', {
     url: '/home',
-    templateUrl: 'templates/exposure/home.html',
+    templateUrl: 'exposure/home/index.html',
     controller: 'HomeController'
+  })
+
+  .state('app.survey', {
+    url: '/survey',
+    templateUrl: 'exposure/survey/index.html',
+    controller: 'SurveyController'
   })
 
   .state('app.map', {
     url: '/map',
-    templateUrl: 'templates/exposure/map.html',
+    templateUrl: 'exposure/map/index.html',
     controller: 'MapController'
   })
 
   .state('app.blog', {
     url: '/blog',
-    templateUrl: 'templates/exposure/blog.html',
+    templateUrl: 'exposure/blog/index.html',
     controller: 'BlogController'
   })
 
   .state('app.blog_detail', {
     url: '/blog/:id',
-    templateUrl: 'templates/exposure/blog_detail.html',
+    templateUrl: 'exposure/blog/detail.html',
     controller: 'BlogDetailController'
   })
 
-  // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/app/home');
-
 });
