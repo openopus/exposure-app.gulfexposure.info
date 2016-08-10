@@ -26,6 +26,18 @@ App.config(function($stateProvider, $urlRouterProvider) {
     controller: 'HomeController'
   })
 
+  .state('app.home2', {
+    url: '/home2',
+    templateUrl: 'exposure/home2/index.html',
+    controller: 'Home2Controller'
+  })
+
+  .state('app.dashboard', {
+    url: '/home2',
+    templateUrl: 'exposure/dashboard/index.html',
+    controller: 'DashboardController'
+  })
+
   .state('app.survey', {
     url: '/survey',
     templateUrl: 'exposure/survey/index.html',
