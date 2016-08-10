@@ -9868,11 +9868,17 @@ p.button-subtext {
 .home-screen {
   padding: 66px 33px 22px;
   background-color: #1c2026; }
+  .home-screen .info-box {
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto; }
+
+.platform-ios .home-screen {
+  padding-top: 0px; }
 
 .dramatic-paragraph {
   margin-bottom: 22px;
   text-align: center;
-  font-size: 13.2px;
   color: #77cdde;
   font-family: "Oxygen", sans-serif; }
 

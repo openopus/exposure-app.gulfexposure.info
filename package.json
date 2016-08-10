@@ -29,7 +29,11 @@
       "locator": "cordova-plugin-googlemaps",
       "id": "plugin.google.maps"
     },
-    "cordova-plugin-geolocation"
+    "cordova-plugin-geolocation",
+    {
+      "locator": "https://github.com/Telerik-Verified-Plugins/NativePageTransitions#0.6.5",
+      "id": "com.telerik.plugins.nativepagetransitions"
+    }
   ],
   "cordovaPlatforms": [
     "ios"

@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <meta http-equiv="Content-Security-Policy" content="default-src *; script-src 'self' 'unsafe-inline' 'unsafe-eval' *; style-src 'self' 'unsafe-inline' *">
     <title>Exposure</title>
     <link href="css/ionic.app.css" rel="stylesheet">
     <script src="http:///maps.googleapis.com/maps/api/js?key=AIzaSyBAb1CB3qRSUfgZNgiqxm8zvVm3Tc43jVc&libraries=visualization,drawing,geometry,places"></script>
@@ -11,6 +12,7 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat|Oxygen|Roboto" rel="stylesheet">
     <script src="lib/ng-maps/dist/ng-maps.min.js"></script>
     <script src="js/app.js"></script>
+    <script src="js/transitions-directive.js"></script>
     <script src="js/controllers.js"></script>
     <script src="exposure/home/controllers.js"></script>
     <script src="exposure/dashboard/controllers.js"></script>

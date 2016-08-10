@@ -210,8 +210,11 @@
     // Animation
 
     // Other
+    .info-box { max-width: 800px; margin-left: auto; margin-right: auto; }
 
   }
+
+  .platform-ios .home-screen { padding-top: 0px; }
 
   .dramatic-paragraph {
     // Mixins
@@ -222,7 +225,7 @@
 
     // Typography
     text-align: center;
-    font-size: $font-size * .9;
+    // font-size: $font-size * .9;
     color: $color-quiet;
     font-family: $font-title;
     // Animation
