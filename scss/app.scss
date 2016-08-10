@@ -3,24 +3,6 @@
    Copyright (c) 2016 Brian J. Fox
    Author: Brian J. Fox (bfox@opuslogica.com) Thu Jul  7 13:11:03 2016. */
 
-.heatmap-wrapper {
-    .google-map { height: 100%; }
-}
-
-.home-screen {
-    margin-top: 60px;
-
-    .info-box {
-	h2 {}
-	p {}
-    }
-
-    .home-page-button {
-	h1 {}
-	p{}
-    }
-}
-
 // Grid
 
   $grid: 22px;
@@ -29,11 +11,17 @@
 
   $color-text: #c9ebf2;
   $color-quiet: darken($color-text, 20%);
-  $color-whisper: darken($color-text, 60%);
+  $color-whisper: darken($color-text, 50%);
+
+  $color-border: darken($color-text, 65%);
 
   $color-dark-background: #1c2026;
 
   $color-dev: rgba(red, .5);
+
+// Borders
+
+  $border-dark: 1px solid $color-border;
 
 // Typography
 
@@ -67,7 +55,7 @@
     // Mixins
 
     // Box properties
-
+    margin-bottom: $grid;
     // Background & borders
 
     // Typography
@@ -79,6 +67,38 @@
     // Other
 
   }
+
+  p {
+    // Mixins
+
+    // Box properties
+    margin-bottom: $grid;
+    // Background & borders
+
+    // Typography
+
+    // Animation
+
+    // Other
+
+  }
+
+  p.button-subtext {
+    // Mixins
+
+    // Box properties
+
+    // Background & borders
+
+    // Typography
+    color: $color-whisper;
+    text-align: center;
+    // Animation
+
+    // Other
+
+  }
+
 
 // Branding
 
@@ -94,7 +114,7 @@
     font-family: $font-logo;
     text-transform: uppercase;
     letter-spacing: $grid * .6;
-    color: $color-quiet;
+    color: $color-text;
     font-size: $grid;
     text-indent: $grid * .6;
     // Animation
@@ -107,7 +127,7 @@
     // Mixins
 
     // Box properties
-    margin: $grid * 2.5 auto !important;
+    margin: $grid auto $grid !important;
     // Background & borders
 
     // Typography
@@ -118,13 +138,71 @@
 
   }
 
+// Globals
+
+  // Buttons
+
+    .button.button-light.button-light-home {
+      // Mixins
+
+      // Box properties
+
+      // Background & borders
+      background-color: transparent;
+      border-color: $color-border;
+      margin-top: $grid * 2;
+      // Typography
+      color: $color-text;
+      text-transform: uppercase;
+      font-family: $font-logo;
+      // Animation
+
+      // Other
+
+    }
+
+  // Structure
+
+  // Nav Bar
+
+    .bar {
+      // Mixins
+
+      // Box properties
+
+      // Background & borders
+      background-image: none;
+      // Typography
+
+      // Animation
+
+      // Other
+
+    }
+
+    .bar-header {
+      // Mixins
+
+      // Box properties
+
+      // Background & borders
+      background-color: $color-dark-background;
+      border-bottom: $border-dark;
+      // Typography
+
+      // Animation
+
+      // Other
+
+    }
+
 // Home Screen
 
   .home-screen {
     // Mixins
 
     // Box properties
-    padding: $grid * 2 $grid * 1.5 $grid;
+    padding: $grid * 3 $grid * 1.5 $grid;
     // Background & borders
     background-color: $color-dark-background;
     // Typography
@@ -147,24 +225,6 @@
     font-size: $font-size * .9;
     color: $color-quiet;
     font-family: $font-title;
-    // Animation
-
-    // Other
-
-  }
-
-  .button.button-light.button-light-home {
-    // Mixins
-
-    // Box properties
-
-    // Background & borders
-    background-color: transparent;
-    border-color: $color-quiet;
-    // Typography
-    color: $color-quiet;
-    text-transform: uppercase;
-    font-family: $font-logo;
     // Animation
 
     // Other
@@ -320,4 +380,24 @@
 
     // Other
 
+  }
+
+
+
+  .heatmap-wrapper {
+      .google-map { height: 100%; }
+  }
+
+  .home-screen {
+      // margin-top: 60px;
+
+      .info-box {
+  	h2 {}
+  	p {}
+      }
+
+      .home-page-button {
+  	h1 {}
+  	p{}
+      }
   }

@@ -9819,12 +9819,6 @@ a.button {
 
    Copyright (c) 2016 Brian J. Fox
    Author: Brian J. Fox (bfox@opuslogica.com) Thu Jul  7 13:11:03 2016. */
-.heatmap-wrapper .google-map {
-  height: 100%; }
-
-.home-screen {
-  margin-top: 60px; }
-
 body {
   background-color: #1c2026;
   font-family: "Roboto", sans-serif;
@@ -9833,23 +9827,46 @@ body {
   color: #c9ebf2; }
 
 h1, h2, h3, h4, h5, h6 {
+  margin-bottom: 22px;
   font-family: "Oxygen", sans-serif;
   color: #c9ebf2; }
+
+p {
+  margin-bottom: 22px; }
+
+p.button-subtext {
+  color: #248498;
+  text-align: center; }
 
 .exposure-logotype {
   text-align: center;
   font-family: "Montserrat", sans-serif;
   text-transform: uppercase;
   letter-spacing: 13.2px;
-  color: #77cdde;
+  color: #c9ebf2;
   font-size: 22px;
   text-indent: 13.2px; }
 
 .exposure-logotype-fullwidth {
-  margin: 55px auto !important; }
+  margin: 22px auto 22px !important; }
+
+.button.button-light.button-light-home {
+  background-color: transparent;
+  border-color: #164e5a;
+  margin-top: 44px;
+  color: #c9ebf2;
+  text-transform: uppercase;
+  font-family: "Montserrat", sans-serif; }
+
+.bar {
+  background-image: none; }
+
+.bar-header {
+  background-color: #1c2026;
+  border-bottom: 1px solid #164e5a; }
 
 .home-screen {
-  padding: 44px 33px 22px;
+  padding: 66px 33px 22px;
   background-color: #1c2026; }
 
 .dramatic-paragraph {
@@ -9858,13 +9875,6 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 13.2px;
   color: #77cdde;
   font-family: "Oxygen", sans-serif; }
-
-.button.button-light.button-light-home {
-  background-color: transparent;
-  border-color: #77cdde;
-  color: #77cdde;
-  text-transform: uppercase;
-  font-family: "Montserrat", sans-serif; }
 
 @keyframes fadeinup {
   0% {
@@ -10016,4 +10026,7 @@ h1, h2, h3, h4, h5, h6 {
   position: absolute;
   top: -88px;
   right: -22px;
-  color: #1b606e; }
+  color: #248498; }
+
+.heatmap-wrapper .google-map {
+  height: 100%; }
