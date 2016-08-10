@@ -1,16 +1,6 @@
 Controllers.controller('HomeController', function($scope, $location, $state) {
-  var transition_success = function(msg) { console.log("Transitioned: " + msg); };
+  var transition_success = function(msg) { /* console.log("Transitioned: " + msg); */ };
   var transition_failure = function(msg) { console.error("Transition Failed: " + msg); };
-
-  $scope.go_home2 = function() {
-    $state.go("app.home2");
-    window.plugins.nativepagetransitions.flip({}, transition_success, transition_failure);
-  };
-
-  $scope.go_dashboard = function() {
-    $state.go("app.dashboard");
-    window.plugins.nativepagetransitions.flip({}, transition_success, transition_failure);
-  };
 
   $scope.accelerate = function() {
     var raw_elements = document.getElementsByClassName("dramatic-paragraph");
@@ -33,4 +23,16 @@ Controllers.controller('HomeController', function($scope, $location, $state) {
       element.removeClass("delay-7");
     });
   }
+
+  $scope.go_home2 = function() {
+    $scope.accelerate();
+    $state.go("app.home2");
+    window.plugins.nativepagetransitions.slide({direction: "left"}, transition_success, transition_failure);
+  };
+
+  $scope.go_dashboard = function() {
+    $scope.accelerate();
+    $state.go("app.dashboard");
+    window.plugins.nativepagetransitions.slide({ direction: "up" }, transition_success, transition_failure);
+  };
  });
