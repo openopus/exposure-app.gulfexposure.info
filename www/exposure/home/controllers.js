@@ -1,5 +1,3 @@
 Controllers.controller('HomeController', function($scope, $location, $state) {
-  $scope.go_survey = function() { $state.go("app.survey"); };
-  $scope.go_map = function() { $state.go("app.map"); };
-  $scope.go_blog = function() { $state.go("app.blog"); };
+  $scope.go_home2 = function() { $state.go("app.home2"); };
  });

@@ -20,3 +20,304 @@
 	p{}
     }
 }
+
+// Grid
+
+  $grid: 22px;
+
+// Colors
+
+  $color-text: #c9ebf2;
+  $color-quiet: darken($color-text, 20%);
+  $color-whisper: darken($color-text, 60%);
+
+  $color-dark-background: #1c2026;
+
+  $color-dev: rgba(red, .5);
+
+// Typography
+
+  $line-height: $grid;
+  $font-size: $line-height / 1.5;
+
+  $font-logo: 'Montserrat', sans-serif;
+  $font-title: 'Oxygen', sans-serif;
+  $font-body: 'Roboto', sans-serif;
+
+
+  body {
+    // Mixins
+
+    // Box properties
+
+    // Background & borders
+    background-color: $color-dark-background;
+    // Typography
+    font-family: $font-body;
+    font-size: $font-size;
+    line-height: $line-height;
+    color: $color-text;
+    // Animation
+
+    // Other
+
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    // Mixins
+
+    // Box properties
+
+    // Background & borders
+
+    // Typography
+    font-family: $font-title;
+    color: $color-text;
+
+    // Animation
+
+    // Other
+
+  }
+
+// Branding
+
+  .exposure-logotype {
+    // Mixins
+
+    // Box properties
+
+    // Background & borders
+
+    // Typography
+    text-align: center;
+    font-family: $font-logo;
+    text-transform: uppercase;
+    letter-spacing: $grid * .6;
+    color: $color-quiet;
+    font-size: $grid;
+    text-indent: $grid * .6;
+    // Animation
+
+    // Other
+
+  }
+
+  .exposure-logotype-fullwidth {
+    // Mixins
+
+    // Box properties
+    margin: $grid * 2.5 auto !important;
+    // Background & borders
+
+    // Typography
+
+    // Animation
+
+    // Other
+
+  }
+
+// Home Screen
+
+  .home-screen {
+    // Mixins
+
+    // Box properties
+    padding: $grid * 2 $grid * 1.5 $grid;
+    // Background & borders
+    background-color: $color-dark-background;
+    // Typography
+
+    // Animation
+
+    // Other
+
+  }
+
+  .dramatic-paragraph {
+    // Mixins
+
+    // Box properties
+    margin-bottom: $grid;
+    // Background & borders
+
+    // Typography
+    text-align: center;
+    font-size: $font-size * .9;
+    color: $color-quiet;
+    font-family: $font-title;
+    // Animation
+
+    // Other
+
+  }
+
+  .button.button-light.button-light-home {
+    // Mixins
+
+    // Box properties
+
+    // Background & borders
+    background-color: transparent;
+    border-color: $color-quiet;
+    // Typography
+    color: $color-quiet;
+    text-transform: uppercase;
+    font-family: $font-logo;
+    // Animation
+
+    // Other
+
+  }
+
+// Animations
+
+
+@keyframes fadeinup {
+  0% { opacity: 0; transform:translateY(5px);  }
+  25% { opacity: 0;  transform:translateY(5px); }
+  100%   { opacity: 1; transform:translateY(0);  }
+}
+
+/* Firefox < 16 */
+@-moz-keyframes fadeinup {
+  0% { opacity: 0; transform:translateY(5px);  }
+  25% { opacity: 0;  transform:translateY(5px); }
+  100%   { opacity: 1; transform:translateY(0);  }
+}
+
+/* Safari, Chrome and Opera > 12.1 */
+@-webkit-keyframes fadeinup {
+  0% { opacity: 0; transform:translateY(5px);  }
+  25% { opacity: 0;  transform:translateY(5px); }
+  100%   { opacity: 1; transform:translateY(0);  }
+}
+
+/* Internet Explorer */
+@-ms-keyframes fadeinup {
+  0% { opacity: 0; transform:translateY(5px);  }
+  25% { opacity: 0;  transform:translateY(5px); }
+  100%   { opacity: 1; transform:translateY(0);  }
+}
+
+/* Opera < 12.1 */
+@-o-keyframes fadeinup {
+  0% { opacity: 0; transform:translateY(5px);  }
+  25% { opacity: 0;  transform:translateY(5px); }
+  100%   { opacity: 1; transform:translateY(0);  }
+}
+
+.smooth-fadein {
+  opacity: 0;
+    -webkit-animation: fadeinup 1.5s ease-out forwards; /* Safari, Chrome and Opera > 12.1 */
+       -moz-animation: fadeinup 1.5s ease-out forwards; /* Firefox < 16 */
+        -ms-animation: fadeinup 1.5s ease-out forwards; /* Internet Explorer */
+         -o-animation: fadeinup 1.5s ease-out forwards; /* Opera < 12.1 */
+            animation: fadeinup 1.5s ease-out forwards;
+
+}
+
+.slow-fadein {
+  opacity: 0;
+    -webkit-animation: fadeinup 3s ease-out forwards; /* Safari, Chrome and Opera > 12.1 */
+       -moz-animation: fadeinup 3s ease-out forwards; /* Firefox < 16 */
+        -ms-animation: fadeinup 3s ease-out forwards; /* Internet Explorer */
+         -o-animation: fadeinup 3s ease-out forwards; /* Opera < 12.1 */
+            animation: fadeinup 3s ease-out forwards;
+
+}
+
+@keyframes nomo-fadein {
+  0% { opacity: 0;}
+  25% { opacity: 0;}
+  100%   { opacity: 1;}
+}
+
+.nomo-fadein {
+  opacity: 0;
+    -webkit-animation: nomo-fadein 2.5s ease-out forwards; /* Safari, Chrome and Opera > 12.1 */
+       -moz-animation: nomo-fadein 2.5s ease-out forwards; /* Firefox < 16 */
+        -ms-animation: nomo-fadein 2.5s ease-out forwards; /* Internet Explorer */
+         -o-animation: nomo-fadein 2.5s ease-out forwards; /* Opera < 12.1 */
+            animation: nomo-fadein 2.5s ease-out forwards;
+
+}
+
+  $time-delay-1: 1.5s;
+  $time-delay-2: 3.5s;
+  $time-delay-3: 5.5s;
+  $time-delay-4: 7.5s;
+  $time-delay-5: 9.5s;
+  $time-delay-6: 11.5s;
+  $time-delay-7: 14.5s;
+
+.delay-1 {
+  -webkit-animation-delay: $time-delay-1;
+     -moz-animation-delay: $time-delay-1;
+       -o-animation-delay: $time-delay-1;
+          animation-delay: $time-delay-1;
+}
+
+.delay-2 {
+  -webkit-animation-delay: $time-delay-2;
+     -moz-animation-delay: $time-delay-2;
+       -o-animation-delay: $time-delay-2;
+          animation-delay: $time-delay-2;
+}
+
+.delay-3 {
+  -webkit-animation-delay: $time-delay-3;
+     -moz-animation-delay: $time-delay-3;
+       -o-animation-delay: $time-delay-3;
+          animation-delay: $time-delay-3;
+}
+
+.delay-4 {
+  -webkit-animation-delay: $time-delay-4;
+     -moz-animation-delay: $time-delay-4;
+       -o-animation-delay: $time-delay-4;
+          animation-delay: $time-delay-4;
+}
+
+.delay-5 {
+  -webkit-animation-delay: $time-delay-5;
+     -moz-animation-delay: $time-delay-5;
+       -o-animation-delay: $time-delay-5;
+          animation-delay: $time-delay-5;
+}
+
+.delay-6 {
+  -webkit-animation-delay: $time-delay-6;
+     -moz-animation-delay: $time-delay-6;
+       -o-animation-delay: $time-delay-6;
+          animation-delay: $time-delay-6;
+}
+
+.delay-7 {
+  -webkit-animation-delay: $time-delay-7;
+     -moz-animation-delay: $time-delay-7;
+       -o-animation-delay: $time-delay-7;
+          animation-delay: $time-delay-7;
+}
+
+// Dev classes
+
+  .dev-nav-hack {
+    // Mixins
+
+    // Box properties
+    display: block;
+    position: absolute;
+    top: -$grid * 4;
+    right: -$grid;
+    color: $color-whisper;
+    // Background & borders
+
+    // Typography
+
+    // Animation
+
+    // Other
+
+  }
