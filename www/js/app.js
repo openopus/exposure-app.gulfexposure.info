@@ -22,18 +22,18 @@ App.config(function($stateProvider, $urlRouterProvider) {
 
   .state('app.home', {
     url: '/home',
-    templateUrl: 'exposure/home/index.html',
+    templateUrl: 'exposure/home/home1.html',
     controller: 'HomeController'
   })
 
   .state('app.home2', {
     url: '/home2',
-    templateUrl: 'exposure/home2/index.html',
-    controller: 'Home2Controller'
+    templateUrl: 'exposure/home/home2.html',
+    controller: 'HomeController'
   })
 
   .state('app.dashboard', {
-    url: '/home2',
+    url: '/dashboard',
     templateUrl: 'exposure/dashboard/index.html',
     controller: 'DashboardController'
   })
