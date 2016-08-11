@@ -9849,7 +9849,7 @@ p.button-subtext {
   text-indent: 13.2px; }
 
 .exposure-logotype-fullwidth {
-  margin: 22px auto 22px !important; }
+  margin: 0 auto 22px !important; }
 
 .button.button-light.button-light-home {
   background-color: transparent;
@@ -9880,6 +9880,36 @@ p.button-subtext {
   text-align: center;
   color: #77cdde;
   font-family: "Oxygen", sans-serif; }
+
+.previous-surveys-list {
+  margin-bottom: 5.5px;
+  border: 1px solid #164e5a; }
+
+.previous-surveys-list-item {
+  color: #248498; }
+
+.previous-surveys-list-item + .previous-surveys-list-item {
+  display: block;
+  border-top: 1px solid #164e5a; }
+
+.survey-status-incomplete {
+  color: #fbae17; }
+
+.survey-item-cell {
+  display: inline-block;
+  padding: 5.5px 2%;
+  text-align: left; }
+
+.survey-subject {
+  width: 43%; }
+
+.survey-age {
+  width: 17%;
+  text-align: center; }
+
+.survey-status {
+  width: 37%;
+  text-align: right; }
 
 @keyframes fadeinup {
   0% {

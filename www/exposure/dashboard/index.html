@@ -3,9 +3,21 @@
 
     <h1 class="exposure-logotype exposure-logotype-fullwidth smooth-fadein">exposure</h1>
 
-    <button class="button button-block button-light button-light-home slow-fadein" ng-click="go_survey()">
-      Take the health survey
+    <button class="button button-block button-light button-light-home button-has-surveys slow-fadein" ng-click="go_survey()">
+      New health survey
     </button>
+    <div class="previous-surveys-list slow-fadein">
+      <span class="previous-surveys-list-item survey-status-incomplete">
+        <span class="survey-item-cell survey-subject">PreciousRadish</span>
+        <span class="survey-item-cell survey-age">23yo</span>
+        <span class="survey-item-cell survey-status">incomplete &nbsp;<span class="icon ion-chevron-right"></span></span>
+      </span>
+      <span class="previous-surveys-list-item survey-status-complete">
+        <span class="survey-item-cell survey-subject">SillyGopher</span>
+        <span class="survey-item-cell survey-age">59yo</span>
+        <span class="survey-item-cell survey-status">complete &nbsp;<span class="icon ion-checkmark"></span></span>
+      </span>
+    </div>
     <p class="button-subtext slow-fadein"> Complete once for each family member with health issues.</p>
 
     <button class="button button-block button-light button-light-home slow-fadein" ng-click="go_map()">

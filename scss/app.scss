@@ -12,6 +12,7 @@
   $color-text: #c9ebf2;
   $color-quiet: darken($color-text, 20%);
   $color-whisper: darken($color-text, 50%);
+  $color-vibrant: #fbae17;
 
   $color-border: darken($color-text, 65%);
 
@@ -127,7 +128,7 @@
     // Mixins
 
     // Box properties
-    margin: $grid auto $grid !important;
+    margin: 0 auto $grid !important;
     // Background & borders
 
     // Typography
@@ -155,6 +156,21 @@
       color: $color-text;
       text-transform: uppercase;
       font-family: $font-logo;
+      // Animation
+
+      // Other
+
+    }
+
+    .button.button-has-surveys {
+      // Mixins
+
+      // Box properties
+
+      // Background & borders
+
+      // Typography
+
       // Animation
 
       // Other
@@ -252,6 +268,130 @@
     // Other
 
   }
+
+  // Survey Sumaries
+
+    .previous-surveys-list {
+      // Mixins
+
+      // Box properties
+      margin-bottom: $grid / 4;
+      // Background & borders
+      border: $border-dark;
+      // Typography
+
+      // Animation
+
+      // Other
+
+    }
+
+    .previous-surveys-list-item {
+      // Mixins
+
+      // Box properties
+
+      // Background & borders
+
+      // Typography
+      color: $color-whisper;
+      // Animation
+
+      // Other
+
+    }
+
+    .previous-surveys-list-item + .previous-surveys-list-item{
+      // Mixins
+
+      // Box properties
+      display: block;
+      // Background & borders
+      border-top: $border-dark;
+      // Typography
+
+      // Animation
+
+      // Other
+
+    }
+
+    .survey-status-incomplete {
+      // Mixins
+
+      // Box properties
+
+      // Background & borders
+
+      // Typography
+      color: $color-vibrant;
+      // Animation
+
+      // Other
+
+    }
+
+    .survey-item-cell {
+      // Mixins
+
+      // Box properties
+      display: inline-block;
+      padding: $grid / 4 2%;
+      // Background & borders
+
+      // Typography
+      text-align: left;
+      // Animation
+
+      // Other
+
+    }
+
+    .survey-subject {
+      // Mixins
+
+      // Box properties
+      width: 43%;
+      // Background & borders
+
+      // Typography
+
+      // Animation
+
+      // Other
+
+    }
+
+    .survey-age {
+      // Mixins
+
+      // Box properties
+      width: 17%;
+      // Background & borders
+
+      // Typography
+      text-align: center;
+      // Animation
+
+      // Other
+
+    }
+
+    .survey-status {
+      // Mixins
+
+      // Box properties
+      width: 37%;
+      // Background & borders
+
+      // Typography
+      text-align: right;
+      // Animation
+
+      // Other
+
+    }
+
 
 // Animations
 
