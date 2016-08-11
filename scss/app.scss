@@ -33,7 +33,9 @@
   $font-title: 'Oxygen', sans-serif;
   $font-body: 'Roboto', sans-serif;
 
-
+  $top-margin: 44px;
+  $ios-margin: 0px;
+  
   body {
     // Mixins
 
@@ -128,7 +130,9 @@
     // Mixins
 
     // Box properties
-    margin: 0 auto $grid !important;
+    margin: $top-margin auto $grid !important;
+    .platform-ios & { margin-top: $ios-margin; }
+    
     // Background & borders
 
     // Typography
@@ -248,8 +252,6 @@
     // Other
 
   }
-
-  // .platform-ios .home-screen { padding-top: 0px; }
 
   .dramatic-paragraph {
     // Mixins
