@@ -9831,6 +9831,14 @@ h1, h2, h3, h4, h5, h6 {
   font-family: "Oxygen", sans-serif;
   color: #c9ebf2; }
 
+h6.list-label {
+  margin: 0 0 0 10px;
+  color: #77cdde;
+  font-weight: bold; }
+  h6.list-label .list-label-note {
+    color: #248498;
+    text-transform: lowercase; }
+
 p {
   margin-bottom: 22px; }
 
@@ -9858,6 +9866,59 @@ p.button-subtext {
   color: #c9ebf2;
   text-transform: uppercase;
   font-family: "Montserrat", sans-serif; }
+
+.button.button-light.button-light-home.button-light-home-cta {
+  background-color: #164e5a; }
+
+.button.button-has-subtext {
+  margin-bottom: 5.5px; }
+
+.pane {
+  background-color: #1c2026; }
+
+.list-has-label {
+  margin-top: 5.5px; }
+
+.item.item-disabled {
+  border-color: transparent; }
+
+.list-inset, .item {
+  background-color: #1c2026;
+  border-color: #164e5a;
+  color: #77cdde; }
+
+input[disabled] {
+  background-color: #1c2026;
+  color: #77cdde !important; }
+
+.input-label {
+  color: #77cdde; }
+
+.item-radio .item-content {
+  background-color: #1c2026; }
+  .item-radio .item-content span {
+    color: #248498; }
+
+.item-radio input:checked + .radio-content .item-content {
+  background-color: #1c2026; }
+  .item-radio input:checked + .radio-content .item-content span {
+    color: #77cdde; }
+
+.item-radio .radio-icon {
+  color: #77cdde; }
+
+.checkbox input:before, .checkbox-icon:before {
+  background-color: black; }
+
+.checkbox input:before, .checkbox .checkbox-icon:before {
+  border-color: #164e5a; }
+
+.checkbox input:checked:before, .checkbox input:checked + .checkbox-icon:before {
+  background-color: #248498;
+  border-color: #248498; }
+
+textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"] {
+  color: #c9ebf2; }
 
 .bar {
   background-image: none; }
@@ -9910,6 +9971,10 @@ p.button-subtext {
 .survey-status {
   width: 37%;
   text-align: right; }
+
+.survey-screen-content {
+  padding-bottom: 88px;
+  background-color: #1c2026; }
 
 @keyframes fadeinup {
   0% {

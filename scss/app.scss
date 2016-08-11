@@ -69,6 +69,38 @@
 
   }
 
+  h6.list-label {
+    // Mixins
+
+    // Box properties
+    margin: 0 0 0 10px;
+    // Background & borders
+
+    // Typography
+    color: $color-quiet;
+    font-weight: bold;
+    // Animation
+
+    // Other
+
+    .list-label-note {
+      // Mixins
+
+      // Box properties
+
+      // Background & borders
+
+      // Typography
+      color: $color-whisper;
+      text-transform: lowercase;
+      // Animation
+
+      // Other
+
+    }
+
+  }
+
   p {
     // Mixins
 
@@ -162,11 +194,27 @@
 
     }
 
-    .button.button-has-surveys {
+    .button.button-light.button-light-home.button-light-home-cta {
       // Mixins
 
       // Box properties
 
+      // Background & borders
+      background-color: $color-border;
+
+      // Typography
+
+      // Animation
+
+      // Other
+
+    }
+
+    .button.button-has-subtext {
+      // Mixins
+
+      // Box properties
+      margin-bottom: $grid / 4;
       // Background & borders
 
       // Typography
@@ -178,6 +226,238 @@
     }
 
   // Structure
+
+  .pane {
+    // Mixins
+
+    // Box properties
+
+    // Background & borders
+    background-color: $color-dark-background;
+    // Typography
+
+    // Animation
+
+    // Other
+
+  }
+
+  // Forms
+
+    .list-has-label {
+      // Mixins
+
+      // Box properties
+      margin-top: $grid / 4;
+      // Background & borders
+
+      // Typography
+
+      // Animation
+
+      // Other
+
+    }
+
+    .item.item-disabled {
+      // Mixins
+
+      // Box properties
+
+      // Background & borders
+      border-color: transparent;
+      // Typography
+
+      // Animation
+
+      // Other
+
+    }
+
+      // Ionic style orrides
+
+        .list-inset, .item {
+          // Mixins
+
+          // Box properties
+
+          // Background & borders
+          background-color: $color-dark-background;
+          border-color: $color-border;
+          // Typography
+          color: $color-quiet;
+          // Animation
+
+          // Other
+
+        }
+
+        input[disabled] {
+          // Mixins
+
+          // Box properties
+
+          // Background & borders
+          background-color: $color-dark-background;
+          // Typography
+          color: $color-quiet !important;
+          // Animation
+
+          // Other
+
+        }
+
+        .input-label {
+          // Mixins
+
+          // Box properties
+
+          // Background & borders
+
+          // Typography
+          color: $color-quiet;
+          // Animation
+
+          // Other
+
+        }
+
+        .item-radio .item-content {
+          // Mixins
+
+          // Box properties
+
+          // Background & borders
+          background-color: $color-dark-background;
+          // Typography
+
+          // Animation
+
+          // Other
+
+          span {
+            // Mixins
+
+            // Box properties
+
+            // Background & borders
+
+            // Typography
+            color: $color-whisper;
+
+            // Animation
+
+            // Other
+
+          }
+        }
+
+        .item-radio input:checked + .radio-content .item-content {
+          // Mixins
+
+          // Box properties
+
+          // Background & borders
+          background-color: $color-dark-background;
+
+          // Typography
+
+          // Animation
+
+          // Other
+
+          span {
+            // Mixins
+
+            // Box properties
+
+            // Background & borders
+
+            // Typography
+            color: $color-quiet;
+
+            // Animation
+
+            // Other
+
+          }
+        }
+
+        .item-radio .radio-icon {
+          // Mixins
+
+          // Box properties
+
+          // Background & borders
+
+          // Typography
+          color: $color-quiet;
+          // Animation
+
+          // Other
+
+        }
+
+        .checkbox input:before, .checkbox-icon:before {
+          // Mixins
+
+          // Box properties
+
+          // Background & borders
+          background-color: black;
+          // Typography
+
+          // Animation
+
+          // Other
+
+        }
+
+        .checkbox input:before, .checkbox .checkbox-icon:before {
+          // Mixins
+
+          // Box properties
+
+          // Background & borders
+          border-color: $color-border;
+          // Typography
+
+          // Animation
+
+          // Other
+
+        }
+
+        .checkbox input:checked:before, .checkbox input:checked + .checkbox-icon:before {
+          // Mixins
+
+          // Box properties
+
+          // Background & borders
+          background-color: $color-whisper;
+          border-color: $color-whisper;
+          // Typography
+
+          // Animation
+
+          // Other
+
+        }
+
+        textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"] {
+          // Mixins
+
+          // Box properties
+
+          // Background & borders
+
+          // Typography
+          color: $color-text;
+          // Animation
+
+          // Other
+
+        }
 
   // Nav Bar
 
@@ -392,6 +672,23 @@
 
     }
 
+// Survey Form Screens
+
+  .survey-screen-content {
+    // Mixins
+
+    // Box properties
+    padding-bottom: $grid * 4;
+    // Background & borders
+    background-color: $color-dark-background;
+
+    // Typography
+
+    // Animation
+
+    // Other
+
+  }
 
 // Animations
 
