@@ -33,8 +33,10 @@
   $font-title: 'Oxygen', sans-serif;
   $font-body: 'Roboto', sans-serif;
 
+//  $top-margin: 44px;
+//  $ios-margin: 0px;
   $top-margin: 44px;
-  $ios-margin: 0px;
+  $ios-margin: 44px;
   
   body {
     // Mixins
@@ -218,7 +220,10 @@
 
 // Home Screen
 
-  .home-screen {
+//    button.button-light-home { bottom:0; left: 12%; right: 12%; width: 76%; margin: 10px auto; position: fixed; }
+//    h1.exposure-logo-type { position: fixed; }
+
+.home-screen {
     // Mixins
 
     // Box properties
@@ -231,8 +236,7 @@
 
     // Other
 
-    // .info-box { max-width: 800px; margin-left: auto; margin-right: auto; }
-
+    .info-box { max-width: 800px; margin-left: auto; margin-right: auto; position: relative; }
   }
 
   .home-screen-content {

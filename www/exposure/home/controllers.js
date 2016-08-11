@@ -1,6 +1,4 @@
 Controllers.controller('HomeController', function($scope, $location, $state) {
-  var transition_success = function(msg) { /* console.log("Transitioned: " + msg); */ };
-  var transition_failure = function(msg) { console.error("Transition Failed: " + msg); };
 
   $scope.accelerate = function() {
     var raw_elements = document.getElementsByClassName("dramatic-paragraph");
@@ -24,15 +22,25 @@ Controllers.controller('HomeController', function($scope, $location, $state) {
     });
   }
 
+  $scope.transition = function(opts) {
+    var transition_success = function(msg) { /* console.log("Transitioned: " + msg); */ };
+    var transition_failure = function(msg) { console.error("Transition Failed: " + msg); };
+    if (opts == undefined) { opts = { direction: "left" }; }
+    try {
+      window.plugins.nativepagetransitions.slide(opts, transition_success, transition_failure);
+    } catch(x) {
+      console.log("Missing nativepagetransitions");
+    }
+  }
   $scope.go_home2 = function() {
     $scope.accelerate();
     $state.go("app.home2");
-    window.plugins.nativepagetransitions.slide({direction: "left"}, transition_success, transition_failure);
+    $scope.transition();
   };
 
   $scope.go_dashboard = function() {
     $scope.accelerate();
     $state.go("app.dashboard");
-    window.plugins.nativepagetransitions.slide({ direction: "up" }, transition_success, transition_failure);
+    $scope.transition({ direction: "up" })
   };
  });

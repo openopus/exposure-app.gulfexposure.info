@@ -9851,7 +9851,7 @@ p.button-subtext {
 .exposure-logotype-fullwidth {
   margin: 44px auto 22px !important; }
   .platform-ios .exposure-logotype-fullwidth {
-    margin-top: 0px; }
+    margin-top: 44px; }
 
 .button.button-light.button-light-home {
   background-color: transparent;
@@ -9870,6 +9870,11 @@ p.button-subtext {
 
 .home-screen {
   background-color: #1c2026; }
+  .home-screen .info-box {
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative; }
 
 .home-screen-content {
   max-width: 800px;
