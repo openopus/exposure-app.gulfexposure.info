@@ -9835,6 +9835,7 @@ p {
   margin-bottom: 22px; }
 
 p.button-subtext {
+  padding: 0 33px;
   color: #248498;
   text-align: center; }
 
@@ -9853,7 +9854,7 @@ p.button-subtext {
 .button.button-light.button-light-home {
   background-color: transparent;
   border-color: #164e5a;
-  margin-top: 44px;
+  margin-top: 22px;
   color: #c9ebf2;
   text-transform: uppercase;
   font-family: "Montserrat", sans-serif; }
@@ -9866,15 +9867,13 @@ p.button-subtext {
   border-bottom: 1px solid #164e5a; }
 
 .home-screen {
-  padding: 66px 33px 22px;
   background-color: #1c2026; }
-  .home-screen .info-box {
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto; }
 
-.platform-ios .home-screen {
-  padding-top: 0px; }
+.home-screen-content {
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 22px 22px 88px; }
 
 .dramatic-paragraph {
   margin-bottom: 22px;

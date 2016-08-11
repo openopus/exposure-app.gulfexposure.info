@@ -87,7 +87,7 @@
     // Mixins
 
     // Box properties
-
+    padding: 0 $grid * 1.5;
     // Background & borders
 
     // Typography
@@ -150,7 +150,7 @@
       // Background & borders
       background-color: transparent;
       border-color: $color-border;
-      margin-top: $grid * 2;
+      margin-top: $grid;
       // Typography
       color: $color-text;
       text-transform: uppercase;
@@ -202,7 +202,7 @@
     // Mixins
 
     // Box properties
-    padding: $grid * 3 $grid * 1.5 $grid;
+
     // Background & borders
     background-color: $color-dark-background;
     // Typography
@@ -210,11 +210,30 @@
     // Animation
 
     // Other
-    .info-box { max-width: 800px; margin-left: auto; margin-right: auto; }
+
+    // .info-box { max-width: 800px; margin-left: auto; margin-right: auto; }
 
   }
 
-  .platform-ios .home-screen { padding-top: 0px; }
+  .home-screen-content {
+    // Mixins
+
+    // Box properties
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: $grid $grid * 1 $grid * 4;
+    // Background & borders
+
+    // Typography
+
+    // Animation
+
+    // Other
+
+  }
+
+  // .platform-ios .home-screen { padding-top: 0px; }
 
   .dramatic-paragraph {
     // Mixins
