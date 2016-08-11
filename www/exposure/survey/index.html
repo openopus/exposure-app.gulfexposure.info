@@ -1,3 +1,58 @@
-<ion-content style="margin-top: 60px">
-  Survey Page
+<ion-content>
+  <div class="survey-screen-content">
+
+    <div class="list list-inset">
+      <label class="item item-input item-disabled">
+        <span class="input-label">Your codename:</span>
+        <input type="text" value="PleasantPoppy" disabled>
+      </label>
+    </div>
+
+    <div class="list list-inset">
+      <label class="item item-input">
+        <span class="input-label">Age:</span>
+        <input type="text">
+      </label>
+    </div>
+
+    <h6 class="list-label">Biological Gender</h6>
+    <div class="list list-inset list-has-label">
+      <ion-list>
+        <ion-radio ng-model="choice" ng-value="'A'">Male</ion-radio>
+        <ion-radio ng-model="choice" ng-value="'B'">Female</ion-radio>
+      </ion-list>
+    </div>
+
+    <h6 class="list-label">Where were you exposed?</h6>
+    <div class="list list-inset list-has-label">
+      <label class="item item-input">
+        <span class="input-label">Zip code:</span>
+        <input type="text">
+      </label>
+    </div>
+
+    <h6 class="list-label">What was your role? <span class="list-label-note">(check all that apply)</span></h6>
+    <div class="list list-inset list-has-label">
+      <ion-list>
+        <ion-checkbox ng-model="filter.CommunityMember">Community member</ion-checkbox>
+        <ion-checkbox ng-model="filter.CleanupWorker">Cleanup worker</ion-checkbox>
+        <ion-checkbox ng-model="filter.BPEmployee">BP employee</ion-checkbox>
+        <ion-checkbox ng-model="filter.Volunteer">Volunteer</ion-checkbox>
+        <ion-checkbox ng-model="filter.GovernmentEmployee">Government employee</ion-checkbox>
+        <ion-checkbox ng-model="filter.Contractor">Contractor</ion-checkbox>
+        <ion-checkbox ng-model="filter.Fisherman">Fisherman</ion-checkbox>
+        <ion-checkbox ng-model="filter.BoatCaptainCrew">Boat captain / crew</ion-checkbox>
+        <ion-checkbox ng-model="filter.Other">Other</ion-checkbox>
+      </ion-list>
+    </div>
+
+    <h6 class="list-label">Where do you live now?</h6>
+    <div class="list list-inset list-has-label">
+      <label class="item item-input">
+        <span class="input-label">Zip code:</span>
+        <input type="text">
+      </label>
+    </div>
+
+  </div>
 </ion-content>
