@@ -9981,7 +9981,16 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
 
 .survey-screen-content {
   padding-bottom: 88px;
+  padding-top: 44px;
   background-color: #1c2026; }
+
+div.instruction-box {
+  width: 90%;
+  max-width: 800px;
+  margin: auto;
+  border: 1px solid #164e5a; }
+  div.instruction-box p {
+    margin: 6px 10px; }
 
 @keyframes fadeinup {
   0% {

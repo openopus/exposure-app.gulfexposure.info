@@ -685,6 +685,7 @@
 
     // Box properties
     padding-bottom: $grid * 4;
+    padding-top: $top-margin;
     // Background & borders
     background-color: $color-dark-background;
 
@@ -695,6 +696,14 @@
     // Other
 
   }
+
+div.instruction-box {
+    width: 90%;
+    max-width: 800px;
+    margin: auto;
+    border: $border-dark;
+    p { margin: 6px 10px; }
+}
 
 // Animations
 
