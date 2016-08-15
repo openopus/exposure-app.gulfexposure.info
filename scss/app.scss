@@ -37,7 +37,7 @@
 //  $ios-margin: 0px;
   $top-margin: 44px;
   $ios-margin: 44px;
-  
+
   body {
     // Mixins
 
@@ -160,13 +160,12 @@
 
   }
 
-  .exposure-logotype-fullwidth {
+  h1.exposure-logotype-fullwidth {
     // Mixins
 
     // Box properties
-    margin: $top-margin auto $grid !important;
-    .platform-ios & { margin-top: $ios-margin; }
-    
+    margin: $grid auto $grid * 2;
+
     // Background & borders
 
     // Typography
@@ -189,7 +188,7 @@
       // Background & borders
       background-color: transparent;
       border-color: $color-border;
-      margin-top: $grid;
+      margin: 0;
       // Typography
       color: $color-text;
       text-transform: uppercase;
@@ -238,6 +237,25 @@
 
     // Box properties
 
+    // Background & borders
+    background-color: $color-dark-background;
+    // Typography
+
+    // Animation
+
+    // Other
+
+  }
+
+  .sticky-footer {
+    // Mixins
+
+    // Box properties
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: $grid / 2;
     // Background & borders
     background-color: $color-dark-background;
     // Typography
@@ -503,31 +521,21 @@
 //    button.button-light-home { bottom:0; left: 12%; right: 12%; width: 76%; margin: 10px auto; position: fixed; }
 //    h1.exposure-logo-type { position: fixed; }
 
+
 .home-screen {
     // Mixins
 
     // Box properties
-
+    position: absolute;
+    top: 66px;
+    left: 0;
+    right: 0;
+    bottom: 70px;
+    padding-left: $grid;
+    padding-right: $grid;
+    padding-top: $grid;
     // Background & borders
     background-color: $color-dark-background;
-    // Typography
-
-    // Animation
-
-    // Other
-
-    .info-box { max-width: 800px; margin-left: auto; margin-right: auto; position: relative; }
-  }
-
-  .home-screen-content {
-    // Mixins
-
-    // Box properties
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
-    padding: $grid $grid * 1 $grid * 4;
-    // Background & borders
 
     // Typography
 
@@ -535,6 +543,22 @@
 
     // Other
 
+    .info-box {
+      // Mixins
+
+      // Box properties
+      max-width: 600px;
+      margin: 0 auto;
+      position: relative;
+      // Background & borders
+
+      // Typography
+
+      // Animation
+
+      // Other
+
+    }
   }
 
   .dramatic-paragraph {
@@ -837,24 +861,7 @@ div.instruction-box {
 
 // Dev classes
 
-  .dev-nav-hack {
-    // Mixins
 
-    // Box properties
-    display: block;
-    position: absolute;
-    top: -$grid * 4;
-    right: -$grid;
-    color: $color-whisper;
-    // Background & borders
-
-    // Typography
-
-    // Animation
-
-    // Other
-
-  }
 
 
 
@@ -876,8 +883,8 @@ div.instruction-box {
       }
   }
 .pane {
--webkit-transition-duration: 300ms!important; 
-transition-duration: 300ms!important; 
+-webkit-transition-duration: 300ms!important;
+transition-duration: 300ms!important;
 }
 
 div.title.title-center.header-item {
