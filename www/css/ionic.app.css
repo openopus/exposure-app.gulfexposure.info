@@ -9856,15 +9856,13 @@ p.button-subtext {
   font-size: 22px;
   text-indent: 13.2px; }
 
-.exposure-logotype-fullwidth {
-  margin: 44px auto 22px !important; }
-  .platform-ios .exposure-logotype-fullwidth {
-    margin-top: 44px; }
+h1.exposure-logotype-fullwidth {
+  margin: 22px auto 44px; }
 
 .button.button-light.button-light-home {
   background-color: transparent;
   border-color: #164e5a;
-  margin-top: 22px;
+  margin: 0;
   color: #c9ebf2;
   text-transform: uppercase;
   font-family: "Montserrat", sans-serif; }
@@ -9876,6 +9874,14 @@ p.button-subtext {
   margin-bottom: 5.5px; }
 
 .pane {
+  background-color: #1c2026; }
+
+.sticky-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 11px;
   background-color: #1c2026; }
 
 .list-has-label {
@@ -9930,18 +9936,19 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
   border-bottom: 1px solid #164e5a; }
 
 .home-screen {
+  position: absolute;
+  top: 66px;
+  left: 0;
+  right: 0;
+  bottom: 70px;
+  padding-left: 22px;
+  padding-right: 22px;
+  padding-top: 22px;
   background-color: #1c2026; }
   .home-screen .info-box {
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
+    max-width: 600px;
+    margin: 0 auto;
     position: relative; }
-
-.home-screen-content {
-  max-width: 800px;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 22px 22px 88px; }
 
 .dramatic-paragraph {
   margin-bottom: 22px;
@@ -10136,13 +10143,6 @@ div.instruction-box {
   -moz-animation-delay: 14.5s;
   -o-animation-delay: 14.5s;
   animation-delay: 14.5s; }
-
-.dev-nav-hack {
-  display: block;
-  position: absolute;
-  top: -88px;
-  right: -22px;
-  color: #248498; }
 
 .heatmap-wrapper .google-map {
   height: 100%; }
