@@ -10146,3 +10146,7 @@ div.instruction-box {
 
 .heatmap-wrapper .google-map {
   height: 100%; }
+
+.pane {
+  -webkit-transition-duration: 300ms !important;
+  transition-duration: 300ms !important; }
