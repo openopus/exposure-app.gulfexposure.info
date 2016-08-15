@@ -10150,3 +10150,12 @@ div.instruction-box {
 .pane {
   -webkit-transition-duration: 300ms !important;
   transition-duration: 300ms !important; }
+
+div.title.title-center.header-item {
+  text-align: center;
+  font-family: "Montserrat", sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 13.2px;
+  color: #c9ebf2;
+  font-size: 22px;
+  text-indent: 13.2px; }

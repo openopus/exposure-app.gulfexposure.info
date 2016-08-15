@@ -879,3 +879,13 @@ div.instruction-box {
 -webkit-transition-duration: 300ms!important; 
 transition-duration: 300ms!important; 
 }
+
+div.title.title-center.header-item {
+    text-align: center;
+    font-family: $font-logo;
+    text-transform: uppercase;
+    letter-spacing: $grid * .6;
+    color: $color-text;
+    font-size: $grid;
+    text-indent: $grid * .6;
+}

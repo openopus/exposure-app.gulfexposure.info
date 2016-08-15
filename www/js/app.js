@@ -18,22 +18,28 @@ App.run(function($ionicPlatform) {
 App.config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
 
+  .state('intro', {
+    url: '/intro',
+    templateUrl: 'exposure/intro/index-without-header.html',
+    controller: 'IntroController'
+  })
+
+  .state('story', {
+    url: '/story',
+    templateUrl: 'exposure/intro/index-with-header.html',
+    controller: 'IntroController'
+  })
+
+  .state('story.page1', {
+    url: '/page1',
+    templateUrl: 'exposure/intro/home2.html',
+    controller: 'IntroController'
+  })
+
   .state('app', {
     url: '/app',
     'templateUrl': 'exposure/index.html',
     'controller': 'ExposureController'
-  })
-
-  .state('app.home', {
-    url: '/home',
-    templateUrl: 'exposure/home/home1.html',
-    controller: 'HomeController'
-  })
-
-  .state('app.home2', {
-    url: '/home2',
-    templateUrl: 'exposure/home/home2.html',
-    controller: 'HomeController'
   })
 
   .state('app.dashboard', {
@@ -66,5 +72,5 @@ App.config(function($stateProvider, $urlRouterProvider) {
     controller: 'BlogDetailController'
   })
 
-  $urlRouterProvider.otherwise('/app/home');
+  $urlRouterProvider.otherwise('/intro');
 });
