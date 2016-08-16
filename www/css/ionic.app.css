@@ -9859,6 +9859,15 @@ p.button-subtext {
 h1.exposure-logotype-fullwidth {
   margin: 22px auto 44px; }
 
+div.title.title-center.header-item {
+  text-align: center;
+  font-family: "Montserrat", sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 8.8px;
+  color: #c9ebf2;
+  font-size: 14.66667px;
+  text-indent: 8.8px; }
+
 .button.button-light.button-light-home {
   background-color: transparent;
   border-color: #164e5a;
@@ -10150,15 +10159,6 @@ div.instruction-box {
 .pane {
   -webkit-transition-duration: 300ms !important;
   transition-duration: 300ms !important; }
-
-div.title.title-center.header-item {
-  text-align: center;
-  font-family: "Montserrat", sans-serif;
-  text-transform: uppercase;
-  letter-spacing: 13.2px;
-  color: #c9ebf2;
-  font-size: 22px;
-  text-indent: 13.2px; }
 
 .blog-list {
   background: black;

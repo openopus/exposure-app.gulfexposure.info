@@ -176,6 +176,26 @@
 
   }
 
+  div.title.title-center.header-item {
+    // Mixins
+
+    // Box properties
+
+    // Background & borders
+
+    // Typography
+    text-align: center;
+    font-family: $font-logo;
+    text-transform: uppercase;
+    letter-spacing: $grid * .4;
+    color: $color-text;
+    font-size: $font_size;
+    text-indent: $grid * .4;
+    // Animation
+
+    // Other
+
+  }
 // Globals
 
   // Buttons
@@ -885,14 +905,4 @@ div.instruction-box {
 .pane {
 -webkit-transition-duration: 300ms!important;
 transition-duration: 300ms!important;
-}
-
-div.title.title-center.header-item {
-    text-align: center;
-    font-family: $font-logo;
-    text-transform: uppercase;
-    letter-spacing: $grid * .6;
-    color: $color-text;
-    font-size: $grid;
-    text-indent: $grid * .6;
 }
