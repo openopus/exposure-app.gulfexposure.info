@@ -105,6 +105,23 @@
 
   }
 
+  a {
+    // Mixins
+
+    // Box properties
+
+    // Background & borders
+
+    // Typography
+    color: $color-vibrant;
+    text-transform: none;
+
+    // Animation
+
+    // Other
+
+  }
+
   p {
     // Mixins
 
@@ -248,6 +265,39 @@
 
       // Other
 
+    }
+
+  // List items
+
+    .item.activated.item-complex {
+      // Mixins
+
+      // Box properties
+
+      // Background & borders
+      background-color: black;
+      border-color: $color-border;
+      // Typography
+
+      // Animation
+
+      // Other
+
+      > .item-content {
+        // Mixins
+
+        // Box properties
+
+        // Background & borders
+        background-color: black;
+
+        // Typography
+
+        // Animation
+
+        // Other
+
+      }
     }
 
   // Structure
@@ -755,7 +805,7 @@ div.instruction-box {
     // Mixins
 
     // Box properties
-    padding-top: $top-margin;
+    padding-top: $grid * 2.9;
 
     // Background & borders
 
@@ -766,6 +816,8 @@ div.instruction-box {
     // Other
 
   }
+
+
 // Animations
 
 

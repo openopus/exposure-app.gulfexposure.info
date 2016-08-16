@@ -9842,6 +9842,10 @@ h6.list-label {
     color: #248498;
     text-transform: lowercase; }
 
+a {
+  color: #fbae17;
+  text-transform: none; }
+
 p {
   margin-bottom: 22px; }
 
@@ -9884,6 +9888,12 @@ div.title.title-center.header-item {
 
 .button.button-has-subtext {
   margin-bottom: 5.5px; }
+
+.item.activated.item-complex {
+  background-color: black;
+  border-color: #164e5a; }
+  .item.activated.item-complex > .item-content {
+    background-color: black; }
 
 .pane {
   background-color: #1c2026; }
@@ -10012,7 +10022,7 @@ div.instruction-box {
     margin: 6px 10px; }
 
 .blog-screen-content {
-  padding-top: 88px; }
+  padding-top: 63.8px; }
 
 @keyframes fadeinup {
   0% {

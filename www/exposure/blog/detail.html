@@ -3,7 +3,7 @@
     <div class="list card blog">
       <div class="item item-text-wrap blog-detail-image">
         <h2 class="blog-title">{{post.title.rendered }}</h2>
-        <p><i class="ion ion-ios-calendar-outline"></i> {{post.date | limitTo: 10}}</p>
+        <p>{{post.date | date:'EEEE, MMM dd, yyyy'}}</p>
       </div>
       <div class="item item-image blog-detail-video">
         <div class="embed-responsive embed-responsive-16by9">
