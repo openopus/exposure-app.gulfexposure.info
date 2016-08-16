@@ -1,16 +1,18 @@
 Controllers.controller('BlogController', function($scope, $state, Posts) {
+  
   Posts.getPosts().then(function(result) {
     $scope.posts = result;
   });
-
-  $scope.go_detail = function(post) {
-    $state.go("app.blog_detail", { id: post.id });
-  };
+  
+  $scope.back_clicked = function() { $state.go("app.dashboard"); };
+  $scope.go_detail = function(post) { $state.go("app.blog_detail", { id: post.id }); };
 });
 
 Controllers.controller('BlogDetailController', function($scope, $stateParams, Posts, $sce) {
   var post = Posts.getPost($stateParams.id);
   var parser = new DOMParser(), doc;
+
+  $scope.back_clicked = function() { $state.go("app.blog"); };
 
   try {
     doc = parser.parseFromString(post.content.rendered, 'text/html');
