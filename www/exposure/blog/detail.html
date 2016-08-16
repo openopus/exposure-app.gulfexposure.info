@@ -1,1 +1,18 @@
-BLOG DETAIL PAGE
+<ion-view view-title="{{post.title.rendered }}">
+  <ion-content class="padding">
+    <div class="list card">
+      <div class="item item-text-wrap">
+        <h2>{{post.title.rendered }}</h2>
+        <p><i class="ion ion-ios-calendar-outline"></i> {{post.date | limitTo: 10}}</p>
+      </div>
+      <div class="item item-image">
+        <div class="embed-responsive embed-responsive-16by9">
+          <youtube-video class="embed-responsive-item" video-id="post.meta.youtube_video_id" player-vars="playerVars"></youtube-video>
+        </div>
+      </div>
+
+      <div ng-bind-html="post.post_content">
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

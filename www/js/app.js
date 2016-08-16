@@ -1,4 +1,4 @@
-var App = angular.module('Exposure', ['ionic', 'exposure.controllers', 'exposure.factories', 'ngMaps', 'ngStorage']);
+var App = angular.module('Exposure', ['ionic', 'exposure.controllers', 'exposure.factories', 'ngMaps', 'ngStorage', 'oli.wordpress_services']);
 
 App.run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
