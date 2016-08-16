@@ -1,4 +1,4 @@
-Controllers.controller('HomeController', function($scope, $location, $state) {
+Controllers.controller('IntroController', function($scope, $location, $state) {
 
   $scope.accelerate = function() {
     var raw_elements = document.getElementsByClassName("dramatic-paragraph");
@@ -34,13 +34,13 @@ Controllers.controller('HomeController', function($scope, $location, $state) {
   }
   $scope.go_home2 = function() {
     $scope.accelerate();
-    $state.go("app.home2");
+    $state.go("story.page1");
     $scope.transition();
   };
 
   $scope.go_dashboard = function() {
     $scope.accelerate();
     $state.go("app.dashboard");
-    $scope.transition({ direction: "up" })
+    $scope.transition({ direction: "left" })
   };
- });
+});

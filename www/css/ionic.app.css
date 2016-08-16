@@ -10150,3 +10150,42 @@ div.instruction-box {
 .pane {
   -webkit-transition-duration: 300ms !important;
   transition-duration: 300ms !important; }
+
+div.title.title-center.header-item {
+  text-align: center;
+  font-family: "Montserrat", sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 13.2px;
+  color: #c9ebf2;
+  font-size: 22px;
+  text-indent: 13.2px; }
+
+.blog-list {
+  background: black;
+  color: #eee; }
+  .blog-list .blog-item .item-content {
+    background: inherit;
+    color: inherit;
+    border-color: white; }
+    .blog-list .blog-item .item-content h1 {
+      background: inherit;
+      color: inherit; }
+    .blog-list .blog-item .item-content P {
+      background: inherit;
+      color: inherit; }
+
+div.blog {
+  background: black; }
+
+div.blog-detail-content {
+  background-color: black;
+  color: #eee; }
+  div.blog-detail-content p {
+    border: 0;
+    padding: 8px; }
+  div.blog-detail-content img {
+    display: block;
+    margin: 6px auto;
+    width: 90%;
+    height: auto;
+    overflow-y: hidden; }

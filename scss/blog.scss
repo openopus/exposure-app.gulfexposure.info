@@ -1,0 +1,15 @@
+.blog-list {
+    background: black; color: #eee;
+    .blog-item .item-content {
+	background: inherit; color: inherit; border-color: white;
+	h1 { background: inherit; color: inherit; }
+	P { background: inherit;  color: inherit; }
+    }
+}
+div.blog { background: black; }
+div.blog-detail-content {
+    background-color: black;
+    color: #eee;
+    p { border: 0; padding: 8px; }
+    img { display: block; margin: 6px auto; width: 90%; height: auto; overflow-y: hidden; }
+}
