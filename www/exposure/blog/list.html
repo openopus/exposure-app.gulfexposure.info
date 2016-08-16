@@ -1,9 +1,9 @@
 <ion-content>
-  <ion-list>
+  <ion-list class="blog-list">
     <a class="button button-positive button-block icon-right ion-chevron-right" type="item-text-wrap" href="#/create_a_post">
       Create a post
     </a>
-    <ion-item class="item-remove-animate item-icon-right" ng-repeat="post in posts" type="item-text-wrap" ng-click="go_detail(post)">
+    <ion-item class="item-remove-animate item-icon-right blog-item" ng-repeat="post in posts" type="item-text-wrap" ng-click="go_detail(post)">
       <h2>{{post.title.rendered}}</h2>
       <p><i class="ion ion-ios-calendar-outline"></i> {{post.date | limitTo: 10}}</p>
       <i class="icon ion-chevron-right icon-accessory"></i>

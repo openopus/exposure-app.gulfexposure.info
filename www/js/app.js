@@ -62,7 +62,7 @@ App.config(function($stateProvider, $urlRouterProvider) {
 
   .state('app.blog', {
     url: '/blog',
-    templateUrl: 'exposure/blog/index.html',
+    templateUrl: 'exposure/blog/list.html',
     controller: 'BlogController'
   })
 
