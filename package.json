@@ -26,10 +26,14 @@
         "API_KEY_FOR_ANDROID": "AIzaSyBAb1CB3qRSUfgZNgiqxm8zvVm3Tc43jVc",
         "API_KEY_FOR_IOS": "AIzaSyBAb1CB3qRSUfgZNgiqxm8zvVm3Tc43jVc"
       },
-      "locator": "cordova-plugin-googlemaps",
+      "locator": "https://github.com/mapsplugin/cordova-plugin-googlemaps",
       "id": "plugin.google.maps"
     },
     "cordova-plugin-geolocation",
+    {
+      "locator": "https://github.com/apache/cordova-plugins.git#master:wkwebview-engine-localhost",
+      "id": "cordova-labs-wkwebview-engine-localhost"
+    },
     {
       "locator": "https://github.com/Telerik-Verified-Plugins/NativePageTransitions#0.6.5",
       "id": "com.telerik.plugins.nativepagetransitions"
