@@ -1,4 +1,4 @@
-Controllers.controller('IntroController', function($scope, $location, $state) {
+Controllers.controller('IntroController', function($scope, $location, $state, $transitions) {
 
   $scope.accelerate = function() {
     var raw_elements = document.getElementsByClassName("dramatic-paragraph");
@@ -24,11 +24,11 @@ Controllers.controller('IntroController', function($scope, $location, $state) {
 
   $scope.go_home2 = function() {
     $scope.accelerate();
-    $scope.transition("story.page1");
+    $transitions.go("story.page1");
   };
 
   $scope.go_dashboard = function() {
     $scope.accelerate();
-    $scope.transition("app.dashboard");
+    $transitions.go("app.dashboard");
   };
 });
