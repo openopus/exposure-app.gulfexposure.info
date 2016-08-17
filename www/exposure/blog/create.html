@@ -1,0 +1,15 @@
+<ion-content class="padding">
+  <div class="list card blog">
+    <div class="item item-text-wrap blog-detail-image">
+      <h2 contenteditable="true" ng-model="post.title" strip-br="true" strip-tags="true" class="blog-title"></h2>
+      <p>{{post.date | date:'EEEE, MMM dd, yyyy'}}</p>
+    </div>
+    <div contenteditable="true" ng-model="post.content" class="blog-detail-content"></div>
+  </div>
+</ion-content>
+<div class="sticky-footer">
+  <button class="button button-block button-light button-light-home" type="item-text-wrap" ng-click="submit_post()">
+    Submit Post
+  </button>
+</div>
+

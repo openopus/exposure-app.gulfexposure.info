@@ -1,4 +1,5 @@
-var App = angular.module('Exposure', ['ionic', 'exposure.controllers', 'exposure.factories', 'ngMaps', 'ngStorage', 'oli.wordpress_services']);
+var App = angular.module('Exposure', ['ionic', 'exposure.controllers', 'exposure.factories', 'ngMaps', 'ngStorage',
+                                      'oli.wordpress_services', 'contenteditable']);
 
 App.run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -66,6 +67,12 @@ App.config(function($stateProvider, $urlRouterProvider) {
     url: '/blog/:id',
     templateUrl: 'exposure/blog/detail.html',
     controller: 'BlogDetailController'
+  })
+
+  .state('app.blog_create', {
+    url: '/blog_create',
+    templateUrl: 'exposure/blog/create.html',
+    controller: 'BlogCreateController'
   })
 
   $urlRouterProvider.otherwise('/intro');

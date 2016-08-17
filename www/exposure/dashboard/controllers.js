@@ -1,8 +1,5 @@
 Controllers.controller('DashboardController', function($scope, $location, $state, $ionicHistory) {
   $ionicHistory.clearHistory();
-  $scope.back_clicked = function() {
-    console.error("THE BACK BUTTON GOT CLICKED!");
-  }
   $scope.go_survey = function() { $state.go("app.survey"); };
   $scope.go_map = function() { $state.go("app.map"); };
   $scope.go_blog = function() { $state.go("app.blog"); };

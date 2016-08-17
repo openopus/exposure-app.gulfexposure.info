@@ -6,6 +6,7 @@ Controllers.controller('BlogController', function($scope, $state, Posts) {
   
   $scope.back_clicked = function() { $state.go("app.dashboard"); };
   $scope.go_detail = function(post) { $state.go("app.blog_detail", { id: post.id }); };
+  $scope.go_create = function() { $state.go("app.blog_create"); };
 });
 
 Controllers.controller('BlogDetailController', function($scope, $stateParams, Posts, $sce) {
@@ -28,6 +29,15 @@ Controllers.controller('BlogDetailController', function($scope, $stateParams, Po
   }
 
   $scope.post = post;
+});
+
+Controllers.controller('BlogCreateController', function($scope, $state) {
+  $scope.post = { title: "Your Post Title", date: new Date(), content: "<p>This is some content.  Don't know how <b>things</b> will look.</p>" };
+
+  $scope.submit_post = function() {
+    console.log("SUBMITTED!", $scope.post);
+    $state.go("app.blog_thanks");
+  };
 });
 
 Controllers.controller('CreateAPostCtrl', function($scope, $cordovaCamera, $cordovaImagePicker, $ionicActionSheet, Posts, $localstorage, $state) {
