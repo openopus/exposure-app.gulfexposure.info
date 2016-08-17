@@ -22,25 +22,13 @@ Controllers.controller('IntroController', function($scope, $location, $state) {
     });
   }
 
-  $scope.transition = function(opts) {
-    var transition_success = function(msg) { /* console.log("Transitioned: " + msg); */ };
-    var transition_failure = function(msg) { console.error("Transition Failed: " + msg); };
-    if (opts == undefined) { opts = { direction: "left" }; }
-    try {
-      window.plugins.nativepagetransitions.slide(opts, transition_success, transition_failure);
-    } catch(x) {
-      console.log("Missing nativepagetransitions");
-    }
-  }
   $scope.go_home2 = function() {
     $scope.accelerate();
-    $state.go("story.page1");
-    $scope.transition();
+    $scope.transition("story.page1");
   };
 
   $scope.go_dashboard = function() {
     $scope.accelerate();
-    $state.go("app.dashboard");
-    $scope.transition({ direction: "left" })
+    $scope.transition("app.dashboard");
   };
 });

@@ -1,7 +1,8 @@
-Controllers.controller('DashboardController', function($scope, $location, $state, $ionicHistory) {
+Controllers.controller('DashboardController', function($scope, $location, $state, $ionicHistory, $transitions) {
   $ionicHistory.clearHistory();
-  $scope.go_survey = function() { $state.go("app.survey"); };
-  $scope.go_map = function() { $state.go("app.map"); };
-  $scope.go_blog = function() { $state.go("app.blog"); };
-  $scope.go_intro = function() { $state.go("story"); }
- });
+
+  $scope.go_survey = function() { $transitions.go("app.survey", { type: "slide", direction: "up" }); };
+  $scope.go_map = function() { $transitions.go("app.map", { type: "slide", direction: "down" }); };
+  $scope.go_blog = function() { $transitions.go("app.blog"); };
+  $scope.go_intro = function() { $transitions.go("story", { type: "fade" }); }
+});

@@ -1,6 +1,4 @@
 App.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
-  $ionicConfigProvider.views.transition('none');
-
   $stateProvider
 
   .state('intro', {
