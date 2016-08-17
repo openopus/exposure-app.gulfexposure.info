@@ -10179,6 +10179,10 @@ div.instruction-box {
   -webkit-transition-duration: 300ms !important;
   transition-duration: 300ms !important; }
 
+[contenteditable] {
+  -webkit-user-select: text;
+  user-select: text; }
+
 .blog-list {
   background: black;
   color: #eee; }

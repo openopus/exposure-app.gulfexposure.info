@@ -32,7 +32,7 @@ Controllers.controller('BlogDetailController', function($scope, $stateParams, Po
 });
 
 Controllers.controller('BlogCreateController', function($scope, $state) {
-  $scope.post = { title: "Your Post Title", date: new Date(), content: "<p>This is some content.  Don't know how <b>things</b> will look.</p>" };
+  $scope.post = { title: "Your Post Title", date: new Date(), content: "This is some content.  Don't know how <b>things</b> will look." };
 
   $scope.submit_post = function() {
     console.log("SUBMITTED!", $scope.post);

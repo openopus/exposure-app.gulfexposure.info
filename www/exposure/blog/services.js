@@ -1,7 +1,3 @@
-//services.js: -*- JavaScript-IDE -*-  DESCRIPTIVE TEXT.
-//
-// Copyright (c) 2016 Brian J. Fox
-// Author: Brian J. Fox (bfox@opuslogica.com) Mon Aug 15 18:18:11 2016.
 var OLIWPServices = angular.module('oli.wordpress_services', []);
 
 OLIWPServices.factory('$localstorage', function($window) {
@@ -79,3 +75,4 @@ OLIWPServices.factory('Posts', function($http) {
   };
 });
 
+App.requires.push('oli.wordpress_services');
