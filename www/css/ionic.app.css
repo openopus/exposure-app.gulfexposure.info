@@ -10024,6 +10024,9 @@ div.instruction-box {
 .blog-screen-content {
   padding-top: 63.8px; }
 
+.blog-detail-content {
+  padding: 11px; }
+
 @keyframes fadeinup {
   0% {
     opacity: 0;
