@@ -15,7 +15,7 @@
     <allow-navigation href="http://*:*/*" />
     <allow-navigation href="file://*/*" />
     <allow-navigation href="file://*" />
-    <content src="index.html" />
+    <content src="http://localhost:0" />
     <access origin="*" />
     <preference name="webviewbounce" value="false" />
     <preference name="UIWebViewBounce" value="false" />
