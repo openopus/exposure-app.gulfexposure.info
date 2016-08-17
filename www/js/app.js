@@ -75,5 +75,11 @@ App.config(function($stateProvider, $urlRouterProvider) {
     controller: 'BlogCreateController'
   })
 
+  .state('app.blog_thanks', {
+    url: '/blog_thanks',
+    templateUrl: 'exposure/blog/thanks.html',
+    controller: 'BlogCreateController'
+  })
+
   $urlRouterProvider.otherwise('/intro');
 });
