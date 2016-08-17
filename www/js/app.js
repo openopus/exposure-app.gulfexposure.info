@@ -57,29 +57,5 @@ App.config(function($stateProvider, $urlRouterProvider) {
     controller: 'MapController'
   })
 
-  .state('app.blog', {
-    url: '/blog',
-    templateUrl: 'exposure/blog/list.html',
-    controller: 'BlogController'
-  })
-
-  .state('app.blog_detail', {
-    url: '/blog/:id',
-    templateUrl: 'exposure/blog/detail.html',
-    controller: 'BlogDetailController'
-  })
-
-  .state('app.blog_create', {
-    url: '/blog_create',
-    templateUrl: 'exposure/blog/create.html',
-    controller: 'BlogCreateController'
-  })
-
-  .state('app.blog_thanks', {
-    url: '/blog_thanks',
-    templateUrl: 'exposure/blog/thanks.html',
-    controller: 'BlogCreateController'
-  })
-
   $urlRouterProvider.otherwise('/intro');
 });
