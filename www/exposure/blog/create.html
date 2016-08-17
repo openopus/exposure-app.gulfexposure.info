@@ -5,7 +5,9 @@
       	<h2 content-editable ng-model="post.title" strip-br="true" strip-tags="true" class="blog-title">Sample</h2>
       	<p>{{post.date | date:'EEEE, MMM dd, yyyy'}}</p>
       </div>
-      <div content-editable ng-model="post.content" render-html="true" class="blog-detail-content" style="padding-left: 1px;"></div>
+      <div class="blog-detail-content">
+	<p content-editable ng-model="post.content" render-html="true"></p>
+      </div>
     </div>
   </ion-content>
   <div class="sticky-footer">
