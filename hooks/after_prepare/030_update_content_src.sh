@@ -3,6 +3,7 @@
 # 
 #  Copyright (c) 2016 Brian J. Fox
 #  Author: Brian J. Fox (bfox@opuslogica.com) Mon Mar 28 15:19:18 2016.
+exit 0
 targets="platforms/android/res/xml/config.xml platforms/ios/*/config.xml"
 android_src="index.html"
 ios_src="http://localhost:16382"
