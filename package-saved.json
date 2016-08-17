@@ -31,6 +31,10 @@
     },
     "cordova-plugin-geolocation",
     {
+      "locator": "https://github.com/apache/cordova-plugins.git#master:wkwebview-engine-localhost",
+      "id": "cordova-labs-wkwebview-engine-localhost"
+    },
+    {
       "locator": "https://github.com/Telerik-Verified-Plugins/NativePageTransitions#0.6.5",
       "id": "com.telerik.plugins.nativepagetransitions"
     }
