@@ -3,16 +3,16 @@ Controllers.controller('BlogController', function($scope, $transitions, Posts) {
     $scope.posts = result;
   });
   
-  $scope.go_dashboard = function() { $transitions.go("dashboard", { type: "curl" }); };
-  $scope.go_detail = function(post) { $transitions.go("blog_detail", { type: "slide", direction: "right" }, { id: post.id }); };
-  $scope.go_create = function() { $transitions.go("blog_create"); };
+  $scope.go_dashboard = function() { $transitions.go("dashboard", { type: "slide", direction: "right" }); };
+  $scope.go_detail = function(post) { $transitions.go("blog_detail", { type: "slide", direction: "left" }, { id: post.id }); };
+  $scope.go_create = function() { $transitions.go("blog_create", { type: "flip", direction: "right", duration: 900 }); };
 });
 
 Controllers.controller('BlogDetailController', function($scope, $stateParams, Posts, $sce, $transitions) {
   var post = Posts.getPost($stateParams.id);
   var parser = new DOMParser(), doc;
 
-  $scope.go_list = function(post) { $transitions.go("blog", { direction: "left" }); };
+  $scope.go_list = function(post) { $transitions.go("blog", { type: "slide", direction: "right" }); };
 
   try {
     doc = parser.parseFromString(post.content.rendered, 'text/html');
@@ -39,7 +39,8 @@ Controllers.controller('BlogCreateController', function($scope, $transitions) {
   };
 
   $scope.go_list = function(post) { $transitions.go("blog", { direction: "left" }); };
-  $scope.go_back = function() { $transitions.go("dashboard", { type: "slide", direction: "right" }); };
+  $scope.go_back = function() { $transitions.go("dashboard", { type: "flip", direction: "left", duration: 900 }); };
+  // $scope.go_back = function() { $transitions.go("dashboard", { type: "slide", direction: "right" }); };
 
 });
 

@@ -1,6 +1,6 @@
 Controllers.controller('MapController', function($scope, $rootScope, $timeout, $api, $timeout, $transitions) { 
 
-  $scope.go_dashboard = function() { $transitions.go("dashboard", { type: "curl" }); };
+  $scope.go_dashboard = function() { $transitions.go("dashboard", { type: "slide", direction: "up" }); };
 
   $scope.mapdata = null;
   $scope.map = { center: [40.7, -74] };

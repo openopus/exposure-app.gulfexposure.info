@@ -14,6 +14,6 @@ Controllers.controller('DashboardController', function($scope, $location, $state
   $scope.go_survey = function() { $scope.fade_no_more(); $transitions.go("survey", { type: "slide", direction: "up" }); };
   $scope.go_map = function() { $scope.fade_no_more(); $transitions.go("map", { type: "slide", direction: "down" }); };
   $scope.go_blog = function() { $scope.fade_no_more(); $transitions.go("blog"); };
-  $scope.go_create = function() { $scope.fade_no_more(); $transitions.go("blog_create", { type: "fade" }); };
+  $scope.go_create = function() { $scope.fade_no_more(); $transitions.go("blog_create", { type: "flip", direction: "left" }); };
   $scope.go_intro = function() { $scope.fade_no_more(); $transitions.go("story", { type: "fade" }); }
 });

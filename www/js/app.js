@@ -11,7 +11,7 @@ App.run(function($ionicPlatform, $ionicConfig) {
         $ionicConfig.views.transition('none');
       }
     }
-    if (window.StatusBar) { StatusBar.styleDefault(); }
+    if (window.StatusBar) { StatusBar.styleBlackTranslucent(); }
   });
 });
 
