@@ -1,19 +1,18 @@
-Controllers.controller('BlogController', function($scope, $state, Posts) {
-  
+Controllers.controller('BlogController', function($scope, $transitions, Posts) {
   Posts.getPosts().then(function(result) {
     $scope.posts = result;
   });
   
-  $scope.back_clicked = function() { $state.go("app.dashboard"); };
-  $scope.go_detail = function(post) { $state.go("app.blog_detail", { id: post.id }); };
-  $scope.go_create = function() { $state.go("app.blog_create"); };
+  $scope.go_dashboard = function() { $transitions.go("dashboard", { type: "curl" }); };
+  $scope.go_detail = function(post) { $transitions.go("blog_detail", { type: "slide", direction: "right" }, { id: post.id }); };
+  $scope.go_create = function() { $transitions.go("blog_create"); };
 });
 
-Controllers.controller('BlogDetailController', function($scope, $stateParams, Posts, $sce) {
+Controllers.controller('BlogDetailController', function($scope, $stateParams, Posts, $sce, $transitions) {
   var post = Posts.getPost($stateParams.id);
   var parser = new DOMParser(), doc;
 
-  $scope.back_clicked = function() { $state.go("app.blog"); };
+  $scope.go_list = function(post) { $transitions.go("blog", { direction: "left" }); };
 
   try {
     doc = parser.parseFromString(post.content.rendered, 'text/html');
@@ -31,13 +30,17 @@ Controllers.controller('BlogDetailController', function($scope, $stateParams, Po
   $scope.post = post;
 });
 
-Controllers.controller('BlogCreateController', function($scope, $state) {
+Controllers.controller('BlogCreateController', function($scope, $transitions) {
   $scope.post = { title: "Your Post Title", date: new Date(), content: "This is some content.  Don't know how <b>things</b> will look." };
 
   $scope.submit_post = function() {
     console.log("SUBMITTED!", $scope.post);
-    $state.go("app.blog_thanks");
+    $transitions.go("app.blog_thanks");
   };
+
+  $scope.go_list = function(post) { $transitions.go("blog", { direction: "left" }); };
+  $scope.go_back = function() { $transitions.go("dashboard", { type: "slide", direction: "right" }); };
+
 });
 
 Controllers.controller('CreateAPostCtrl', function($scope, $cordovaCamera, $cordovaImagePicker, $ionicActionSheet, Posts, $localstorage, $state) {

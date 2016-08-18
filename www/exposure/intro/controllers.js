@@ -22,13 +22,7 @@ Controllers.controller('IntroController', function($scope, $location, $state, $t
     });
   }
 
-  $scope.go_home2 = function() {
-    $scope.accelerate();
-    $transitions.go("story.page1");
-  };
-
-  $scope.go_dashboard = function() {
-    $scope.accelerate();
-    $transitions.go("app.dashboard");
-  };
+  $scope.go_intro = function() { $transitions.go("intro"); };
+  $scope.go_story = function() { $scope.accelerate(); $transitions.go("story", { type: "flip", direction: "right" }); };
+  $scope.go_dashboard = function() { $scope.accelerate(); $transitions.go("dashboard", { type: "fade" }); };
 });

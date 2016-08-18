@@ -1,4 +1,14 @@
-<ion-content class="survey-screen-content">
+<ion-nav-bar>
+  <ion-nav-title>Exposure</ion-nav-title>
+  <ion-nav-buttons side="primary">
+    <button class="button button-clear" style="color:white" ng-click="go_dashboard()">
+      <i class="ion-arrow-left-c" style="margin-right: 2px;"></i>Home
+    </button>
+  </ion-nav-buttons>
+</ion-nav-bar>
+<ion-nav-view>
+
+  <ion-content class="survey-screen-content">
     <div class="instruction-box">
       <p> Please fill out the form to the best of your ability.  All data is anonymous, and you can use your <emph>codename</emph> to individualize different friend or family health surveys.</p>
     </div>
@@ -54,4 +64,5 @@
         <input type="text">
       </label>
     </div>
-</ion-content>
+  </ion-content>
+</ion-nav-view>

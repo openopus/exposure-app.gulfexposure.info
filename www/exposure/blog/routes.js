@@ -4,26 +4,26 @@
 // Author: Brian J. Fox (bfox@opuslogica.com) Tue Aug 16 18:45:58 2016.
 App.config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
-  .state('app.blog', {
-    url: '/blog',
+  .state('blog', {
+    url: '/blog/list',
     templateUrl: 'exposure/blog/list.html',
     controller: 'BlogController'
   })
 
-  .state('app.blog_detail', {
-    url: '/blog/:id',
+  .state('blog_detail', {
+    url: '/blog/show/:id',
     templateUrl: 'exposure/blog/detail.html',
     controller: 'BlogDetailController'
   })
 
-  .state('app.blog_create', {
-    url: '/blog_create',
+  .state('blog_create', {
+    url: '/blog/create',
     templateUrl: 'exposure/blog/create.html',
     controller: 'BlogCreateController'
   })
 
-  .state('app.blog_thanks', {
-    url: '/blog_thanks',
+  .state('blog_thanks', {
+    url: '/blog/thanks',
     templateUrl: 'exposure/blog/thanks.html',
     controller: 'BlogCreateController'
   })
