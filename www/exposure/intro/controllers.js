@@ -23,6 +23,6 @@ Controllers.controller('IntroController', function($scope, $location, $state, $t
   }
 
   $scope.go_intro = function() { $transitions.go("intro"); };
-  $scope.go_story = function() { $scope.accelerate(); $transitions.go("story", { type: "fade" }); };
+  $scope.go_story = function() { $scope.accelerate(); $transitions.go("story", { type: "fade", duration: 1000 }); };
   $scope.go_dashboard = function() { $scope.accelerate(); $transitions.go("dashboard", { type: "flip", direction: "right", duration: 900 }); };
 });
