@@ -5,7 +5,7 @@ Controllers.controller('BlogController', function($scope, $transitions, Posts) {
   
   $scope.go_dashboard = function() { $transitions.go("dashboard", { type: "slide", direction: "right" }); };
   $scope.go_detail = function(post) { $transitions.go("blog_detail", { type: "slide", direction: "left" }, { id: post.id }); };
-  $scope.go_create = function() { $transitions.go("blog_create", { type: "flip", direction: "right", duration: 900 }); };
+  $scope.go_create = function() { $transitions.go("blog_create", { type: "flip", direction: "right", duration: 600 }); };
 });
 
 Controllers.controller('BlogDetailController', function($scope, $stateParams, Posts, $sce, $transitions) {
@@ -39,7 +39,7 @@ Controllers.controller('BlogCreateController', function($scope, $transitions) {
   };
 
   $scope.go_list = function(post) { $transitions.go("blog", { direction: "left" }); };
-  $scope.go_back = function() { $transitions.go("dashboard", { type: "flip", direction: "left", duration: 900 }); };
+  $scope.go_back = function() { $transitions.go("dashboard", { type: "flip", direction: "left", duration: 600 }); };
   // $scope.go_back = function() { $transitions.go("dashboard", { type: "slide", direction: "right" }); };
 
 });
