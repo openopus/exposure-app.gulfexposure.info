@@ -73,7 +73,7 @@
 
   }
 
-  h6.list-label {
+  .list-label {
     // Mixins
 
     // Box properties
@@ -102,6 +102,21 @@
       // Other
 
     }
+
+  }
+
+  .list-label-centered {
+    // Mixins
+
+    // Box properties
+
+    // Background & borders
+
+    // Typography
+    text-align: center;
+    // Animation
+
+    // Other
 
   }
 
@@ -204,15 +219,16 @@
     text-align: center;
     font-family: $font-logo;
     text-transform: uppercase;
-    letter-spacing: $grid * .4;
+    letter-spacing: $grid * .3;
     color: $color-text;
     font-size: $font_size;
-    text-indent: $grid * .4;
+    text-indent: $grid * .3;
     // Animation
 
     // Other
 
   }
+
 // Globals
 
   // Buttons
@@ -236,7 +252,7 @@
 
     }
 
-    .button.button-light.button-light-home.button-light-home-cta {
+    .button.button-light.button-light-cta {
       // Mixins
 
       // Box properties
@@ -252,7 +268,7 @@
 
     }
 
-    .button.button-has-subtext {
+    .button.button-light.button-light-home.button-has-subtext {
       // Mixins
 
       // Box properties
@@ -265,6 +281,38 @@
 
       // Other
 
+    }
+
+    .header-item > .primary-buttons > .button.button-clear {
+      // Mixins
+
+      // Box properties
+
+      // Background & borders
+
+      // Typography
+      color: $color-whisper !important;
+      text-transform: uppercase;
+      font-family: $font-logo;
+      font-size: $font_size;
+      // Animation
+
+      // Other
+
+      i {
+        // Mixins
+
+        // Box properties
+        margin-right: $grid / 4;
+        // Background & borders
+
+        // Typography
+
+        // Animation
+
+        // Other
+
+      }
     }
 
   // List items
@@ -613,6 +661,21 @@
 
     // Other
 
+    &.no-footer {
+      // Mixins
+
+      // Box properties
+      bottom: 0;
+      // Background & borders
+
+      // Typography
+
+      // Animation
+
+      // Other
+
+    }
+
     .info-box {
       // Mixins
 
@@ -655,6 +718,7 @@
       // Mixins
 
       // Box properties
+      margin-top: $grid / 4;
       margin-bottom: $grid / 4;
       // Background & borders
       border: $border-dark;
@@ -830,6 +894,37 @@ div.instruction-box {
 
     // Other
 
+  }
+
+  .post-actions {
+    // Mixins
+
+    // Box properties
+    padding: $grid / 4 0;
+    // Background & borders
+
+    // Typography
+    text-align: center;
+    font-size: $font_size * 2;
+    color: $color-border;
+    // Animation
+
+    // Other
+
+    i {
+      // Mixins
+
+      // Box properties
+
+      // Background & borders
+
+      // Typography
+
+      // Animation
+
+      // Other
+
+    }
   }
 
 // Animations

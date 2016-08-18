@@ -9834,13 +9834,16 @@ h1, h2, h3, h4, h5, h6 {
   font-family: "Oxygen", sans-serif;
   color: #c9ebf2; }
 
-h6.list-label {
+.list-label {
   margin: 0 0 0 10px;
   color: #77cdde;
   font-weight: bold; }
-  h6.list-label .list-label-note {
+  .list-label .list-label-note {
     color: #248498;
     text-transform: lowercase; }
+
+.list-label-centered {
+  text-align: center; }
 
 a {
   color: #fbae17;
@@ -9870,10 +9873,10 @@ div.title.title-center.header-item {
   text-align: center;
   font-family: "Montserrat", sans-serif;
   text-transform: uppercase;
-  letter-spacing: 8.8px;
+  letter-spacing: 6.6px;
   color: #c9ebf2;
   font-size: 14.66667px;
-  text-indent: 8.8px; }
+  text-indent: 6.6px; }
 
 .button.button-light.button-light-home {
   background-color: transparent;
@@ -9883,11 +9886,19 @@ div.title.title-center.header-item {
   text-transform: uppercase;
   font-family: "Montserrat", sans-serif; }
 
-.button.button-light.button-light-home.button-light-home-cta {
+.button.button-light.button-light-cta {
   background-color: #164e5a; }
 
-.button.button-has-subtext {
+.button.button-light.button-light-home.button-has-subtext {
   margin-bottom: 5.5px; }
+
+.header-item > .primary-buttons > .button.button-clear {
+  color: #248498 !important;
+  text-transform: uppercase;
+  font-family: "Montserrat", sans-serif;
+  font-size: 14.66667px; }
+  .header-item > .primary-buttons > .button.button-clear i {
+    margin-right: 5.5px; }
 
 .item.activated.item-complex {
   background-color: black;
@@ -9967,6 +9978,8 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
   padding-right: 22px;
   padding-top: 22px;
   background-color: #1c2026; }
+  .home-screen.no-footer {
+    bottom: 0; }
   .home-screen .info-box {
     max-width: 600px;
     margin: 0 auto;
@@ -9979,6 +9992,7 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
   font-family: "Oxygen", sans-serif; }
 
 .previous-surveys-list {
+  margin-top: 5.5px;
   margin-bottom: 5.5px;
   border: 1px solid #164e5a; }
 
@@ -10026,6 +10040,12 @@ div.instruction-box {
 
 .blog-detail-content {
   padding: 11px; }
+
+.post-actions {
+  padding: 5.5px 0;
+  text-align: center;
+  font-size: 29.33333px;
+  color: #164e5a; }
 
 @keyframes fadeinup {
   0% {
