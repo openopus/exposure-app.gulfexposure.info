@@ -1,3 +1,2 @@
-App.config(function($urlRouterProvider) {
-  $urlRouterProvider.otherwise('/intro');
-});
+/* The relevant startup route is in exposure/routes.js. */
+App.config(function($urlRouterProvider) {});
