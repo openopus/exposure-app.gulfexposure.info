@@ -15,12 +15,44 @@
     <div ng-repeat="group in groups">
       <h5 class="group-name" ng-bind="group.name"></h5>
       <div class="list list-inset" ng-repeat="question in group.questions">
-	<h5 class="list-label"><span ng-bind="question.name"></span>:</h5>
-	<div class="list list-inset list-has-label">
-	  <ion-list>
-	    <ion-checkbox ng-repeat="option in question.options" ng-model="option.checked">{{option.name}}</ion-checkbox>
-	  </ion-list>
+	<h5 class="list-label question-name {{question.data_type_class}}"><span ng-bind="question.name"></span>:</h5>
+	<span style="display:none" class="instructions question-instructions" ng-bind="question.instructions"></span>
+
+	<!-- DEBUGGING: <h2 ng-bind="question.seltype"></h2> -->
+	
+	<!-- Codename, for example -->
+	<div ng-if="question.seltype == 'fixed'">
+	  <span class="answer fixed" ng-bind="question.answer"></span>
 	</div>
+
+	<!-- Should be more like radio buttons - for Gender at Birth for example. -->
+	<div ng-if="question.seltype == 'pick-one'">
+	  <div class="list list-inset list-has-label">
+	    <ion-list>
+	      <ion-checkbox class="option-name" ng-repeat="option in question.options" ng-model="option.checked">{{option.name}}</ion-checkbox>
+	    </ion-list>
+	  </div>
+	</div>
+
+	<div ng-if="question.seltype.startsWith('pick-many')">
+	  <div class="list list-inset list-has-label">
+	    <ion-list>
+	      <ion-checkbox class="option-name" ng-repeat="option in question.options" ng-model="option.checked">{{option.name}}</ion-checkbox>
+	      <ion-checkbox class="option-name other-option" ng-model="question.other_checked" ng-if="question.seltype == 'pick-many-with-other'"
+		      ng-click="toggle_other(question)">Other...</ion-checkbox>
+	      <input type="text" ng-model="question.answer" ng-if="question.other_checked" />
+	    </ion-list>
+	  </div>
+	</div>
+
+	<div ng-if="question.seltype == 'date'">
+	  <input type="date" ng-model="question.answer" />
+	</div>
+
+	<div ng-if="question.seltype == 'location'">
+	  <input type="location" ng-model="question.answer" />
+	</div>
+
       </div>
     </div>
     <button class="button button-block button-light button-light-home button-light-cta" ng-click="submit()">Submit Survey</button>

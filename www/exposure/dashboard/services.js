@@ -2,7 +2,7 @@
 
    Copyright (c) 2016 Brian J. Fox
    Author: Brian J. Fox (bfox@opuslogica.com) Tue Aug 16 16:59:23 2016. */
-Services.factory('Survey', function($api, $q) {
+Services.factory('Survey', function($api, $q, $localStorage) {
   var service = { initialized: $q.defer(), groups: null };
   $api.get("survey_groups").then(function(response) {
     service.groups = response.data;
@@ -10,8 +10,6 @@ Services.factory('Survey', function($api, $q) {
       $api.get("survey_questions?survey_group_id=" + group.id).then(function(response) {
         group.questions = response.data;
         group.questions.forEach(function(question) {
-          question.data_type_class = question.data_type.toLowerCase().replace(/ /g, "-");
-          question.seltype = question.selection_type.toLowerCase().replace(/ /g, "-");
           $api.get("question_options?survey_question_id=" + question.id).then(function(response) {
             question.options = response.data;
           });
@@ -27,7 +25,9 @@ Services.factory('Survey', function($api, $q) {
     if (service.groups) {
       defer.resolve(service.groups);
     } else {
+      console.log("DEFERRING...");
       service.initialized.promise.then(function() {
+        console.log("RESOLVED SERVICE GROUPS");
         defer.resolve(service.groups);
       });
     }
