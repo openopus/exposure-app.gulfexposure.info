@@ -1,5 +1,7 @@
-Controllers.controller('DashboardController', function($scope, $location, $state, $ionicHistory, $transitions) {
-  $ionicHistory.clearHistory();
+Controllers.controller('DashboardController', function($scope, $location, $state, $ionicHistory, $transitions, Survey) {
+
+  /* When this dashboard loads - immediately load the Survey data so there's no waiting. */
+  Survey.get_survey().then(function(groups) {});
 
   $scope.fade_no_more = function() {
     var items = document.getElementsByClassName("slow-fadein");
