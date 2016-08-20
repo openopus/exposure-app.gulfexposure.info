@@ -14,19 +14,15 @@
 		     button-has-subtext slow-fadein" ng-click="go_survey()">
 	New health survey
       </button>
-      <h6 class="list-label list-label-centered slow-fadein">Previous surveys</h6>
-      <div class="previous-surveys-list slow-fadein">
-        	<span class="previous-surveys-list-item survey-status-incomplete">
-            <span class="survey-item-cell survey-subject">PreciousRadish</span>
+      <div ng-if="codenames">
+	<h6 class="list-label list-label-centered slow-fadein">Previous surveys</h6>
+	<div class="previous-surveys-list slow-fadein" ng-repeat="name in codenames">
+          <span class="previous-surveys-list-item survey-status-incomplete">
+            <span class="survey-item-cell survey-subject">{{name}}</span>
             <span class="survey-item-cell survey-age">23yo</span>
-            <span class="survey-item-cell survey-status">incomplete &nbsp;<span class="icon ion-chevron-right"></span>
-          </span>
-        	</span>
-        	<span class="previous-surveys-list-item survey-status-complete">
-            <span class="survey-item-cell survey-subject">SillyGopher</span>
-            <span class="survey-item-cell survey-age">59yo</span>
-            <span class="survey-item-cell survey-status">complete &nbsp;<span class="icon ion-checkmark"></span></span>
-        	</span>
+            <span class="survey-item-cell survey-status">incomplete &nbsp;<span class="icon ion-chevron-right"></span></span>
+	  </span>
+	</div>
       </div>
       <p class="button-subtext slow-fadein"> Complete once for each family member with health issues.</p>
 

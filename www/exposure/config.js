@@ -1,3 +1,3 @@
 App.config(function($localStorageProvider) {
-  $localStorageProvider.setKeyPrefix("Exposure_");
+  $localStorageProvider.setKeyPrefix("exposure_");
 });

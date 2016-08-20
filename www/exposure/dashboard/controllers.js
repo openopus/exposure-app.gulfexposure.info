@@ -1,4 +1,9 @@
-Controllers.controller('DashboardController', function($scope, $location, $state, $ionicHistory, $transitions, Survey) {
+Controllers.controller('DashboardController', function($scope, $location, $state, $ionicHistory, $transitions, $timeout,
+                                                       ExposureCodename, ExposureUser, Survey) {
+
+  /* Better get the currently known codenames while we are here. */
+  ExposureCodename.get().then(function(data) { $scope.codename = data; });
+  ExposureCodename.get_all().then(function(data) {  $scope.codenames = data; });
 
   /* When this dashboard loads - immediately load the Survey data so there's no waiting. */
   Survey.get_survey().then(function(groups) {});

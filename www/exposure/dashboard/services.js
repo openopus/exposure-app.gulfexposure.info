@@ -3,7 +3,7 @@
    Copyright (c) 2016 Brian J. Fox
    Author: Brian J. Fox (bfox@opuslogica.com) Tue Aug 16 16:59:23 2016. */
 Services.factory('Survey', function($api, $q, $localStorage) {
-  var service = { initialized: $q.defer(), groups: null };
+  var service = { initialized: $q.defer(), groups: null, codename: null };
   $api.get("survey_groups").then(function(response) {
     service.groups = response.data;
     service.groups.forEach(function(group) {
