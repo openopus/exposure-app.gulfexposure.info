@@ -73,11 +73,31 @@
 
   }
 
+  .group-name {
+    // Mixins
+
+    // Box properties
+    margin-top: $grid;
+    margin-bottom: 0;
+    // Background & borders
+
+    // Typography
+    text-align: center;
+    color: $color-whisper !important;
+    text-transform: uppercase;
+    font-family: $font-logo;
+    font-size: $font_size;
+    // Animation
+
+    // Other
+
+  }
+
   .list-label {
     // Mixins
 
     // Box properties
-    margin: 0 0 0 10px;
+    margin: 0 0 0 25px;
     // Background & borders
 
     // Typography
@@ -317,7 +337,7 @@
 
   // List items
 
-    .item.activated.item-complex {
+    .item.activated.item-complex, .item.activated {
       // Mixins
 
       // Box properties
@@ -386,6 +406,21 @@
 
   // Forms
 
+    .form-group {
+      // Mixins
+
+      // Box properties
+      margin-bottom: $grid * 2;
+      // Background & borders
+
+      // Typography
+
+      // Animation
+
+      // Other
+
+    }
+
     .list-has-label {
       // Mixins
 
@@ -428,6 +463,24 @@
           border-color: $color-border;
           // Typography
           color: $color-quiet;
+          // Animation
+
+          // Other
+
+        }
+
+        input[type=location], input[type=text] {
+          // Mixins
+
+          // Box properties
+          padding: $grid / 2;
+          width: 100%;
+          height: auto;
+          // Background & borders
+          background-color: $color-dark-background;
+          border: $border-dark;
+          // Typography
+          color: $color-text;
           // Animation
 
           // Other
@@ -600,6 +653,24 @@
           // Other
 
         }
+
+        input::-webkit-input-placeholder {
+          // Mixins
+
+          // Box properties
+
+          // Background & borders
+
+          // Typography
+          font-family: $font-body;
+          color: $color-whisper;
+
+          // Animation
+          transition: 0 all ease-out;
+          // Other
+
+        }
+
 
   // Nav Bar
 
