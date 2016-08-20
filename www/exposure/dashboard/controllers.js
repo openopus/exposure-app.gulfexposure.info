@@ -1,12 +1,20 @@
 Controllers.controller('DashboardController', function($scope, $location, $state, $ionicHistory, $transitions, $timeout,
                                                        ExposureCodename, ExposureUser, Survey) {
 
-  /* Better get the currently known codenames while we are here. */
-  ExposureCodename.get().then(function(data) { $scope.codename = data; });
-  ExposureCodename.get_all().then(function(data) {  $scope.codenames = data; });
-
   /* When this dashboard loads - immediately load the Survey data so there's no waiting. */
-  Survey.get_survey().then(function(groups) {});
+  Survey.get_survey_template().then(function(groups) {});
+
+  /* Better get the currently known codenames while we are here. */
+  ExposureCodename.get_all().then(function(data) {
+    var codenames = data;
+    var surveys = [];
+    codenames.forEach(function(codename) {
+      Survey.answers_for(codename).then(function(data) {
+        surveys.push(data);
+      });
+      $scope.surveys = surveys;
+    });
+  });
 
   $scope.fade_no_more = function() {
     var items = document.getElementsByClassName("slow-fadein");

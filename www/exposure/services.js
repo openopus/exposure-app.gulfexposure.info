@@ -30,23 +30,23 @@ Factories.factory("ExposureCodename", function($q, $api, $localStorage) {
     return result;
   };
 
-  service.get = function() {
+  service.get = function(make_new_p) {
     var defer  = $q.defer();
     var result = defer.promise;
 
-    if (service.codename) {
+    if (!make_new_p && service.codename) {
       defer.resolve(service.codename);
     } else {
       var codenames = $localStorage.codenames || [];
       var codename_index = $localStorage.codename_index || 0;
       service.codename = codenames[codename_index];
 
-      if (service.codename) {
+      if (!make_new_p && service.codename) {
         service.codenames = codenames;
         defer.resolve(service.codename);
       } else {
         var users = $localStorage.users;
-        if (users) {
+        if (!make_new_p && users) {
           service.codename = users[0].codename;
           service.codenames = [service.codename];
           defer.resolve(service.codename);
@@ -62,6 +62,11 @@ Factories.factory("ExposureCodename", function($q, $api, $localStorage) {
     }
 
     return result;
+  };
+
+
+  service.make_new = function() {
+    return service.get(true);
   };
 
   return service;
