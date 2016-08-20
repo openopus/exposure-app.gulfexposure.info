@@ -56,12 +56,12 @@ Services.factory('Survey', function($api, $q, ExposureCodename, ExposureUser) {
       defer.resolve(info);
     } else {
       info = { codename: codename, user: null, answers: [] };
-      var answers = service.answer_for(codename);
-      var user = service.user_for(codename);
+      var answers = service.answers_for(codename);
+      var user = ExposureUser.get_by_codename(codename);
 
       $q.all([answers, user]).then(function(values) {
-        info.answers = values[0].data;
-        info.user = values[1].data;
+        info.answers = values[0];
+        info.user = values[1];
         service.surveys.push(info);
         defer.resolve(info)
       });

@@ -30,6 +30,25 @@ Factories.factory("ExposureCodename", function($q, $api, $localStorage) {
     return result;
   };
 
+  service.set_current = function(codename) {
+    if (codename == service.codename) return;
+
+    if (!service.codenames) {
+      service.codenames = [];
+    } else {
+      for (var i = service.codenames.length - 1; i >= 0; i--) {
+        if (service.codenames[i] == codename) {
+          service.codenames.splice(i, 1);
+          break;
+        }
+      }
+    }
+
+    service.codenames.unshift(codename);
+    $localStorage.codenames = service.codenames;
+    $localStorage.codename_index = 0;
+  }
+
   service.get = function(make_new_p) {
     var defer  = $q.defer();
     var result = defer.promise;

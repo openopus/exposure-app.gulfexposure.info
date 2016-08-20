@@ -1,5 +1,4 @@
-Controllers.controller('DashboardController', function($scope, $location, $state, $ionicHistory, $transitions, $timeout,
-                                                       ExposureCodename, ExposureUser, Survey) {
+Controllers.controller('DashboardController', function($scope, $transitions, $q, ExposureCodename, Survey) {
 
   /* When this dashboard loads - immediately load the Survey data so there's no waiting. */
   Survey.get_survey_template().then(function(groups) {});
@@ -7,11 +6,15 @@ Controllers.controller('DashboardController', function($scope, $location, $state
   /* Better get the currently known codenames while we are here. */
   ExposureCodename.get_all().then(function(data) {
     var codenames = data;
+    var promises = [];
     var surveys = [];
-    codenames.forEach(function(codename) {
-      Survey.answers_for(codename).then(function(data) {
-        surveys.push(data);
-      });
+
+    for (var i = codenames.length - 1; i >= 0; i--) {
+      var promise = Survey.get_survey_by_codename(codenames[i]);
+      promises.push(promise);
+    };
+
+    $q.all(promises).then(function(surveys) {
       $scope.surveys = surveys;
     });
   });
