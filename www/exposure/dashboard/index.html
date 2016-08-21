@@ -14,9 +14,9 @@
 		     button-has-subtext slow-fadein" ng-click="go_survey()">
 	New health survey
       </button>
-      <div ng-if="surveys">
-	<h6 class="list-label list-label-centered slow-fadein">Previous surveys</h6>
-	<div class="previous-surveys-list slow-fadein" ng-repeat="survey in surveys" ng-click="go_survey(survey.user.codename)">
+      <div ng-if="surveys" class="slow-fadein">
+	<h6 class="list-label list-label-centered">Previous surveys</h6>
+	<div class="previous-surveys-list" ng-repeat="survey in surveys" ng-click="go_survey(survey.user.codename)">
           <span class="previous-surveys-list-item survey-status-incomplete">
             <span class="survey-item-cell survey-subject" ng-bind="survey.user.codename"></span>
             <span class="survey-item-cell survey-age">23yo</span>

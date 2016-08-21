@@ -19,13 +19,10 @@ Factories.factory("ExposureCodename", function($q, $api, $localStorage) {
     var result = defer.promise;
 
     if (!service.codenames) {
-      service.codenames = $localStorage.codenames;
+      service.codenames = $localStorage.codenames || [];
     }
 
-    if (service.codenames)
-      defer.resolve(service.codenames);
-    else
-      defer.resolve([]);
+    defer.resolve(service.codenames);
 
     return result;
   };

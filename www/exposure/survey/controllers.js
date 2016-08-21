@@ -10,7 +10,6 @@ Controllers.controller('SurveyController', function($scope, $transitions, $timeo
     var groups_promise = Survey.get_survey_template();
 
     if ($stateParams.codename) {
-      console.log("$stateParams.codename: " + $stateParams.codename);
       survey_promise = Survey.get_survey_by_codename($stateParams.codename);
     } else {
       survey_promise = Survey.new_survey();
