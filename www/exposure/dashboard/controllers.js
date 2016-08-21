@@ -4,11 +4,9 @@ Controllers.controller('DashboardController', function($scope, $transitions, $q,
   Survey.get_survey_template().then(function(groups) {});
 
   $scope.get_surveys = function() {
-    console.log("THIS THING FIRED");
     ExposureCodename.get_all().then(function(data) {
       var codenames = data;
       var promises = [];
-      var surveys = [];
 
       for (var i = codenames.length - 1; i >= 0; i--) {
         var promise = Survey.get_survey_by_codename(codenames[i]);

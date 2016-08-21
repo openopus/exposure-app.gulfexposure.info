@@ -1,6 +1,6 @@
 Controllers.controller('BlogController', function($scope, $transitions, Posts) {
-  Posts.getPosts().then(function(result) {
-    $scope.posts = result;
+  Posts.all().then(function(posts) {
+    $scope.posts = posts;
   });
   
   $scope.go_dashboard = function() { $transitions.go("dashboard", { type: "slide", direction: "right" }); };
@@ -9,25 +9,27 @@ Controllers.controller('BlogController', function($scope, $transitions, Posts) {
 });
 
 Controllers.controller('BlogDetailController', function($scope, $stateParams, Posts, $sce, $transitions) {
-  var post = Posts.getPost($stateParams.id);
-  var parser = new DOMParser(), doc;
-
   $scope.go_list = function(post) { $transitions.go("blog", { type: "slide", direction: "right" }); };
 
-  try {
-    doc = parser.parseFromString(post.content.rendered, 'text/html');
-  } catch(e) {
-    console.error("Got an error trying to get the detail:", e);
-  }
+  Posts.get($stateParams.id).then(function(post) {
+    var parser = new DOMParser(), doc;
+    $scope.post = post; 
 
-  if (doc) {
-    var html = doc.getElementsByTagName("html");
-    if (html) { html = html[0]; html.className += "wordpress-parsed"; }
+    try {
+      doc = parser.parseFromString(post.content.rendered, 'text/html');
+    } catch(e) {
+      console.error("Got an error trying to get the detail:", e);
+    }
 
-    post.post_content = $sce.trustAsHtml(doc.firstChild.outerHTML);
-  }
+    if (doc) {
+      var html = doc.getElementsByTagName("html");
+      if (html) { html = html[0]; html.className += "wordpress-parsed"; }
 
-  $scope.post = post;
+      post.post_content = $sce.trustAsHtml(doc.firstChild.outerHTML);
+    }
+
+    $scope.post = post;
+  });
 });
 
 Controllers.controller('BlogCreateController', function($scope, $transitions) {

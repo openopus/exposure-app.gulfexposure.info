@@ -1,78 +1,69 @@
-var OLIWPServices = angular.module('oli.wordpress_services', []);
+var OLIWordpress = angular.module('oli.wordpress', []);
 
-OLIWPServices.factory('$localstorage', function($window) {
-  return {
-    set: function(key, value) {
-      $window.localStorage[key] = value;
-    },
-    get: function(key, defaultValue) {
-      return $window.localStorage[key] || defaultValue;
-    },
-    setObject: function(key, value) {
-      $window.localStorage[key] = JSON.stringify(value);
-    },
-    getObject: function(key) {
-      return JSON.parse($window.localStorage[key] || '{}');
-    }
-  };
-});
+OLIWordpress.factory('Posts', function($http, $q) {
+  var service = { url: "http://therisingmovie.info/wp-json/wp/v2/posts/", posts: [] };
 
+  service.all = function(force) {
+    var defer = $q.defer()
+    var result = defer.promise;
 
-OLIWPServices.factory('Posts', function($http) {
-  var wordpress_url = "http://therisingmovie.info/wp-json/wp/v2/posts/";
-  var posts = [];
-
-  return {
-    all: function() {
-      return posts;
-    },
-    remove: function(post) {
-      posts.splice(posts.indexOf(post), 1);
-    },
-
-    getPost: function(id) {
-      var post = null;
-
-      angular.forEach(posts, function(p) {
-        if (p.id == id) {
-          post = p;
-        }
-      });
-      return post;
-    },
-
-    getPosts: function(scope) {
+    if (force || service.posts.length == 0) {
       var transformResponse = function(value) {
         var result = null;
-        try {
-          result = JSON.parse(value);
-        } catch(e) {
-          if (scope != undefined) {
-            scope.OLIWPServicesError = value;
-          }
-        };
-
+        try { result = JSON.parse(value); } catch(e) {
+          console.log("OLIWordpress:Posts.all(...): ", e);
+        }
         return result;
       };
 
-      return $http.get(wordpress_url, { transformResponse: transformResponse })
-        .then(function(response) {
-          posts = response.data;
-          return posts;
-        });
-      //.error(function(response, status){
-      //  console.log("Error while received response. " + status + response);
-      //});
-    },
-
-    createPost: function(title, content, image) {
-      var authdata = "cmlzaW5nQ29udHJpYnV0b3I6ZVRzd1cmTmFrQkJQeCZaZTN4UjNVMUsx";
-      var data = { title: title, content: content };
-      var config = { headers: { 'Authorization': 'Basic ' + authdata } };
-
-      return $http.post(wordpress_url, data, config);
+      $http.get(service.url, { transformResponse: transformResponse }).then(function(response) {
+        service.posts = response.data;
+        defer.resolve(service.posts);
+      });
+    } else {
+      defer.resolve(service.posts);
     }
+    return result;
   };
+
+  service.remove = function(post) {
+    service.posts.splice(service.posts.indexOf(post), 1);
+  };
+
+  service.get = function(id) {
+    var defer = $q.defer();
+    var result = defer.promise;
+    var post = null;
+
+    for (var i = service.posts.length - 1; i >= 0; i--) {
+      if (service.posts[i].id == id) {
+        post = service.posts[i];
+        break;
+      }
+    }
+
+    if (post) {
+      defer.resolve(post);
+    } else {
+      $http.get(service.url + id).then(function(response) {
+        post = response.data;
+        service.posts.push(post);
+        defer.resolve(post);
+      });
+    }
+
+    return result;
+  };
+
+  service.createPost = function(title, content, image) {
+    var authdata = "cmlzaW5nQ29udHJpYnV0b3I6ZVRzd1cmTmFrQkJQeCZaZTN4UjNVMUsx";
+    var data = { title: title, content: content };
+    var config = { headers: { 'Authorization': 'Basic ' + authdata } };
+
+    return $http.post(service.url, data, config);
+  };
+
+  return service;
 });
 
-App.requires.push('oli.wordpress_services');
+App.requires.push('oli.wordpress');

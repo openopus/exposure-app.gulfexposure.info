@@ -1,7 +1,7 @@
 Factories.factory("$api", function($http, $q) {
   var service = {};
   var baseURL = "https://api.gulfexposure.info/api";
-  // baseURL = "http://localhost:3000/api";
+  baseURL = "http://localhost:3000/api";
 
   service.get = function(thing) { return $http.get(baseURL + "/" + thing); };
   service.create = function(thing, data) { return $http.post(baseURL + "/" + thing, data); };
@@ -18,9 +18,7 @@ Factories.factory("ExposureCodename", function($q, $api, $localStorage) {
     var defer = $q.defer();
     var result = defer.promise;
 
-    if (!service.codenames) {
-      service.codenames = $localStorage.codenames || [];
-    }
+    if (!service.codenames) { service.codenames = $localStorage.codenames || []; }
 
     defer.resolve(service.codenames);
 
@@ -45,7 +43,7 @@ Factories.factory("ExposureCodename", function($q, $api, $localStorage) {
     $localStorage.codenames = service.codenames;
     $localStorage.codename_index = 0;
     service.codename = codename;
-  }
+  };
 
   service.get = function(make_new_p) {
     var defer  = $q.defer();
