@@ -1,23 +1,25 @@
-Controllers.controller('DashboardController', function($scope, $transitions, $q, ExposureCodename, Survey) {
+Controllers.controller('DashboardController', function($scope, $transitions, $q, $rootScope, Survey, ExposureCodename) {
 
   /* When this dashboard loads - immediately load the Survey data so there's no waiting. */
   Survey.get_survey_template().then(function(groups) {});
 
-  /* Better get the currently known codenames while we are here. */
-  ExposureCodename.get_all().then(function(data) {
-    var codenames = data;
-    var promises = [];
-    var surveys = [];
+  $scope.get_surveys = function() {
+    console.log("THIS THING FIRED");
+    ExposureCodename.get_all().then(function(data) {
+      var codenames = data;
+      var promises = [];
+      var surveys = [];
 
-    for (var i = codenames.length - 1; i >= 0; i--) {
-      var promise = Survey.get_survey_by_codename(codenames[i]);
-      promises.push(promise);
-    };
+      for (var i = codenames.length - 1; i >= 0; i--) {
+        var promise = Survey.get_survey_by_codename(codenames[i]);
+        promises.push(promise);
+      };
 
-    $q.all(promises).then(function(surveys) {
-      $scope.surveys = surveys;
+      $q.all(promises).then(function(surveys) {
+        $scope.surveys = surveys;
+      });
     });
-  });
+  };
 
   $scope.fade_no_more = function() {
     var items = document.getElementsByClassName("slow-fadein");
@@ -36,5 +38,13 @@ Controllers.controller('DashboardController', function($scope, $transitions, $q,
 
   $scope.go_survey = function(codename) {
     $scope.fade_no_more();
-    $transitions.go("survey", { type: "slide", direction: "up" }, { codename: codename }); };
+    $transitions.go("survey", { type: "slide", direction: "up" }, { codename: codename });
+  };
+
+  $scope.get_surveys();
+
+  $rootScope.$on("dashboard.i-fucking-hate-ionic-controller-caching", function() {
+    $scope.get_surveys();
+  });
 });
+
