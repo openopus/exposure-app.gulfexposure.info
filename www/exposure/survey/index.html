@@ -21,9 +21,9 @@
       	<!-- DEBUGGING: <h2 ng-bind="question.seltype"></h2> -->
 
       	<!-- Codename, for example -->
-      	<div ng-if="question.seltype == 'fixed'">
+      	<span ng-if="question.seltype == 'fixed'">
       	  <span class="answer fixed" ng-bind="question.answer"></span>
-      	</div>
+      	</span>
 
       	<!-- Should be more like radio buttons - for Gender at Birth for example. -->
       	<div ng-if="question.seltype == 'pick-one'">
