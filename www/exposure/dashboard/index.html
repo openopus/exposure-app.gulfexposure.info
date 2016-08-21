@@ -19,7 +19,7 @@
 	<div class="previous-surveys-list" ng-repeat="survey in surveys" ng-click="go_survey(survey.user.codename)">
           <span class="previous-surveys-list-item survey-status-incomplete">
             <span class="survey-item-cell survey-subject" ng-bind="survey.user.codename"></span>
-            <span class="survey-item-cell survey-age">23yo</span>
+            <span class="survey-item-cell survey-age"><span ng-bind="survey.user.birthdate | asAge"></span>yo</span>
             <span class="survey-item-cell survey-status">incomplete &nbsp;<span class="icon ion-chevron-right"></span></span>
 	  </span>
 	</div>

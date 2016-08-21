@@ -1,8 +1,13 @@
 Controllers.controller('BlogController', function($scope, $transitions, Posts) {
-  Posts.all().then(function(posts) {
-    $scope.posts = posts;
-  });
-  
+
+  $scope.refresh = function(force) {
+    Posts.all(force)
+    .then(function(posts) { $scope.posts = posts; })
+    .finally(function() { $scope.$broadcast('scroll.refreshComplete'); });
+  };
+
+  $scope.refresh();
+
   $scope.go_dashboard = function() { $transitions.go("dashboard", { type: "slide", direction: "right" }); };
   $scope.go_detail = function(post) { $transitions.go("blog_detail", { type: "slide", direction: "left" }, { id: post.id }); };
   $scope.go_create = function() { $transitions.go("blog_create", { type: "flip", direction: "right", duration: 600 }); };

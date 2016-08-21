@@ -1,3 +1,19 @@
+App.filter('asAge', function() {
+  return function(input) {
+    var output = '??';
+    var birthdate = input;
+
+    if (birthdate) {
+      if (typeof birthdate == "string") { birthdate = new Date(input + " PST"); }
+      var ms_diff = Date.now() - birthdate.getTime();
+      var age = new Date(ms_diff);
+      output = "" +  (Math.abs(age.getUTCFullYear() - 1970));
+    }
+
+    return output;
+  };
+});
+
 Controllers.controller('DashboardController', function($scope, $transitions, $q, $rootScope, Survey, ExposureCodename) {
 
   /* When this dashboard loads - immediately load the Survey data so there's no waiting. */
