@@ -10,7 +10,7 @@
   <ion-content class="blog-screen-content">
     <div class="list card blog">
       <div class="item item-text-wrap blog-detail-image">
-        <h2 class="blog-title">{{post.title.rendered }}</h2>
+        <h2 class="blog-title" ng-bind-html="post.title.rendered"></h2>
         <p>{{post.date | date:'EEEE, MMM dd, yyyy'}}</p>
       </div>
       <div class="item item-image blog-detail-video">
