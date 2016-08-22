@@ -5,6 +5,7 @@ Factories.factory("$api", function($http, $q) {
 
   service.get = function(thing) { return $http.get(baseURL + "/" + thing); };
   service.create = function(thing, data) { return $http.post(baseURL + "/" + thing, data); };
+  service.post   = function(thing, data) { return $http.post(baseURL + "/" + thing, data); };
   service.update = function(thing, data) { return $http.put(baseURL + "/" + thing, data); };
   service.delete = function(thing) { return $http.delete(baseURL + "/" + thing); };
 

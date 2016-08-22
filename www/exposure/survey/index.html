@@ -10,12 +10,17 @@
 <ion-nav-view>
   <ion-content class="survey-screen-content">
     <div class="instruction-box">
-      <p> Please fill out the form to the best of your ability.  All data is anonymous, and you can use your <emph>codename</emph> to individualize different friend or family health surveys.</p>
+      <p> Please fill out the form to the best of your ability.  All
+	data is anonymous, and you can use your <emph>codename</emph> to
+	individualize different friend or family health surveys.
+      </p>
     </div>
     <div ng-repeat="group in groups" class="form-group">
       <h5 class="group-name" ng-bind="group.name"></h5>
       <div class="list list-inset" ng-repeat="question in group.questions">
-      	<h5 class="list-label question-name answer-type-{{question.seltype}} {{question.data_type_class}}"><span ng-bind="question.name"></span>:</h5>
+      	<h5 class="list-label question-name answer-type-{{question.seltype}} {{question.data_type_class}}">
+	  <span ng-bind="question.name"></span>:
+	</h5>
       	<span class="instructions question-instructions" ng-bind="question.instructions"></span>
 
       	<!-- DEBUGGING: <h2 ng-bind="question.seltype"></h2> -->
@@ -58,6 +63,6 @@
 
       </div>
     </div>
-    <button style="width: 90%; margin-left: auto; margin-right: auto;" class="button button-block button-light button-light-home button-light-cta" ng-click="submit()">Submit Survey</button>
+    <button style="width: 90%; margin-left: auto; margin-right: auto;" class="button button-block button-light button-light-home button-light-cta" ng-click="submit_survey()">Submit Survey</button>
   </ion-content>
 </ion-nav-view>

@@ -65,10 +65,10 @@ Services.factory('Survey', function($api, $q, ExposureCodename, ExposureUser) {
   service.new_survey = function() {
     var defer = $q.defer();
     var result = defer.promise;
-
     var info = { answers: [] };
+    var codename_promise = ExposureCodename.make_new();
 
-    ExposureCodename.make_new().then(function(codename) {
+    codename_promise.then(function(codename) {
       info.codename = codename;
       ExposureUser.get_by_codename(codename).then(function(user) {
         info.user = user;
@@ -161,18 +161,49 @@ Services.factory('Survey', function($api, $q, ExposureCodename, ExposureUser) {
         
     
   /* Zipper the answers into the questions. */
-  service.zipper = function(questions, answers) {
+  service.zipper = function(groups, answers) {
+    var questions = service.get_questions(groups);
+
     questions.forEach(function(question) {
       var value = null;
       var answer = service.get_answer_by_question_id(question.id, answers);
 
+      delete question.other_checked;
+
       if (answer) {
         value = answer.value;
-        if (typeof value == "string" && question.selection_type == "date") {
+        if (typeof value == "string" && question.seltype == "date") {
           value = new Date(value);
         }
+
+        if (typeof value == "string" && question.seltype.startsWith("pick")) {
+          var value_options = value.replace(/^[,\s]+|[\s,]+$/gm, "").replace(/, /g, ",").split(",");
+          for (var i = 0; i < question.options.length; i++) {
+            var option = question.options[i];
+            var offset = value_options.indexOf(option.name);
+            if (offset > -1) {
+              option.checked = true;
+              value_options[offset] = undefined;
+              var temp = [];
+              for (var j = 0; j < value_options.length; j++) {
+                if (typeof value_options[j] != "undefined")
+                  temp.push(value_options[j]);
+              }
+
+              value = temp.join();
+
+              if (value) {
+                question.other_checked = true;
+              }
+            }
+          }
+        }
+      } else {
+        question.options.forEach(function(option) {
+          option.checked = false;
+        });
       }
-      
+
       question.answer = value;
     })
   };
