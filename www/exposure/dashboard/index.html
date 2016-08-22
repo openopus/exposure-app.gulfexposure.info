@@ -17,7 +17,7 @@
       <div ng-if="surveys" class="slow-fadein">
 	<h6 class="list-label list-label-centered">Previous surveys</h6>
 	<div class="previous-surveys-list" ng-repeat="survey in surveys" ng-click="go_survey(survey.user.codename)">
-          <span class="previous-surveys-list-item survey-status-incomplete">
+          <span class="previous-surveys-list-item survey-status-{{survey.status}}">
             <span class="survey-item-cell survey-subject" ng-bind="survey.user.codename"></span>
             <span class="survey-item-cell survey-age"><span ng-bind="get_birthdate(survey) | asAge"></span>yo</span>
             <span class="survey-item-cell survey-status survey-status-{{ survey.status }}">

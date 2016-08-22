@@ -42,7 +42,6 @@ Services.factory('Survey', function($api, $q, ExposureCodename, ExposureUser) {
     }
   };
 
-
   service.get_survey_by_codename = function(codename, force) {
     var defer = $q.defer();
     var result = defer.promise;
@@ -56,7 +55,6 @@ Services.factory('Survey', function($api, $q, ExposureCodename, ExposureUser) {
         break;
       }
     }
-
 
     /* Get rid of the one that's there if we are forcing a refresh. */
     if (info && force) {
@@ -182,6 +180,18 @@ Services.factory('Survey', function($api, $q, ExposureCodename, ExposureUser) {
     }
 
     return questions;
+  };
+
+  service.get_questions_by_seltype = function(wanted, from_groups) {
+    var result = [];
+    var questions = service.get_questions(from_groups);
+
+    questions.forEach(function(question) {
+      if (question.seltype == wanted)
+        result.push(question);
+    });
+
+    return result;
   };
 
   service.set_question_answer = function(answer) {
