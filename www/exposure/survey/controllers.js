@@ -2,8 +2,12 @@ Controllers.controller('SurveyController', function($scope, $transitions, $timeo
   $scope.go_dashboard = function() { $transitions.go("dashboard", { type: "slide", direction: "down" }); };
   $scope.groups = groups;
 
-  $scope.toggle_other = function(question) {
-    /* Maybe uncheck other items?  Maybe not? */
+  $scope.pick_one = function(question, option) {
+    /* There can be only one. */
+    question.options.forEach(function(o) {
+      if (o != option)
+        o.checked = undefined;
+    });
   };
 
   $scope.setup = function() {

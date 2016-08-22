@@ -34,7 +34,8 @@
       	<div ng-if="question.seltype == 'pick-one'">
       	  <div class="list list-inset list-has-label">
       	    <ion-list>
-      	      <ion-checkbox class="option-name" ng-repeat="option in question.options" ng-model="option.checked">{{option.name}}</ion-checkbox>
+      	      <ion-checkbox class="option-name" ng-click="pick_one(question, option)"
+		      ng-repeat="option in question.options" ng-model="option.checked">{{option.name}}</ion-checkbox>
       	    </ion-list>
       	  </div>
       	</div>
