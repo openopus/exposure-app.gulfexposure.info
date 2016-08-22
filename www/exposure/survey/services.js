@@ -3,30 +3,20 @@
    Copyright (c) 2016 Brian J. Fox
    Author: Brian J. Fox (bfox@opuslogica.com) Tue Aug 16 16:59:23 2016. */
 Services.factory('Survey', function($api, $q, ExposureCodename, ExposureUser) {
-  var service = { groups: null, surveys: [] };
+  var service = { groups: null, num_questions: 0, surveys: [] };
 
   service.initialize = function() {
     var defer = $q.defer();
     service.initialized = defer.promise;
+    service.num_questions = 0;
 
-    $api.get("survey_groups").then(function(response) {
+    $api.get("survey_template").then(function(response) {
       service.groups = response.data;
 
       service.groups.forEach(function(group) {
-        $api.get("survey_questions?survey_group_id=" + group.id).then(function(response) {
-          group.questions = response.data;
-          group.questions.forEach(function(question) {
-            question.data_type_class = question.data_type.toLowerCase().replace(/ /g, "-");
-            question.seltype = question.selection_type.toLowerCase().replace(/ /g, "-");
-
-            $api.get("question_options?survey_question_id=" + question.id).then(function(response) {
-              question.options = response.data;
-            });
-          });
-        });
+        service.num_questions += group.questions.length;
       });
 
-      /* Not strictly true, but true enough. */
       defer.resolve(true);
     });
   };
@@ -49,7 +39,7 @@ Services.factory('Survey', function($api, $q, ExposureCodename, ExposureUser) {
 
     service.surveys.forEach(function(survey) {
       if (survey && survey.codename == codename)
-        survey = info;
+        info = survey;
     });
 
     if (info) {
@@ -59,9 +49,12 @@ Services.factory('Survey', function($api, $q, ExposureCodename, ExposureUser) {
       var answers = service.answers_for(codename);
       var user = ExposureUser.get_by_codename(codename);
 
-      $q.all([answers, user]).then(function(values) {
+      $q.all([answers, user, service.initialized]).then(function(values) {
         info.answers = values[0];
         info.user = values[1];
+        info.num_answered = info.answers.length;
+        info.num_questions = service.num_questions;
+        info.complete = info.num_answered >= info.num_questions;
         service.surveys.push(info);
         defer.resolve(info)
       });
@@ -134,6 +127,19 @@ Services.factory('Survey', function($api, $q, ExposureCodename, ExposureUser) {
     return answer;
   };
 
+  service.get_answer_by_name = function(name, info) {
+    var question, answer;
+
+    try {
+      question = service.get_question_by_name(name);
+      answer = service.get_answer_by_question_id(question.id, info.answers);
+    } catch(e) {
+      console.log("FAILED: Survey.get_answer_by_name(" + name + ", ...");
+    }
+
+    return answer;
+  }
+
   service.get_questions = function(from_groups) {
     var questions = [];
     if (!from_groups) from_groups = service.groups;
@@ -160,7 +166,13 @@ Services.factory('Survey', function($api, $q, ExposureCodename, ExposureUser) {
       var value = null;
       var answer = service.get_answer_by_question_id(question.id, answers);
 
-      if (answer) value = answer.value;
+      if (answer) {
+        value = answer.value;
+        if (typeof value == "string" && question.selection_type == "date") {
+          value = new Date(value);
+        }
+      }
+      
       question.answer = value;
     })
   };

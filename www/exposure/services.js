@@ -1,7 +1,7 @@
 Factories.factory("$api", function($http, $q) {
   var service = {};
   var baseURL = "https://api.gulfexposure.info/api";
-  // baseURL = "http://localhost:3000/api";
+  baseURL = "http://localhost:3000/api";
 
   service.get = function(thing) { return $http.get(baseURL + "/" + thing); };
   service.create = function(thing, data) { return $http.post(baseURL + "/" + thing, data); };
@@ -15,27 +15,18 @@ Factories.factory("ExposureCodename", function($q, $api, $localStorage) {
   var service = { codename: null };
 
   service.get_all = function() {
-    var defer = $q.defer();
-    var result = defer.promise;
-
     if (!service.codenames) { service.codenames = $localStorage.codenames || []; }
-
-    defer.resolve(service.codenames);
-
-    return result;
   };
 
   service.set_current = function(codename) {
     if (codename == service.codename) return;
+    if (!service.codenames) service.get_all();
+    if (!service.codenames) service.codenames = [];
 
-    if (!service.codenames) {
-      service.codenames = [];
-    } else {
-      for (var i = service.codenames.length - 1; i >= 0; i--) {
-        if (service.codenames[i] == codename) {
-          service.codenames.splice(i, 1);
-          break;
-        }
+    for (var i = service.codenames.length - 1; i >= 0; i--) {
+      if (service.codenames[i] == codename) {
+        service.codenames.splice(i, 1);
+        break;
       }
     }
 
@@ -49,27 +40,26 @@ Factories.factory("ExposureCodename", function($q, $api, $localStorage) {
     var defer  = $q.defer();
     var result = defer.promise;
 
-    if (!make_new_p && service.codename) {
-      defer.resolve(service.codename);
+    if (!service.codenames) service.codenames = $localStorage.codenames || [];
+
+    if (make_new_p) {
+      $api.create("user").then(function(response) {
+        service.set_current(response.data.codename);
+        defer.resolve(service.codename);
+      });
     } else {
-      if (!service.codenames) {
-        service.codenames = $localStorage.codenames || [];
+      if (!service.codename) {
         service.codename = service.codenames[$localStorage.codename_index];
       }
 
-      if (!make_new_p && service.codename) {
+      if (service.codename) {
         defer.resolve(service.codename);
       } else {
-        var users = $localStorage.users;
-        if (!make_new_p && users) {
-          service.set_current(users[0].codename);
+        $api.create("user").then(function(response) {
+          var user = response.data;
+          service.set_current(user.codename);
           defer.resolve(service.codename);
-        } else {
-          $api.create("user").then(function(response) {
-            service.set_current(response.data.codename);
-            defer.resolve(service.codename);
-          });
-        }
+        });
       }
     }
 

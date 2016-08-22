@@ -1,39 +1,33 @@
-App.filter('asAge', function() {
-  return function(input) {
-    var output = '??';
-    var birthdate = input;
-
-    if (birthdate) {
-      if (typeof birthdate == "string") { birthdate = new Date(input + " PST"); }
-      var ms_diff = Date.now() - birthdate.getTime();
-      var age = new Date(ms_diff);
-      output = "" +  (Math.abs(age.getUTCFullYear() - 1970));
-    }
-
-    return output;
-  };
-});
-
 Controllers.controller('DashboardController', function($scope, $transitions, $q, $rootScope, Survey, ExposureCodename) {
 
   /* When this dashboard loads - immediately load the Survey data so there's no waiting. */
   Survey.get_survey_template().then(function(groups) {});
 
   $scope.get_surveys = function() {
-    ExposureCodename.get_all().then(function(data) {
-      var codenames = data;
-      var promises = [];
+    ExposureCodename.get_all();
+    var codenames = ExposureCodename.codenames;
+    var promises = [];
 
-      for (var i = codenames.length - 1; i >= 0; i--) {
-        var promise = Survey.get_survey_by_codename(codenames[i]);
-        promises.push(promise);
-      };
+    for (var i = codenames.length - 1; i >= 0; i--) {
+      var promise = Survey.get_survey_by_codename(codenames[i]);
+      promises.push(promise);
+    };
 
-      $q.all(promises).then(function(surveys) {
-        $scope.surveys = surveys;
-      });
+    $q.all(promises).then(function(surveys) {
+      $scope.surveys = surveys;
     });
   };
+
+  $scope.get_birthdate = function(survey) {
+    var result = (survey && survey.user) ? survey.user.birthdate : null;
+
+    if (!result) {
+      var answer = Survey.get_answer_by_name("Birthdate", survey);
+      if (answer) { result = answer.value; }
+    }
+
+    return result;
+  }
 
   $scope.fade_no_more = function() {
     var items = document.getElementsByClassName("slow-fadein");
