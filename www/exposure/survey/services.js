@@ -32,15 +32,37 @@ Services.factory('Survey', function($api, $q, ExposureCodename, ExposureUser) {
     return result;
   };
 
-  service.get_survey_by_codename = function(codename) {
+  service.remove_survey_by_codename = function(codename, force) {
+    /* See if there's a survey here. */
+    for (i = 0; i < service.surveys.length; i++) {
+      if (service.surveys[i].codename == codename) {
+        service.surveys.splice(i, 1);
+        break;
+      }
+    }
+  };
+
+
+  service.get_survey_by_codename = function(codename, force) {
     var defer = $q.defer();
     var result = defer.promise;
     var info = null;
+    var i;
 
-    service.surveys.forEach(function(survey) {
-      if (survey && survey.codename == codename)
-        info = survey;
-    });
+    /* See if there's a survey here. */
+    for (i = 0; i < service.surveys.length; i++) {
+      if (service.surveys[i].codename == codename) {
+        info = service.surveys[i];
+        break;
+      }
+    }
+
+
+    /* Get rid of the one that's there if we are forcing a refresh. */
+    if (info && force) {
+      service.surveys.splice(i, 1);
+      info = null;
+    }
 
     if (info) {
       defer.resolve(info);
@@ -55,12 +77,20 @@ Services.factory('Survey', function($api, $q, ExposureCodename, ExposureUser) {
         info.num_answered = info.answers.length;
         info.num_questions = service.num_questions;
         info.complete = info.num_answered >= info.num_questions;
+        info.status = info.complete ? "complete" : "incomplete";
         service.surveys.push(info);
         defer.resolve(info)
       });
     }
     return result;
   };
+
+  service.compute_metadata = function(survey) {
+    survey.num_answered = survey.answers.length;
+    survey.num_questions = service.num_questions;
+    survey.complete = survey.num_answered >= survey.num_questions;
+    survey.status = survey.complete ? "complete" : "incomplete";
+  }
 
   service.new_survey = function() {
     var defer = $q.defer();
@@ -165,47 +195,53 @@ Services.factory('Survey', function($api, $q, ExposureCodename, ExposureUser) {
     var questions = service.get_questions(groups);
 
     questions.forEach(function(question) {
-      var value = null;
+      var value = undefined;
       var answer = service.get_answer_by_question_id(question.id, answers);
 
+      /* Zero out the answer locations. */
       delete question.other_checked;
+      question.options.forEach(function(option) { option.checked = false; });
+      question.answer = undefined;
 
       if (answer) {
         value = answer.value;
-        if (typeof value == "string" && question.seltype == "date") {
-          value = new Date(value);
-        }
 
-        if (typeof value == "string" && question.seltype.startsWith("pick")) {
-          var value_options = value.replace(/^[,\s]+|[\s,]+$/gm, "").replace(/, /g, ",").split(",");
-          for (var i = 0; i < question.options.length; i++) {
-            var option = question.options[i];
-            var offset = value_options.indexOf(option.name);
-            if (offset > -1) {
-              option.checked = true;
-              value_options[offset] = undefined;
-              var temp = [];
-              for (var j = 0; j < value_options.length; j++) {
-                if (typeof value_options[j] != "undefined")
-                  temp.push(value_options[j]);
-              }
+        if (value) {
 
-              value = temp.join();
+          if (question.seltype == "date") {
+            if (typeof value == "string")
+              value = new Date(value);
+          }
 
-              if (value) {
-                question.other_checked = true;
+          if (typeof value == "string" && question.seltype.startsWith("pick")) {
+            var value_options = value.replace(/^[,\s]+|[\s,]+$/gm, "").replace(/, /g, ",").split(",");
+
+            for (var i = 0; i < question.options.length; i++) {
+              var option = question.options[i];
+              var offset = value_options.indexOf(option.name);
+
+              if (offset > -1) {
+                option.checked = true;
+                value_options[offset] = undefined;
               }
             }
-          }
-        }
-      } else {
-        question.options.forEach(function(option) {
-          option.checked = false;
-        });
-      }
 
-      question.answer = value;
-    })
+            var temp = [];
+            for (var j = 0; j < value_options.length; j++) {
+              if (typeof value_options[j] != "undefined")
+                temp.push(value_options[j]);
+            }
+            value = temp.join();
+
+            if (value) {
+              question.other_checked = true;
+            }
+          }
+
+          question.answer = value;
+        }
+      }
+    });
   };
 
   service.answers_for = function(codename) {

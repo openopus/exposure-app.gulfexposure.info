@@ -1,8 +1,5 @@
 Controllers.controller('DashboardController', function($scope, $transitions, $q, $rootScope, Survey, ExposureCodename) {
 
-  /* When this dashboard loads - immediately load the Survey data so there's no waiting. */
-  Survey.get_survey_template().then(function(groups) {});
-
   $scope.get_surveys = function() {
     ExposureCodename.get_all();
     var codenames = ExposureCodename.codenames;

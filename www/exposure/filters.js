@@ -8,7 +8,7 @@ App.filter('asAge', function() {
     var birthdate = input;
 
     if (birthdate) {
-      if (typeof birthdate == "string") { birthdate = new Date(input + " PST"); }
+      if (typeof birthdate == "string") { birthdate = new Date(input); }
       var ms_diff = Date.now() - birthdate.getTime();
       var age = new Date(ms_diff);
       output = "" +  (Math.abs(age.getUTCFullYear() - 1970));

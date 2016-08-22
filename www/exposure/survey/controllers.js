@@ -52,8 +52,10 @@ Controllers.controller('SurveyController', function($scope, $transitions, $timeo
       var answer = $scope.answer_of_question(question);
       answers.push({ question_id: question.id, answer: answer });
     });
+
     $api.post("survey_submit", { codename: $scope.survey.codename, answers: answers }).then(function(response) {
-      console.log("Submitted Response: ", response);
+      Survey.remove_survey_by_codename($scope.survey.codename);
+      $scope.go_dashboard();
     });
   };
 
