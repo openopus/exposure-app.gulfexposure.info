@@ -1,9 +1,12 @@
-Controllers.controller('MapController', function($scope, $rootScope, $timeout, $api, $timeout, $transitions) { 
+Controllers.controller('MapController', function($scope, $rootScope, $timeout, $api, $timeout, $transitions, NgMap) { 
 
   $scope.go_dashboard = function() { $transitions.go("dashboard", { type: "slide", direction: "up" }); };
 
   $scope.mapdata = null;
-  $scope.map = { center: [40.7, -74] };
+
+  NgMap.getMap("exposure-heatmap").then(function(map) {
+    $scope.map = map;
+  });
 
   try {
     // $scope.mapdata = $api.get("heatmap");
@@ -20,7 +23,6 @@ Controllers.controller('MapController', function($scope, $rootScope, $timeout, $
       var lat = position.coords.latitude;
       var lng = position.coords.longitude;
       var ctr  = new google.maps.LatLng(lat, lng);
-      $scope.map.center = ctr;
       console.log("AND, I GOT HERE");
     }
     var failure = function(why) { console.error("Ah, you failed.  Here's why: ", why); };
