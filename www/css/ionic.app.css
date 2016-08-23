@@ -9902,12 +9902,14 @@ div.title.title-center.header-item {
 .button.button-light.button-light-home.button-has-subtext {
   margin-bottom: 5.5px; }
 
-.header-item > .primary-buttons > .button.button-clear {
-  color: #248498 !important;
+.header-item > .primary-buttons > .button.button-clear,
+.header-item > .secondary-buttons > .button.button-clear {
+  color: #248498;
   text-transform: uppercase;
   font-family: "Montserrat", sans-serif;
   font-size: 14.66667px; }
-  .header-item > .primary-buttons > .button.button-clear i {
+  .header-item > .primary-buttons > .button.button-clear i,
+  .header-item > .secondary-buttons > .button.button-clear i {
     margin-right: 5.5px; }
 
 .item.activated.item-complex, .item.activated {

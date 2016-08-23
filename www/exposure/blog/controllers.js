@@ -13,8 +13,17 @@ Controllers.controller('BlogController', function($scope, $transitions, Posts) {
   $scope.go_create = function() { $transitions.go("blog_create", { type: "slide", direction: "up" }); };
 });
 
-Controllers.controller('BlogDetailController', function($scope, $stateParams, Posts, $sce, $transitions) {
+Controllers.controller('BlogDetailController', function($scope, $stateParams, Posts, $sce, $transitions, $cordovaSocialSharing) {
   $scope.go_list = function(post) { $transitions.go("blog", { type: "slide", direction: "right" }); };
+
+  $scope.share_post = function() {
+    $cordovaSocialSharing.share(
+      "Check out this blog post from The Rising",
+      "The Rising: " + $scope.post.title.rendered,
+      null, null)
+    .then(function(result) { console.log("Successfully shared."); },
+          function(error)  { console.log("Share: got error: " + error); });
+  };
 
   Posts.get($stateParams.id).then(function(post) {
     var parser = new DOMParser(), doc;
@@ -38,7 +47,7 @@ Controllers.controller('BlogDetailController', function($scope, $stateParams, Po
 });
 
 Controllers.controller('BlogCreateController',
-function($scope, $transitions, $cordovaCamera, $ionicActionSheet, ExposureCodename) {
+function($scope, $transitions, $cordovaCamera, $ionicActionSheet, $timeout, ExposureCodename) {
   $scope.post = { title: undefined, author: undefined, date: new Date(), content: undefined, images: [] };
 
   ExposureCodename.get().then(function(codename) { $scope.post.author = codename; });
@@ -53,15 +62,9 @@ function($scope, $transitions, $cordovaCamera, $ionicActionSheet, ExposureCodena
   $scope.go_back = function() { $transitions.go("dashboard", { type: "slide", direction: "down" }); };
   // $scope.go_back = function() { $transitions.go("dashboard", { type: "slide", direction: "right" }); };
 
-  $scope.edit_image = function (event) {
-    var image = event;
+  $scope.edit_image = function (index) {
     var remove_image = function() {
-      for (var i = 0; i < $scope.post.images.length; i++) {
-        if ($scope.post.images[i] == image) {
-          $scope.post.images.splice(i, 1);
-          break;
-        }
-      }
+      $scope.post.images.splice(index, 1);
       return true;
     };
 
