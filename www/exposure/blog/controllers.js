@@ -51,6 +51,35 @@ function($scope, $transitions, $cordovaCamera, $ionicActionSheet, ExposureCodena
   $scope.go_list = function(post) { $transitions.go("blog", { direction: "left" }); };
   $scope.go_back = function() { $transitions.go("dashboard", { type: "flip", direction: "left", duration: 600 }); };
 
+  $scope.edit_image = function (event) {
+    var image = event;
+    var remove_image = function() {
+      for (var i = 0; i < $scope.post.images.length; i++) {
+        if ($scope.post.images[i] == image) {
+          $scope.post.images.splice(i, 1);
+          break;
+        }
+      }
+      return true;
+    };
+
+    var replace_image = function() {
+      remove_image();
+
+      $timeout($scope.image_chooser, 250);
+      return true;
+    };
+
+    var drawer = {
+      buttons: [ { text: 'Replace this Image'} ],
+      destructiveText: 'Remove Image from Post', destructiveButtonClicked: remove_image,
+      cancelText: 'Cancel', cancel: function() { return true; },
+      buttonClicked: replace_image
+    };
+
+    $ionicActionSheet.show(drawer);
+  };
+
   $scope.image_chooser = function() {
     var failure = function(err) { console.log("Image Error: " + err); };
 
@@ -65,19 +94,19 @@ function($scope, $transitions, $cordovaCamera, $ionicActionSheet, ExposureCodena
       return true;
     };
 
-    var drawer_options = {
+    var drawer = {
       buttons: [ { text: 'Choose from Library' }, { text: 'Take a Photo'} ],
-      cancel: function() { return true; },
+      cancelText: 'Cancel', cancel: function() { return true; },
 
       buttonClicked: function(index) {
         if (index == 0) {
-          return get_image(Camera.PictureSourceType.CAMERA, true);
-        } else {
           return get_image(Camera.PictureSourceType.PHOTOLIBRARY, true);
+        } else {
+          return get_image(Camera.PictureSourceType.CAMERA, true);
         }
       }
     };
 
-    $ionicActionSheet.show(drawer_options);
+    $ionicActionSheet.show(drawer);
   };
 });
