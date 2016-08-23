@@ -303,7 +303,8 @@
 
     }
 
-    .header-item > .primary-buttons > .button.button-clear {
+    .header-item > .primary-buttons > .button.button-clear,
+    .header-item > .secondary-buttons > .button.button-clear{
       // Mixins
 
       // Box properties
@@ -311,7 +312,7 @@
       // Background & borders
 
       // Typography
-      color: $color-whisper !important;
+      color: $color-whisper;
       text-transform: uppercase;
       font-family: $font-logo;
       font-size: $font_size;

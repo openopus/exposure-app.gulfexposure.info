@@ -114,19 +114,30 @@ Controllers.controller('SurveyController', function($scope, $transitions, $timeo
   };
 
   $scope.submit_survey = function(skip_trans) {
-    var questions = Survey.get_questions($scope.survey.groups);
-    var answers = [];
+    var questions, answers = [];
+
+    try {
+      questions = Survey.get_questions($scope.survey.groups);
+    } catch(e) {
+      questions = [];
+    }
 
     questions.forEach(function(question) {
       var answer = $scope.answer_of_question(question);
       answers.push({ question_id: question.id, answer: answer });
     });
 
-    $api.post("survey_submit", { codename: $scope.survey.codename, answers: answers }).then(function(response) {
-      Survey.remove_survey_by_codename($scope.survey.codename);
-      if (!skip_trans)
+    if (questions.length > 0) {
+      $api.post("survey_submit", { codename: $scope.survey.codename, answers: answers }).then(function(response) {
+        Survey.remove_survey_by_codename($scope.survey.codename);
+        if (!skip_trans)
+          $transitions.go("dashboard", { type: "slide", direction: "down" });
+      });
+    } else {
+      if (!skip_trans) {
         $transitions.go("dashboard", { type: "slide", direction: "down" });
-    });
+      }
+    }
   };
 
   $scope.setup();
