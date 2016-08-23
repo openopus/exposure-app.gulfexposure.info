@@ -952,13 +952,14 @@ div.instruction-box {
 
   }
 
-  .blog-detail-content {
+  div.blog-detail-content.blog-post-content {
     // Mixins
 
     // Box properties
     padding: $grid / 2;
-    // Background & borders
 
+    // Background & borders
+    background-color: $color-dark-background;
     // Typography
 
     // Animation
@@ -1160,4 +1161,3 @@ transition-duration: 300ms!important;
     -webkit-user-select: text;
     user-select: text;
 }
-
