@@ -10256,8 +10256,19 @@ div.blog-detail-content {
     display: block;
     margin: 6px auto;
     width: 90%;
+    max-width: 90%;
     height: auto;
     overflow-y: hidden; }
+
+div.blog-image {
+  width: 90%;
+  max-width: 90%;
+  margin: 6px auto;
+  text-align: center; }
+  div.blog-image img {
+    width: 100%;
+    height: auto;
+    margin: auto; }
 
 .answer-type-fixed {
   display: inline-block;

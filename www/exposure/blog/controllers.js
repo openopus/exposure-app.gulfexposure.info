@@ -37,8 +37,11 @@ Controllers.controller('BlogDetailController', function($scope, $stateParams, Po
   });
 });
 
-Controllers.controller('BlogCreateController', function($scope, $transitions) {
-  $scope.post = { title: "Your Post Title", date: new Date(), content: "This is some content.  Don't know how <b>things</b> will look." };
+Controllers.controller('BlogCreateController',
+function($scope, $transitions, $cordovaCamera, $ionicActionSheet, ExposureCodename) {
+  $scope.post = { title: undefined, author: undefined, date: new Date(), content: undefined, images: [] };
+
+  ExposureCodename.get().then(function(codename) { $scope.post.author = codename; });
 
   $scope.submit_post = function() {
     console.log("SUBMITTED!", $scope.post);
@@ -46,83 +49,66 @@ Controllers.controller('BlogCreateController', function($scope, $transitions) {
   };
 
   $scope.go_list = function(post) { $transitions.go("blog", { direction: "left" }); };
+
   $scope.go_back = function() { $transitions.go("dashboard", { type: "slide", direction: "down" }); };
   // $scope.go_back = function() { $transitions.go("dashboard", { type: "slide", direction: "right" }); };
 
-});
-
-Controllers.controller('CreateAPostCtrl', function($scope, $cordovaCamera, $cordovaImagePicker, $ionicActionSheet, Posts, $localstorage, $state) {
-  $scope.photos_to_upload = [];
-
-  $scope.select_from_library = function() {
-    var options = {
-      maximumImagesCount: 1,
-      quality: 85
-    };
-    $cordovaImagePicker.getPictures(options)
-    .then(function (results) {
-      imageData = results[0];
-      $localstorage.set("image",  imageData);
-      $scope.photos_to_upload.push(imageData);
-    }, function(error) {
-         console.log(error);
-       });
-  };
-
-  $scope.take_photo = function() {
-    var options = {
-      quality: 85,
-      destinationType: Camera.DestinationType.FILE_URI,
-      sourceType: Camera.PictureSourceType.CAMERA,
-      allowEdit: false,
-      encodingType: Camera.EncodingType.JPEG,
-      correctOrientation: true,
-      popoverOptions: CameraPopoverOptions,
-      saveToPhotoAlbum: false
-    };
-
-    $cordovaCamera.getPicture(options).then(function(imageData) {
-      console.log("storing image here as " + imageData);
-      $localstorage.set("image",  imageData);
-      $scope.photos_to_upload.push(imageData);
-    }, function(err) {
-         console.log(err);
-       });
-  };
-
-  $scope.select_image = function() {
-    var options = {
-      buttons: [
-        { text: 'Choose from Library' },
-        { text: 'Take a photo'}
-      ],
-      cancelText: 'Cancel',
-      cancel: function() {
-        // add cancel code..
-      },
-      buttonClicked: function(index) {
-        // SELECT FROM LIBRARY
-        if (index == 0) {
-          $scope.select_from_library();
-          return true;
+  $scope.edit_image = function (event) {
+    var image = event;
+    var remove_image = function() {
+      for (var i = 0; i < $scope.post.images.length; i++) {
+        if ($scope.post.images[i] == image) {
+          $scope.post.images.splice(i, 1);
+          break;
         }
+      }
+      return true;
+    };
 
-        // TAKE PHOTO
-        if (index == 1) {
-          $scope.take_photo();
-          return true;
+    var replace_image = function() {
+      remove_image();
+
+      $timeout($scope.image_chooser, 250);
+      return true;
+    };
+
+    var drawer = {
+      buttons: [ { text: 'Replace this Image'} ],
+      destructiveText: 'Remove Image from Post', destructiveButtonClicked: remove_image,
+      cancelText: 'Cancel', cancel: function() { return true; },
+      buttonClicked: replace_image
+    };
+
+    $ionicActionSheet.show(drawer);
+  };
+
+  $scope.image_chooser = function() {
+    var failure = function(err) { console.log("Image Error: " + err); };
+
+    var get_image = function(source, allowEditing) {
+      var options = { destinationType: Camera.DestinationType.DATA_URL, sourceType: source, popoverOptions: CameraPopoverOptions,
+                      encodingType: Camera.EncodingType.JPEG, saveToPhotoAlbum: false, correctOrientation: true, allowEdit: allowEditing };
+      $cordovaCamera.getPicture(options)
+      .then(function(imageData) {
+        var image = "data:image/jpeg;base64," + imageData;
+        $scope.post.images.push(image);
+      }, failure);
+      return true;
+    };
+
+    var drawer = {
+      buttons: [ { text: 'Choose from Library' }, { text: 'Take a Photo'} ],
+      cancelText: 'Cancel', cancel: function() { return true; },
+
+      buttonClicked: function(index) {
+        if (index == 0) {
+          return get_image(Camera.PictureSourceType.PHOTOLIBRARY, true);
+        } else {
+          return get_image(Camera.PictureSourceType.CAMERA, true);
         }
       }
     };
 
-    $ionicActionSheet.show(options);
+    $ionicActionSheet.show(drawer);
   };
-
-  $scope.submit_image = function(title, content) {
-    var image = $localstorage.get("image");
-
-    Posts.createPost(title,content, image).then(function() {
-      $state.go('posts');
-    });
-  }
 });

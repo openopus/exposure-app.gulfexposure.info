@@ -47,7 +47,8 @@ Controllers.controller('SurveyController', function($scope, $transitions, $timeo
     Geolocation.getCurrentPosition(success, failure);
   };
 
-  $scope.go_dashboard = function() { $transitions.go("dashboard", { type: "slide", direction: "down" }); };
+  $scope.go_dashboard = function() { $scope.submit_survey(true); $transitions.go("dashboard", { type: "slide", direction: "down" }); };
+
   $scope.groups = groups;
 
   $scope.pick_one = function(question, option) {
@@ -112,7 +113,7 @@ Controllers.controller('SurveyController', function($scope, $transitions, $timeo
     return answer;
   };
 
-  $scope.submit_survey = function() {
+  $scope.submit_survey = function(skip_trans) {
     var questions = Survey.get_questions($scope.survey.groups);
     var answers = [];
 
@@ -123,7 +124,8 @@ Controllers.controller('SurveyController', function($scope, $transitions, $timeo
 
     $api.post("survey_submit", { codename: $scope.survey.codename, answers: answers }).then(function(response) {
       Survey.remove_survey_by_codename($scope.survey.codename);
-      $scope.go_dashboard();
+      if (!skip_trans)
+        $transitions.go("dashboard", { type: "slide", direction: "down" });
     });
   };
 

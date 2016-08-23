@@ -54,7 +54,7 @@ angular.module('angular-content-editable', [])
       // turn on the flag
       noEscape = true;
       // select all on focus
-      if( options.focusSelect ) {
+      if (options.focusSelect) {
         var range = $window.document.createRange();
         range.selectNodeContents( originalElement );
         $window.getSelection().addRange(range);
@@ -62,13 +62,12 @@ angular.module('angular-content-editable', [])
       // if render-html is enabled convert
       // all text content to plaintext
       // in order to modify html tags
-      if( options.renderHtml ) {
-        originalElement.textContent = elem.html();
-      }
+//      if( options.renderHtml ) {
+//        originalElement.textContent = elem.html();
+//      }
     }
 
     function onBlur(e) {
-
       // the text
       var html;
 
@@ -76,7 +75,7 @@ angular.module('angular-content-editable', [])
       attrs.$set('contenteditable', 'false');
 
       // if text needs to be rendered as html
-      if( options.renderHtml && noEscape ) {
+      if (options.renderHtml && noEscape) {
         // get plain text html (with html tags)
         // replace all blank spaces
         html = originalElement.textContent.replace(/\u00a0/g, " ");
@@ -85,42 +84,34 @@ angular.module('angular-content-editable', [])
 
       } else {
         // get element content replacing html tag
-        html = elem.html().replace(/&nbsp;/g, ' ');
+        // html = elem.html().replace(/&nbsp;/g, ' ');
+        html = elem.html();
       }
 
       // if element value is
       // different from model value
-      if( html != ngModel.$modelValue ) {
+      if (html != ngModel.$modelValue) {
 
-        /**
-         * This method should be called
-         * when a controller wants to
-         * change the view value
-         */
+        /* This method should be called  when a controller wants to change the view value. */
         ngModel.$setViewValue(html)
-        // if user passed a variable
-        // and is a function
-        if( scope.editCallback && angular.isFunction(scope.editCallback) ) {
-          // apply the callback
-          // with arguments: current text and element
-          return scope.$apply( scope.editCallback(html, elem) );
+        /* if user passed a variable and is a function */
+        if (scope.editCallback && angular.isFunction(scope.editCallback)) {
+          /* Apply the callback with arguments: current text and element. */
+          return scope.$apply(scope.editCallback(html, elem));
         }
-
       }
-
     }
 
     function onKeyDown(e) {
-
       // on tab key blur and
       // TODO: focus to next
-      if( e.which == 9 ) {
+      if (e.which == 9) {
         originalElement.blur();
         return;
       }
 
       // on esc key roll back value and blur
-      if( e.which == 27 ) {
+      if (e.which == 27) {
         ngModel.$rollbackViewValue();
         noEscape = false;
         return originalElement.blur();
@@ -128,10 +119,9 @@ angular.module('angular-content-editable', [])
 
       // if single line or ctrl key is
       // pressed trigger the blur event
-      if( e.which == 13 && (options.singleLine || e.ctrlKey) ) {
+      if (e.which == 13 && (options.singleLine || e.ctrlKey)) {
         return originalElement.blur();
       }
-
     }
 
     /**
@@ -169,9 +159,7 @@ angular.module('angular-content-editable', [])
       elem.unbind(onFocus);
       elem.unbind(onBlur);
     })
-
   }
-
 })
 
 /**
@@ -200,6 +188,4 @@ angular.module('angular-content-editable', [])
 })
 
 App.requires.push('angular-content-editable');
-App.config(function(contentEditableProvider) {
-  contentEditableProvider.configure({ focusSelect: false, renderHtml: true });
-});
+
