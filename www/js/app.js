@@ -1,7 +1,7 @@
 /* The global App variable is the base module.  As other dependencies are introduced,
    they self-inject themselves into the App.  The basic routes are also stored in each
    section of the app, in this case, in various exposure/<section>/routes.js files. */
-var App = angular.module('Exposure', ['ionic', 'ngMaps', 'ngStorage', 'oli.transitions']);
+var App = angular.module('Exposure', ['ionic', 'ngStorage', 'oli.transitions']);
 
 App.run(function($ionicPlatform, $ionicConfig) {
   $ionicPlatform.ready(function() {
