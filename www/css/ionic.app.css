@@ -10065,8 +10065,9 @@ div.instruction-box {
 .blog-screen-content {
   padding-top: 63.8px; }
 
-.blog-detail-content {
-  padding: 11px; }
+div.blog-detail-content.blog-post-content {
+  padding: 11px;
+  background-color: #1c2026; }
 
 .post-actions {
   padding: 5.5px 0;

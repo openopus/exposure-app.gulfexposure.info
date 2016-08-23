@@ -10,7 +10,7 @@ Controllers.controller('BlogController', function($scope, $transitions, Posts) {
 
   $scope.go_dashboard = function() { $transitions.go("dashboard", { type: "slide", direction: "right" }); };
   $scope.go_detail = function(post) { $transitions.go("blog_detail", { type: "slide", direction: "left" }, { id: post.id }); };
-  $scope.go_create = function() { $transitions.go("blog_create", { type: "flip", direction: "right", duration: 600 }); };
+  $scope.go_create = function() { $transitions.go("blog_create", { type: "slide", direction: "up" }); };
 });
 
 Controllers.controller('BlogDetailController', function($scope, $stateParams, Posts, $sce, $transitions, $cordovaSocialSharing) {
@@ -27,7 +27,7 @@ Controllers.controller('BlogDetailController', function($scope, $stateParams, Po
 
   Posts.get($stateParams.id).then(function(post) {
     var parser = new DOMParser(), doc;
-    $scope.post = post; 
+    $scope.post = post;
 
     try {
       doc = parser.parseFromString(post.content.rendered, 'text/html');
@@ -58,7 +58,9 @@ function($scope, $transitions, $cordovaCamera, $ionicActionSheet, $timeout, Expo
   };
 
   $scope.go_list = function(post) { $transitions.go("blog", { direction: "left" }); };
-  $scope.go_back = function() { $transitions.go("dashboard", { type: "flip", direction: "left", duration: 600 }); };
+
+  $scope.go_back = function() { $transitions.go("dashboard", { type: "slide", direction: "down" }); };
+  // $scope.go_back = function() { $transitions.go("dashboard", { type: "slide", direction: "right" }); };
 
   $scope.edit_image = function (index) {
     var remove_image = function() {
