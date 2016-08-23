@@ -37,8 +37,11 @@ Controllers.controller('BlogDetailController', function($scope, $stateParams, Po
   });
 });
 
-Controllers.controller('BlogCreateController', function($scope, $transitions) {
-  $scope.post = { title: "Your Post Title", date: new Date(), content: "This is some content.  Don't know how <b>things</b> will look." };
+Controllers.controller('BlogCreateController',
+function($scope, $transitions, $cordovaCamera, $ionicActionSheet, ExposureCodename) {
+  $scope.post = { title: undefined, author: undefined, date: new Date(), content: undefined, images: [] };
+
+  ExposureCodename.get().then(function(codename) { $scope.post.author = codename; });
 
   $scope.submit_post = function() {
     console.log("SUBMITTED!", $scope.post);
@@ -47,82 +50,34 @@ Controllers.controller('BlogCreateController', function($scope, $transitions) {
 
   $scope.go_list = function(post) { $transitions.go("blog", { direction: "left" }); };
   $scope.go_back = function() { $transitions.go("dashboard", { type: "flip", direction: "left", duration: 600 }); };
-  // $scope.go_back = function() { $transitions.go("dashboard", { type: "slide", direction: "right" }); };
 
-});
+  $scope.image_chooser = function() {
+    var failure = function(err) { console.log("Image Error: " + err); };
 
-Controllers.controller('CreateAPostCtrl', function($scope, $cordovaCamera, $cordovaImagePicker, $ionicActionSheet, Posts, $localstorage, $state) {
-  $scope.photos_to_upload = [];
-
-  $scope.select_from_library = function() {
-    var options = {
-      maximumImagesCount: 1,
-      quality: 85
-    };
-    $cordovaImagePicker.getPictures(options)
-    .then(function (results) {
-      imageData = results[0];
-      $localstorage.set("image",  imageData);
-      $scope.photos_to_upload.push(imageData);
-    }, function(error) {
-         console.log(error);
-       });
-  };
-
-  $scope.take_photo = function() {
-    var options = {
-      quality: 85,
-      destinationType: Camera.DestinationType.FILE_URI,
-      sourceType: Camera.PictureSourceType.CAMERA,
-      allowEdit: false,
-      encodingType: Camera.EncodingType.JPEG,
-      correctOrientation: true,
-      popoverOptions: CameraPopoverOptions,
-      saveToPhotoAlbum: false
+    var get_image = function(source, allowEditing) {
+      var options = { destinationType: Camera.DestinationType.DATA_URL, sourceType: source, popoverOptions: CameraPopoverOptions,
+                      encodingType: Camera.EncodingType.JPEG, saveToPhotoAlbum: false, correctOrientation: true, allowEdit: allowEditing };
+      $cordovaCamera.getPicture(options)
+      .then(function(imageData) {
+        var image = "data:image/jpeg;base64," + imageData;
+        $scope.post.images.push(image);
+      }, failure);
+      return true;
     };
 
-    $cordovaCamera.getPicture(options).then(function(imageData) {
-      console.log("storing image here as " + imageData);
-      $localstorage.set("image",  imageData);
-      $scope.photos_to_upload.push(imageData);
-    }, function(err) {
-         console.log(err);
-       });
-  };
+    var drawer_options = {
+      buttons: [ { text: 'Choose from Library' }, { text: 'Take a Photo'} ],
+      cancel: function() { return true; },
 
-  $scope.select_image = function() {
-    var options = {
-      buttons: [
-        { text: 'Choose from Library' },
-        { text: 'Take a photo'}
-      ],
-      cancelText: 'Cancel',
-      cancel: function() {
-        // add cancel code..
-      },
       buttonClicked: function(index) {
-        // SELECT FROM LIBRARY
         if (index == 0) {
-          $scope.select_from_library();
-          return true;
-        }
-
-        // TAKE PHOTO
-        if (index == 1) {
-          $scope.take_photo();
-          return true;
+          return get_image(Camera.PictureSourceType.CAMERA, true);
+        } else {
+          return get_image(Camera.PictureSourceType.PHOTOLIBRARY, true);
         }
       }
     };
 
-    $ionicActionSheet.show(options);
+    $ionicActionSheet.show(drawer_options);
   };
-
-  $scope.submit_image = function(title, content) {
-    var image = $localstorage.get("image");
-
-    Posts.createPost(title,content, image).then(function() {
-      $state.go('posts');
-    });
-  }
 });

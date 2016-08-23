@@ -11,5 +11,10 @@ div.blog-detail-content {
     background-color: black;
     color: #eee;
     p { border: 0; padding: 8px; }
-    img { display: block; margin: 6px auto; width: 90%; height: auto; overflow-y: hidden; }
+    img { display: block; margin: 6px auto; width: 90%; max-width: 90%; height: auto; overflow-y: hidden; }
+}
+
+div.blog-image {
+    width: 90%; max-width: 90%; margin: 6px auto; text-align: center;
+    img { width: 100%; height: auto; margin: auto; }
 }
