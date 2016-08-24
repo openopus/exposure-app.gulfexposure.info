@@ -1,4 +1,4 @@
-Controllers.controller('BlogController', function($scope, $transitions, Posts) {
+Controllers.controller('BlogController', function($scope, $rootScope, $transitions, Posts) {
 
   $scope.refresh = function(force) {
     Posts.all(force)
@@ -53,7 +53,9 @@ function($scope, $transitions, $cordovaCamera, $ionicActionSheet, $timeout, Expo
   ExposureCodename.get().then(function(codename) { $scope.post.author = codename; });
 
   $scope.submit_post = function() {
-    console.log("SUBMITTED!", $scope.post);
+    $rootScope.$broadcast("dashboard.show-message", { message: "submitted-story-message" });
+    $scope.submit_survey(false);
+  };
     $transitions.go("app.blog_thanks");
   };
 

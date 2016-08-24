@@ -45,7 +45,7 @@ Services.factory('Survey', function($api, $q, ExposureCodename, ExposureUser) {
   service.set_status = function(info) {
     info.num_answered = info.answers.length;
     info.num_questions = service.num_questions;
-    console.log(info.user.codename + ":" + info.num_answered + " out of " + info.num_questions);
+    // console.log(info.user.codename + ":" + info.num_answered + " out of " + info.num_questions);
     info.complete = info.num_answered >= info.num_questions;
     info.status = info.complete ? "complete" : "incomplete";
   };

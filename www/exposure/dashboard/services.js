@@ -25,9 +25,7 @@ Services.factory('Survey', function($api, $q, $localStorage) {
     if (service.groups) {
       defer.resolve(service.groups);
     } else {
-      console.log("DEFERRING...");
       service.initialized.promise.then(function() {
-        console.log("RESOLVED SERVICE GROUPS");
         defer.resolve(service.groups);
       });
     }
