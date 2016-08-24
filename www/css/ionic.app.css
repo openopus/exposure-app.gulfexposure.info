@@ -10103,7 +10103,8 @@ input::-webkit-input-placeholder {
   background-color: #1c2026; }
 
 .regen {
-  margin-left: 5.5px;
+  float: right;
+  margin-right: 5.5px;
   display: inline-block;
   height: 22px;
   width: 22px;
