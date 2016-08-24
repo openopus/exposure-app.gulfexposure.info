@@ -27,8 +27,9 @@
       	<!-- DEBUGGING: <h2 ng-bind="question.seltype"></h2> -->
 
       	<!-- Codename, for example -->
-      	<span ng-if="question.seltype == 'fixed'">
+      	<span ng-if="question.seltype == 'fixed'" style="position: relative; display: inline-block; min-width: 65%;">
       	  <span class="answer fixed" ng-bind="question.answer"></span>
+	  <span ng-if="question.name == 'Codename'" style="float: right" ng-click="regen_codename()"><i class="icon ion-refresh" style="font-size: 20px;"></i></span>
       	</span>
 
       	<!-- Should be more like radio buttons - for Gender at Birth for example. -->

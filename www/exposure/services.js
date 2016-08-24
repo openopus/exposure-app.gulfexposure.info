@@ -19,22 +19,29 @@ Factories.factory("ExposureCodename", function($q, $api, $localStorage) {
     if (!service.codenames) { service.codenames = $localStorage.codenames || []; }
   };
 
-  service.set_current = function(codename) {
-    if (codename == service.codename) return;
-    if (!service.codenames) service.get_all();
-    if (!service.codenames) service.codenames = [];
-
+  service.forget = function(codename) {
     for (var i = service.codenames.length - 1; i >= 0; i--) {
       if (service.codenames[i] == codename) {
         service.codenames.splice(i, 1);
         break;
       }
     }
+  };
+
+  service.set_current = function(codename) {
+    if (codename == service.codename) return;
+    if (!service.codenames) service.get_all();
+    if (!service.codenames) service.codenames = [];
 
     service.codenames.unshift(codename);
     $localStorage.codenames = service.codenames;
     $localStorage.codename_index = 0;
     service.codename = codename;
+  };
+
+  service.regen = function(codename) {
+    service.forget(codename);
+    return $api.get("codename/regen/" + codename);
   };
 
   service.get = function(make_new_p) {
@@ -98,7 +105,7 @@ Factories.factory("ExposureUser", function($q, $api, $localStorage) {
     }
 
     return result;
-  }
+  };
 
   service.get_by_codename = function(codename) {
     var defer = $q.defer();
