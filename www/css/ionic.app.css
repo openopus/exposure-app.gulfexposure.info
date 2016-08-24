@@ -15,6 +15,9 @@ $assertive:                       #ef473a !default;
 $royal:                           #886aea !default;
 $dark:                            #444 !default;
 */
+[nav-view-transition][nav-view-direction] {
+  background-color: transparent; }
+
 /*!
   Ionicons, v2.0.1
   Created by Ben Sperry for the Ionic Framework, http://ionicons.com/
@@ -10367,3 +10370,6 @@ div.blog-image {
   font-size: 90%;
   font-style: italic;
   display: none; }
+
+ion-nav-view {
+  background-color: transparent !important; }
