@@ -32,7 +32,7 @@ Transitions.factory('$transitions', function($window, $state) {
           break;
         }
       } catch(x) {
-        console.log("transitions: It dinna work!", x);
+        // console.log("transitions: It dinna work!", x);
       }
     }
   };

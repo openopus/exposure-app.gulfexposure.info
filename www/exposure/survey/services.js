@@ -34,12 +34,20 @@ Services.factory('Survey', function($api, $q, ExposureCodename, ExposureUser) {
 
   service.remove_survey_by_codename = function(codename, force) {
     /* See if there's a survey here. */
-    for (i = 0; i < service.surveys.length; i++) {
+    for (var i = 0; i < service.surveys.length; i++) {
       if (service.surveys[i].codename == codename) {
         service.surveys.splice(i, 1);
         break;
       }
     }
+  };
+
+  service.set_status = function(info) {
+    info.num_answered = info.answers.length;
+    info.num_questions = service.num_questions;
+    console.log(info.user.codename + ":" + info.num_answered + " out of " + info.num_questions);
+    info.complete = info.num_answered >= info.num_questions;
+    info.status = info.complete ? "complete" : "incomplete";
   };
 
   service.get_survey_by_codename = function(codename, force) {
@@ -63,6 +71,7 @@ Services.factory('Survey', function($api, $q, ExposureCodename, ExposureUser) {
     }
 
     if (info) {
+      if (!info.status) service.set_status(info);
       defer.resolve(info);
     } else {
       info = { codename: codename, user: null, answers: [] };
@@ -72,10 +81,7 @@ Services.factory('Survey', function($api, $q, ExposureCodename, ExposureUser) {
       $q.all([answers, user, service.initialized]).then(function(values) {
         info.answers = values[0];
         info.user = values[1];
-        info.num_answered = info.answers.length;
-        info.num_questions = service.num_questions;
-        info.complete = info.num_answered >= info.num_questions;
-        info.status = info.complete ? "complete" : "incomplete";
+        service.set_status(info);
         service.surveys.push(info);
         defer.resolve(info)
       });
@@ -214,7 +220,10 @@ Services.factory('Survey', function($api, $q, ExposureCodename, ExposureUser) {
       question.answer = undefined;
 
       if (answer) {
-        value = answer.value;
+        if (answer.value)
+          value = answer.value;
+        else if (answer.answer)
+          value = answer.answer;
 
         if (value) {
 

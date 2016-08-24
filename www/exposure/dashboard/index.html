@@ -11,7 +11,9 @@
   <ion-content class="home-screen no-footer">
     <div class="home-screen-content  slow-fadein" id="the-dashboard">
       <p class="dramatic-paragraph">
-        Help us shed light on the gulf spill's health effects by taking this anonymous survey one time for each of your family members who became sick
+        Help us shed light on the effects of the gulf spill by
+	taking this anonymous survey one time for each of your family
+	members who became sick.
       </p>
       <button class="button button-block button-light button-light-home button-light-cta
 		     button-has-subtext" ng-click="go_survey()">
@@ -23,12 +25,12 @@
         Your survey isn't quite done yet, so we saved it below to finish when you have time.
       </div>
 
-      <div id="complete-survey-message" class="inline-message shown">
+      <div id="complete-survey-message" class="inline-message">
         <i class="ion-close" ng-click="close_inline_message($event)"></i>
         Your survey is complete and listed below. Click to review or update your answers at any time.
       </div>
 
-      <div ng-if="surveys" class="">
+      <div ng-if="surveys && surveys.length > 0" class="">
       	<h6 class="list-label list-label-centered">Your previous surveys:</h6>
         <div class="previous-surveys-list">
           <div ng-repeat="survey in surveys" ng-click="go_survey(survey.user.codename)" class="previous-surveys-list-item survey-status-{{survey.status}}">
@@ -66,3 +68,4 @@
     </div>
   </ion-content>
 </ion-nav-view>
+

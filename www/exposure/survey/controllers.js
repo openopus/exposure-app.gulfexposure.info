@@ -47,7 +47,10 @@ Controllers.controller('SurveyController', function($scope, $transitions, $timeo
     Geolocation.getCurrentPosition(success, failure);
   };
 
-  $scope.go_dashboard = function() { $scope.submit_survey(true); $transitions.go("dashboard", { type: "slide", direction: "down" }); };
+  $scope.go_dashboard = function() {
+    $scope.submit_survey(true);
+    $transitions.go("dashboard", { type: "slide", direction: "down" });
+  };
 
   $scope.groups = groups;
 
@@ -79,9 +82,10 @@ Controllers.controller('SurveyController', function($scope, $transitions, $timeo
       ExposureCodename.set_current(survey.user.codename);
       $scope.survey = survey;
       $scope.deferred_survey.resolve(true);
-//      if (update_path) {
-//        $location.path("/survey/" + survey.user.codename);
-//      }
+      /* Don't do this in production.  It was a helper for development. */
+      if (false && update_path) {
+        $location.path("/survey/" + survey.user.codename);
+      }
     });
 
     $q.all([$scope.deferred_survey.promise, $scope.deferred_location.promise]).then(function(values) {
@@ -140,11 +144,10 @@ Controllers.controller('SurveyController', function($scope, $transitions, $timeo
   };
 
   $scope.submit_survey_button = function() {
-    $rootScope.$broadcast("dashboard.show-message", { message: "complete-survey-message" });
     $scope.submit_survey(false);
   };
 
-  $scope.submit_survey = function(skip_trans, state_opts) {
+  $scope.submit_survey = function(skip_trans) {
     var questions, answers = [];
 
     try {
@@ -158,18 +161,26 @@ Controllers.controller('SurveyController', function($scope, $transitions, $timeo
       answers.push({ question_id: question.id, answer: answer });
     });
 
-    if (questions.length > 0) {
+    Survey.zipper($scope.survey.groups, answers);
+
+    if (questions.length > answers.length) {
+      $rootScope.$broadcast("dashboard.show-message", { message: "incomplete-survey-message" });
+    } else {
+      $rootScope.$broadcast("dashboard.show-message", { message: "complete-survey-message" });
+    }
+
+    if (answers.length > 1) {
       $api.post("survey_submit", { codename: $scope.survey.codename, answers: answers }).then(function(response) {
         Survey.remove_survey_by_codename($scope.survey.codename);
         if (!skip_trans)
-          $transitions.go("dashboard", { type: "slide", direction: "down" }, state_opts);
+          $transitions.go("dashboard", { type: "slide", direction: "down" });
       });
     } else {
       if (!skip_trans) {
-        $transitions.go("dashboard", { type: "slide", direction: "down" }, state_opts);
+        $transitions.go("dashboard", { type: "slide", direction: "down" });
       }
     }
   };
-
+  
   $scope.setup();
 });

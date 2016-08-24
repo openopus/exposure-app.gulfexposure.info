@@ -1,7 +1,9 @@
-Controllers.controller('DashboardController', function($scope, $transitions, $q, $rootScope, $stateParams, Survey, ExposureCodename) {
+Controllers.controller('DashboardController', function($scope, $transitions, $q, $rootScope, $stateParams, $timeout, Survey, ExposureCodename) {
 
   $scope.show_inline_message = function(id) {
-    angular.element(document.getElementById(id)).addClass("shown");
+    var elt = angular.element(document.getElementById(id));
+    elt.addClass("shown");
+    $timeout(function() { elt.removeClass("shown"); }, 5000);
   };
 
   $scope.close_inline_message = function(event) {
@@ -20,7 +22,7 @@ Controllers.controller('DashboardController', function($scope, $transitions, $q,
 
     $q.all(promises).then(function(surveys) {
       if (surveys) {
-        for (var i = codenames.length; i >= 0; i--) {
+        for (var i = surveys.length; i >= 0; i--) {
           if (surveys[i] && !surveys[i].user) surveys.splice(i, 1);
         }
       }
@@ -65,7 +67,6 @@ Controllers.controller('DashboardController', function($scope, $transitions, $q,
 
   $rootScope.$on("dashboard.i-fucking-hate-ionic-controller-caching", $scope.get_surveys);
   $rootScope.$on("dashboard.show-message", function(event, args) {
-    console.log("GOT HERE: ", args);
     if (args && args.message)
       $scope.show_inline_message(args.message);
   });
