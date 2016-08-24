@@ -17,6 +17,16 @@
 		     button-has-subtext slow-fadein" ng-click="go_survey()">
 	        New health survey
       </button>
+      <div id="incomplete-survey-message" class="inline-message">
+        <i class="ion-close"></i>
+        Your survey isn't quite done yet, so we saved it below to finish when you have time.
+      </div>
+
+      <div id="complete-survey-message" class="inline-message">
+        <i class="ion-close"></i>
+        Your survey is complete and listed below. Click to review or update your answers at any time.
+      </div>
+
       <div ng-if="surveys" class="slow-fadein">
       	<h6 class="list-label list-label-centered">Your previous surveys:</h6>
         <div class="previous-surveys-list">
@@ -45,6 +55,11 @@
 	Read the blog
       </button>
       <p class="button-subtext slow-fadein">View info about the situation.</p>
+
+      <div id="submitted-story-message" class="inline-message">
+        <i class="ion-close"></i>
+        Thank you for your telling your story. Our voices together will shed light on the truth.
+      </div>
 
       <button class="button button-block button-light button-light-home button-light-cta button-has-subtext slow-fadein" ng-click="go_create()">
 	Tell your story

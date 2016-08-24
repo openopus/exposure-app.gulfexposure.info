@@ -12,6 +12,7 @@
   $color-text: #c9ebf2;
   $color-quiet: darken($color-text, 20%);
   $color-whisper: darken($color-text, 50%);
+  $color-ghost: rgba($color-text, .1);
   $color-vibrant: #fbae17;
 
   $color-border: darken($color-text, 65%);
@@ -48,6 +49,21 @@
     background: -ms-linear-gradient(top,  $stop1,$stop2,$stop3); /* IE10+ */
     background: linear-gradient(to bottom,  $stop1 0,$stop2 $grid,$stop3 100%); /* W3C */
   }
+
+  @mixin corners($tr: 4px, $tl: 4px, $bl: 4px, $br: 4px) { /* this could probably be less verbose at some point */
+  -webkit-border-top-left-radius: $tr;
+  -moz-border-radius-topleft: $tr;
+  border-top-left-radius: $tr;
+  -webkit-border-top-right-radius: $tl;
+  -moz-border-radius-topright: $tl;
+  border-top-right-radius: $tl;
+  -webkit-border-bottom-left-radius: $bl;
+  -moz-border-radius-bottomleft: $bl;
+  border-bottom-left-radius: $bl;
+  -webkit-border-bottom-right-radius: $br;
+  -moz-border-radius-bottomright: $br;
+  border-bottom-right-radius: $br;
+}
 
 // Base
 
@@ -278,6 +294,41 @@
   }
 
 // Globals
+
+  // Inline messages
+
+    .inline-message {
+      // Mixins
+      @include corners;
+      // Box properties
+      padding: $grid;
+      margin-bottom: $grid / 2;
+      position: relative;
+      // Background & borders
+      background-color: $color-ghost;
+      // Typography
+
+      // Animation
+
+      // Other
+
+      i {
+        // Mixins
+
+        // Box properties
+        position: absolute;
+        top: $grid / 4;
+        right: $grid / 2;
+        // Background & borders
+
+        // Typography
+        color: $color-whisper;
+        // Animation
+
+        // Other
+
+      }
+    }
 
   // Buttons
 

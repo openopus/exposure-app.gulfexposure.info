@@ -9894,6 +9894,30 @@ div.title.title-center.header-item {
   font-size: 14.66667px;
   text-indent: 6.6px; }
 
+.inline-message {
+  /* this could probably be less verbose at some point */
+  -webkit-border-top-left-radius: 4px;
+  -moz-border-radius-topleft: 4px;
+  border-top-left-radius: 4px;
+  -webkit-border-top-right-radius: 4px;
+  -moz-border-radius-topright: 4px;
+  border-top-right-radius: 4px;
+  -webkit-border-bottom-left-radius: 4px;
+  -moz-border-radius-bottomleft: 4px;
+  border-bottom-left-radius: 4px;
+  -webkit-border-bottom-right-radius: 4px;
+  -moz-border-radius-bottomright: 4px;
+  border-bottom-right-radius: 4px;
+  padding: 22px;
+  margin-bottom: 11px;
+  position: relative;
+  background-color: rgba(201, 235, 242, 0.1); }
+  .inline-message i {
+    position: absolute;
+    top: 5.5px;
+    right: 11px;
+    color: #248498; }
+
 .button.button-light.button-light-home {
   background-color: transparent;
   border-color: #164e5a;
