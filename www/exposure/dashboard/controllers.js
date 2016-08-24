@@ -1,5 +1,15 @@
-Controllers.controller('DashboardController', function($scope, $transitions, $q, $rootScope, Survey, ExposureCodename) {
+Controllers.controller('DashboardController', function($scope, $transitions, $q, $rootScope, $stateParams, Survey, ExposureCodename) {
 
+
+  $scope.show_inline_message = function(id) {
+    var elt = angular.element(document.getElementById(id));
+    elt.addClass("shown");
+  };
+
+  $scope.close_inline_message = function(elt) {
+    angular.element(elt).removeClass("shown");
+  };
+  
   $scope.get_surveys = function() {
     ExposureCodename.get_all();
     var codenames = ExposureCodename.codenames;
@@ -46,9 +56,16 @@ Controllers.controller('DashboardController', function($scope, $transitions, $q,
     $transitions.go("survey", { type: "slide", direction: "up" }, { codename: codename });
   };
 
-  $scope.get_surveys();
+  $scope.on_enter = function() {
+    $scope.get_surveys();
+    if ($stateParams.show_message) {
+      $scope.show_inline_message($stateParams.show_message);
+    };
+  };
 
   $rootScope.$on("dashboard.i-fucking-hate-ionic-controller-caching", function() {
-    $scope.get_surveys();
+    $scope.on_enter();
   });
+
+  $scope.on_enter();
 });
