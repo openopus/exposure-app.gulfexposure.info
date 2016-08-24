@@ -113,8 +113,16 @@ Controllers.controller('SurveyController', function($scope, $transitions, $timeo
     return answer;
   };
 
-  $scope.regen_codename = function() {
-    var existing = $scope.survey.codename;
+  $scope.regen_codename = function($event) {
+    var elt, existing;
+
+    if ($event) {
+      elt = $event.currentTarget;
+      angular.element(elt).addClass("regenerating");
+    }
+
+    existing = $scope.survey.codename;
+
     ExposureCodename.regen(existing).then(function(response) {
       var api_user = response.data;
       $scope.survey.user.codename = api_user.codename;
@@ -122,6 +130,9 @@ Controllers.controller('SurveyController', function($scope, $transitions, $timeo
       var codename_question = Survey.get_question_by_name("Codename");
       if (codename_question) codename_question.answer = $scope.survey.user.codename;
       ExposureCodename.set_current($scope.survey.user.codename);
+      if (elt) {
+        angular.element(elt).removeClass("regenerating");
+      }
     });
   };
 

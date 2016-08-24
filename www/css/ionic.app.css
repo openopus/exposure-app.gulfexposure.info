@@ -10293,3 +10293,10 @@ div.blog-image {
   font-size: 90%;
   font-style: italic;
   display: none; }
+
+.regen {
+  float: right; }
+  .regen i {
+    font-size: 20px; }
+  .regen.regenerating {
+    background: green; }
