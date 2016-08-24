@@ -1,6 +1,6 @@
-Controllers.controller('MapController', function($scope, $rootScope, $timeout, $api, $timeout, $transitions, NgMap) { 
+Controllers.controller('MapController', function($scope, $rootScope, $timeout, $api, $timeout, $transitions, NgMap) {
 
-  $scope.go_dashboard = function() { $transitions.go("dashboard", { type: "slide", direction: "up" }); };
+  $scope.go_dashboard = function() { $transitions.go("dashboard", { type: "slide", direction: "right" }); };
 
   $scope.mapdata = null;
 
