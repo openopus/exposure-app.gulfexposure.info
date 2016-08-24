@@ -1016,7 +1016,8 @@
     // Mixins
 
     // Box properties
-    margin-left: $grid / 4;
+    float: right;
+    margin-right: $grid / 4;
     display: inline-block;
     height: $grid;
     width: $grid;
