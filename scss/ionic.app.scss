@@ -18,10 +18,15 @@ $dark:                            #444 !default;
 // The path for our ionicons font files, relative to the built CSS in www/css
 $ionicons-font-path: "../lib/ionic/fonts" !default;
 
+[nav-view-transition][nav-view-direction] { background-color: transparent; }
+
 // Include all of Ionic
 @import "www/lib/ionic/scss/ionic";
 @import "./chrome.scss";
 @import "./app.scss";
 @import "./blog.scss";
 @import "./survey.scss";
+
+ion-nav-view { background-color: transparent !important; }
+$ios-transition-container-bg-color: #F00;
 
