@@ -1,4 +1,4 @@
-Controllers.controller('SurveyController', function($scope, $transitions, $timeout, $stateParams, $q, $api, $location, $http,
+Controllers.controller('SurveyController', function($scope, $transitions, $timeout, $stateParams, $q, $api, $location, $http, $rootScope,
                                                     groups, Survey, ExposureCodename, ExposureUser) {
 
   $scope.deferred_location = $q.defer();
@@ -79,9 +79,9 @@ Controllers.controller('SurveyController', function($scope, $transitions, $timeo
       ExposureCodename.set_current(survey.user.codename);
       $scope.survey = survey;
       $scope.deferred_survey.resolve(true);
-      if (update_path) {
-        $location.path("/survey/" + survey.user.codename);
-      }
+//      if (update_path) {
+//        $location.path("/survey/" + survey.user.codename);
+//      }
     });
 
     $q.all([$scope.deferred_survey.promise, $scope.deferred_location.promise]).then(function(values) {
@@ -114,29 +114,37 @@ Controllers.controller('SurveyController', function($scope, $transitions, $timeo
   };
 
   $scope.regen_codename = function($event) {
-    var elt, existing;
+    var existing = $scope.survey.codename;
+    var elt;
 
     if ($event) {
       elt = $event.currentTarget;
       angular.element(elt).addClass("regenerating");
     }
 
-    existing = $scope.survey.codename;
+    var do_regen = function() {
+      ExposureCodename.regen(existing).then(function(response) {
+        var api_user = response.data;
+        $scope.survey.user.codename = api_user.codename;
+        $scope.survey.codename = api_user.codename;
+        var codename_question = Survey.get_question_by_name("Codename");
+        if (codename_question) codename_question.answer = $scope.survey.user.codename;
+        ExposureCodename.set_current($scope.survey.user.codename);
+        if (elt) {
+          angular.element(elt).removeClass("regenerating");
+        }
+      });
+    };
 
-    ExposureCodename.regen(existing).then(function(response) {
-      var api_user = response.data;
-      $scope.survey.user.codename = api_user.codename;
-      $scope.survey.codename = api_user.codename;
-      var codename_question = Survey.get_question_by_name("Codename");
-      if (codename_question) codename_question.answer = $scope.survey.user.codename;
-      ExposureCodename.set_current($scope.survey.user.codename);
-      if (elt) {
-        angular.element(elt).removeClass("regenerating");
-      }
-    });
+    $timeout(do_regen, 800);
   };
 
-  $scope.submit_survey = function(skip_trans) {
+  $scope.submit_survey_button = function() {
+    $rootScope.$broadcast("dashboard.show-message", { message: "complete-survey-message" });
+    $scope.submit_survey(false);
+  };
+
+  $scope.submit_survey = function(skip_trans, state_opts) {
     var questions, answers = [];
 
     try {
@@ -154,11 +162,11 @@ Controllers.controller('SurveyController', function($scope, $transitions, $timeo
       $api.post("survey_submit", { codename: $scope.survey.codename, answers: answers }).then(function(response) {
         Survey.remove_survey_by_codename($scope.survey.codename);
         if (!skip_trans)
-          $transitions.go("dashboard", { type: "slide", direction: "down" });
+          $transitions.go("dashboard", { type: "slide", direction: "down" }, state_opts);
       });
     } else {
       if (!skip_trans) {
-        $transitions.go("dashboard", { type: "slide", direction: "down" });
+        $transitions.go("dashboard", { type: "slide", direction: "down" }, state_opts);
       }
     }
   };

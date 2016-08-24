@@ -19,11 +19,11 @@
       </button>
 
       <div id="incomplete-survey-message" class="inline-message">
-        <i class="ion-close" ng-click="close_inline_message(this)"></i>
+        <i class="ion-close" ng-click="close_inline_message($event)"></i>
         Your survey isn't quite done yet, so we saved it below to finish when you have time.
       </div>
 
-      <div id="complete-survey-message" class="inline-message">
+      <div id="complete-survey-message" class="inline-message shown">
         <i class="ion-close" ng-click="close_inline_message($event)"></i>
         Your survey is complete and listed below. Click to review or update your answers at any time.
       </div>

@@ -1,7 +1,9 @@
 /* app.scss: -*- css -*- Base styles and manifest for styles.
 
    Copyright (c) 2016 Brian J. Fox
-   Author: Brian J. Fox (bfox@opuslogica.com) Thu Jul  7 13:11:03 2016. */
+   Author: Brian J. Fox (bfox@opuslogica.com) Thu Jul  7 13:11:03 2016.
+   Author: Kevin Ponto (kponto@thehumaneffort.com) August 2016
+ */
 
 // Grid
 
@@ -307,7 +309,7 @@
       // Background & borders
       background-color: $color-ghost;
       display: none;
-      &.shown { display: initial; }
+      &.shown { display: block; }
       // Typography
 
       // Animation
@@ -1278,10 +1280,6 @@ div.instruction-box {
 
 
 // Dev classes
-
-
-
-
 
   .heatmap-wrapper {
       .google-map { height: 100%; }

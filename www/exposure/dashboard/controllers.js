@@ -1,13 +1,11 @@
 Controllers.controller('DashboardController', function($scope, $transitions, $q, $rootScope, $stateParams, Survey, ExposureCodename) {
 
-
   $scope.show_inline_message = function(id) {
-    var elt = angular.element(document.getElementById(id));
-    elt.addClass("shown");
+    angular.element(document.getElementById(id)).addClass("shown");
   };
 
-  $scope.close_inline_message = function(elt) {
-    angular.element(elt).removeClass("shown");
+  $scope.close_inline_message = function(event) {
+    angular.element(event.currentTarget).parent().removeClass("shown");
   };
   
   $scope.get_surveys = function() {
@@ -15,12 +13,17 @@ Controllers.controller('DashboardController', function($scope, $transitions, $q,
     var codenames = ExposureCodename.codenames;
     var promises = [];
 
-    for (var i = codenames.length - 1; i >= 0; i--) {
+    for (var i = 0, l = codenames.length; i < l; i++) {
       var promise = Survey.get_survey_by_codename(codenames[i]);
       promises.push(promise);
     };
 
     $q.all(promises).then(function(surveys) {
+      if (surveys) {
+        for (var i = codenames.length; i >= 0; i--) {
+          if (surveys[i] && !surveys[i].user) surveys.splice(i, 1);
+        }
+      }
       $scope.surveys = surveys;
     });
   };
@@ -58,13 +61,13 @@ Controllers.controller('DashboardController', function($scope, $transitions, $q,
 
   $scope.on_enter = function() {
     $scope.get_surveys();
-    if ($stateParams.show_message) {
-      $scope.show_inline_message($stateParams.show_message);
-    };
   };
 
-  $rootScope.$on("dashboard.i-fucking-hate-ionic-controller-caching", function() {
-    $scope.on_enter();
+  $rootScope.$on("dashboard.i-fucking-hate-ionic-controller-caching", $scope.get_surveys);
+  $rootScope.$on("dashboard.show-message", function(event, args) {
+    console.log("GOT HERE: ", args);
+    if (args && args.message)
+      $scope.show_inline_message(args.message);
   });
 
   $scope.on_enter();

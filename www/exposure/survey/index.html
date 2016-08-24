@@ -10,61 +10,62 @@
 <ion-nav-view>
   <ion-content class="survey-screen-content">
     <form>
-    <div class="instruction-box">
-      <p> Please fill out the form as best you can. It's entirely anonymous. Use the <em>codenames</em> to keep track of your family member's surveys on the dashboard.
-      </p>
-    </div>
-    <div ng-repeat="group in groups" class="form-group">
-      <h5 class="group-name" ng-bind="group.name"></h5>
-      <div class="list list-inset" ng-repeat="question in group.questions">
-      	<h5 class="list-label question-name answer-type-{{question.seltype}} {{question.data_type_class}}">
-	  <span ng-bind="question.name"></span>:
-	</h5>
-      	<span class="instructions question-instructions" ng-bind="question.instructions"></span>
-
-      	<!-- DEBUGGING: <h2 ng-bind="question.seltype"></h2> -->
-
-      	<!-- Codename, for example -->
-      	<span ng-if="question.seltype == 'fixed'">
-      	  <span class="answer fixed" ng-bind="question.answer"></span>
-	        <span class="regen" ng-if="question.name == 'Codename'" ng-click="regen_codename($event)"><i class="icon ion-refresh"></i></span>
-      	</span>
-
-      	<!-- Should be more like radio buttons - for Gender at Birth for example. -->
-      	<div ng-if="question.seltype == 'pick-one'">
-      	  <div class="list list-inset list-has-label">
-      	    <ion-list>
-      	      <ion-checkbox class="option-name" ng-click="pick_one(question, option)"
-		      ng-repeat="option in question.options" ng-model="option.checked">{{option.name}}</ion-checkbox>
-      	    </ion-list>
-      	  </div>
-      	</div>
-
-      	<div ng-if="question.seltype.startsWith('pick-many')">
-      	  <div class="list list-inset list-has-label">
-      	    <ion-list>
-      	      <ion-checkbox class="option-name" ng-repeat="option in question.options" ng-model="option.checked">{{option.name}}</ion-checkbox>
-      	      <ion-checkbox class="option-name other-option" ng-model="question.other_checked" ng-if="question.seltype == 'pick-many-with-other'"
-      		      ng-click="toggle_other(question)">Other...</ion-checkbox>
-      	      <input type="text" ng-model="question.answer" ng-if="question.other_checked" placeholder="Please tell us here..." />
-      	    </ion-list>
-      	  </div>
-      	</div>
-
-      	<div class="list list-inset list-has-label" ng-if="question.seltype == 'date'">
-          <label class="item item-input">
-            <span class="input-label">Date</span>
-            <input type="date" ng-model="question.answer">
-          </label>
-      	</div>
-
-      	<div class="list list-inset list-has-label" ng-if="question.seltype == 'location'">
-      	  <input type="location" ng-model="question.answer" placeholder="City and State, or ZIP code"/>
-      	</div>
-
+      <div class="instruction-box">
+	<p> Please fill out the form as best you can. It's entirely anonymous. Use the <em>codenames</em> to keep track of your family member's surveys on the dashboard.
+	</p>
       </div>
-    </div>
-    <button style="width: 90%; margin-left: auto; margin-right: auto;" class="button button-block button-light button-light-home button-light-cta" ng-click="submit_survey()">Submit Survey</button>
+      <div ng-repeat="group in groups" class="form-group">
+	<h5 class="group-name" ng-bind="group.name"></h5>
+	<div class="list list-inset" ng-repeat="question in group.questions">
+      	  <h5 class="list-label question-name answer-type-{{question.seltype}} {{question.data_type_class}}">
+	    <span ng-bind="question.name"></span>:
+	  </h5>
+      	  <span class="instructions question-instructions" ng-bind="question.instructions"></span>
+
+      	  <!-- DEBUGGING: <h2 ng-bind="question.seltype"></h2> -->
+
+      	  <!-- Codename, for example -->
+      	  <span ng-if="question.seltype == 'fixed'">
+      	    <span class="answer fixed" ng-bind="question.answer"></span>
+	    <span class="regen" ng-if="question.name == 'Codename'" ng-click="regen_codename($event)"><i class="icon ion-refresh"></i></span>
+      	  </span>
+
+      	  <!-- Should be more like radio buttons - for Gender at Birth for example. -->
+      	  <div ng-if="question.seltype == 'pick-one'">
+      	    <div class="list list-inset list-has-label">
+      	      <ion-list>
+      		<ion-checkbox class="option-name" ng-click="pick_one(question, option)"
+			ng-repeat="option in question.options" ng-model="option.checked">{{option.name}}</ion-checkbox>
+      	      </ion-list>
+      	    </div>
+      	  </div>
+
+      	  <div ng-if="question.seltype.startsWith('pick-many')">
+      	    <div class="list list-inset list-has-label">
+      	      <ion-list>
+      		<ion-checkbox class="option-name" ng-repeat="option in question.options" ng-model="option.checked">{{option.name}}</ion-checkbox>
+      		<ion-checkbox class="option-name other-option" ng-model="question.other_checked" ng-if="question.seltype == 'pick-many-with-other'"
+      			ng-click="toggle_other(question)">Other...</ion-checkbox>
+      		<input type="text" ng-model="question.answer" ng-if="question.other_checked" placeholder="Please tell us here..." />
+      	      </ion-list>
+      	    </div>
+      	  </div>
+
+      	  <div class="list list-inset list-has-label" ng-if="question.seltype == 'date'">
+            <label class="item item-input">
+              <span class="input-label">Date</span>
+              <input type="date" ng-model="question.answer">
+            </label>
+      	  </div>
+
+      	  <div class="list list-inset list-has-label" ng-if="question.seltype == 'location'">
+      	    <input type="location" ng-model="question.answer" placeholder="City and State, or ZIP code"/>
+      	  </div>
+
+	</div>
+      </div>
+      <button style="width: 90%; margin-left: auto; margin-right: auto;"
+	      class="button button-block button-light button-light-home button-light-cta" ng-click="submit_survey_button()">Submit Survey</button>
     </form>
   </ion-content>
 </ion-nav-view>

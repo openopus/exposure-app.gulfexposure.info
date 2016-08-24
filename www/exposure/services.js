@@ -33,6 +33,7 @@ Factories.factory("ExposureCodename", function($q, $api, $localStorage) {
     if (!service.codenames) service.get_all();
     if (!service.codenames) service.codenames = [];
 
+    service.forget(codename);
     service.codenames.unshift(codename);
     $localStorage.codenames = service.codenames;
     $localStorage.codename_index = 0;
@@ -101,7 +102,8 @@ Factories.factory("ExposureUser", function($q, $api, $localStorage) {
     }
 
     if (!user) {
-      defer.reject("No such user");
+      // defer.reject("No such user");
+      defer.resolve(null);
     }
 
     return result;
@@ -133,7 +135,8 @@ Factories.factory("ExposureUser", function($q, $api, $localStorage) {
           $localStorage.users = users;
           defer.resolve(user);
         } else {
-          defer.reject("No such user");
+          // defer.reject("No such user");
+          defer.resolve(null);
         }
       });
     }
