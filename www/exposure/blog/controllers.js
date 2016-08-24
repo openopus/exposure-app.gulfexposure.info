@@ -1,4 +1,4 @@
-Controllers.controller('BlogController', function($scope, $rootScope, $transitions, Posts) {
+Controllers.controller('BlogController', function($scope, $transitions, Posts) {
 
   $scope.refresh = function(force) {
     Posts.all(force)
@@ -47,7 +47,7 @@ Controllers.controller('BlogDetailController', function($scope, $stateParams, Po
 });
 
 Controllers.controller('BlogCreateController',
-function($scope, $transitions, $cordovaCamera, $ionicActionSheet, $timeout, ExposureCodename) {
+function($scope, $rootScope, $transitions, $cordovaCamera, $ionicActionSheet, $timeout, ExposureCodename) {
   $scope.post = { title: undefined, author: undefined, date: new Date(), content: undefined, images: [] };
 
   ExposureCodename.get().then(function(codename) { $scope.post.author = codename; });
@@ -55,8 +55,6 @@ function($scope, $transitions, $cordovaCamera, $ionicActionSheet, $timeout, Expo
   $scope.submit_post = function() {
     $rootScope.$broadcast("dashboard.show-message", { message: "submitted-story-message" });
     $scope.submit_survey(false);
-  };
-    $transitions.go("app.blog_thanks");
   };
 
   $scope.go_list = function(post) { $transitions.go("blog", { direction: "left" }); };
