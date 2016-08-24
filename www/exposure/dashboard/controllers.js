@@ -36,7 +36,7 @@ Controllers.controller('DashboardController', function($scope, $transitions, $q,
     }
   };
 
-  $scope.go_map = function() { $scope.fade_no_more(); $transitions.go("map", { type: "slide", direction: "down" }); };
+  $scope.go_map = function() { $scope.fade_no_more(); $transitions.go("map", { type: "slide", direction: "left" }); };
   $scope.go_blog = function() { $scope.fade_no_more(); $transitions.go("blog"); };
   $scope.go_create = function() { $scope.fade_no_more(); $transitions.go("blog_create", { type: "slide", direction: "up" }); };
   $scope.go_story = function() { $scope.fade_no_more(); $transitions.go("story", { type: "flip", direction: "right", duration: 600 }); }

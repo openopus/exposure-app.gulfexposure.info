@@ -2,7 +2,7 @@
   <ion-nav-title>Exposure</ion-nav-title>
   <ion-nav-buttons side="primary">
     <button class="button button-clear" ng-click="go_dashboard()">
-      <i class="ion-arrow-up-c" style="margin-right: 2px;"></i>Home
+      <i class="ion-home"></i>Home
     </button>
   </ion-nav-buttons>
 </ion-nav-bar>
@@ -11,9 +11,7 @@
   <ion-content class="survey-screen-content">
     <form>
     <div class="instruction-box">
-      <p> Please fill out the form to the best of your ability.  All
-	data is anonymous, and you can use your <emph>codename</emph> to
-	individualize different friend or family health surveys.
+      <p> Please fill out the form as best you can. It's entirely anonymous. Use the <em>codenames</em> to keep track of your family member's surveys on the dashboard.
       </p>
     </div>
     <div ng-repeat="group in groups" class="form-group">
@@ -27,9 +25,9 @@
       	<!-- DEBUGGING: <h2 ng-bind="question.seltype"></h2> -->
 
       	<!-- Codename, for example -->
-      	<span ng-if="question.seltype == 'fixed'" style="position: relative; display: inline-block; min-width: 65%;">
+      	<span ng-if="question.seltype == 'fixed'">
       	  <span class="answer fixed" ng-bind="question.answer"></span>
-	  <span class="regen" ng-if="question.name == 'Codename'" ng-click="regen_codename($event)"><i class="icon ion-refresh"></i></span>
+	        <span class="regen" ng-if="question.name == 'Codename'" ng-click="regen_codename($event)"><i class="icon ion-refresh"></i></span>
       	</span>
 
       	<!-- Should be more like radio buttons - for Gender at Birth for example. -->

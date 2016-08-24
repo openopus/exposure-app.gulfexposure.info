@@ -2,7 +2,7 @@
   <ion-nav-title>Exposure</ion-nav-title>
   <ion-nav-buttons side="primary">
     <button class="button button-clear" ng-click="go_story();">
-      <i class="ion-chevron-left"></i>Why
+      <i class="ion-help-circled"></i>Why
     </button>
   </ion-nav-buttons>
 </ion-nav-bar>
@@ -10,25 +10,41 @@
 <ion-nav-view>
   <ion-content class="home-screen no-footer">
     <div class="home-screen-content" id="the-dashboard">
+      <p class="dramatic-paragraph slow-fadein">
+        Help us shed light on the gulf spill's health effects by taking this anonymous survey one time for each of your family members who became sick
+      </p>
       <button class="button button-block button-light button-light-home button-light-cta
 		     button-has-subtext slow-fadein" ng-click="go_survey()">
-	New health survey
+	        New health survey
       </button>
-      <div ng-if="surveys" class="slow-fadein">
-	<h6 class="list-label list-label-centered">Previous surveys</h6>
-	<div class="previous-surveys-list" ng-repeat="survey in surveys" ng-click="go_survey(survey.user.codename)">
-          <span class="previous-surveys-list-item survey-status-{{survey.status}}">
-            <span class="survey-item-cell survey-subject" ng-bind="survey.user.codename"></span>
-            <span class="survey-item-cell survey-age"><span ng-bind="get_birthdate(survey) | asAge"></span>yo</span>
-            <span class="survey-item-cell survey-status survey-status-{{ survey.status }}">
-	      <span ng-bind="survey.status"></span>
-	      &nbsp;
-	      <span class="icon ion-chevron-right"></span>
-	    </span>
-	  </span>
-	</div>
+      <div id="incomplete-survey-message" class="inline-message">
+        <i class="ion-close"></i>
+        Your survey isn't quite done yet, so we saved it below to finish when you have time.
       </div>
-      <p class="button-subtext slow-fadein"> Complete once for each family member with health issues.</p>
+
+      <div id="complete-survey-message" class="inline-message">
+        <i class="ion-close"></i>
+        Your survey is complete and listed below. Click to review or update your answers at any time.
+      </div>
+
+      <div ng-if="surveys" class="slow-fadein">
+      	<h6 class="list-label list-label-centered">Your previous surveys:</h6>
+        <div class="previous-surveys-list">
+
+            <div ng-repeat="survey in surveys" ng-click="go_survey(survey.user.codename)" class="previous-surveys-list-item survey-status-{{survey.status}}">
+              <span class="survey-item-cell survey-subject" ng-bind="survey.user.codename"></span>
+              <span class="survey-item-cell survey-age">Age <span ng-bind="get_birthdate(survey) | asAge"></span></span>
+              <span class="survey-item-cell survey-status survey-status-{{ survey.status }}">
+                 <span ng-bind="survey.status"></span>
+                  &nbsp;
+                   <span class="icon ion-chevron-right"></span>
+              </span>
+            </div>
+
+        </div>
+      </div>
+
+      <hr>
 
       <button class="button button-block button-light button-light-home button-light-cta button-has-subtext slow-fadein" ng-click="go_map()">
 	See the map
@@ -40,10 +56,15 @@
       </button>
       <p class="button-subtext slow-fadein">View info about the situation.</p>
 
+      <div id="submitted-story-message" class="inline-message">
+        <i class="ion-close"></i>
+        Thank you for your telling your story. Our voices together will shed light on the truth.
+      </div>
+
       <button class="button button-block button-light button-light-home button-light-cta button-has-subtext slow-fadein" ng-click="go_create()">
 	Tell your story
       </button>
-      <p class="button-subtext slow-fadein">Tell us. We might add you to our blog!</p>
+      <p class="button-subtext slow-fadein">We might add your story to our blog!</p>
     </div>
   </ion-content>
 </ion-nav-view>

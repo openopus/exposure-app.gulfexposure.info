@@ -12,6 +12,7 @@
   $color-text: #c9ebf2;
   $color-quiet: darken($color-text, 20%);
   $color-whisper: darken($color-text, 50%);
+  $color-ghost: rgba($color-text, .1);
   $color-vibrant: #fbae17;
 
   $color-border: darken($color-text, 65%);
@@ -48,6 +49,21 @@
     background: -ms-linear-gradient(top,  $stop1,$stop2,$stop3); /* IE10+ */
     background: linear-gradient(to bottom,  $stop1 0,$stop2 $grid,$stop3 100%); /* W3C */
   }
+
+  @mixin corners($tr: 4px, $tl: 4px, $bl: 4px, $br: 4px) { /* this could probably be less verbose at some point */
+  -webkit-border-top-left-radius: $tr;
+  -moz-border-radius-topleft: $tr;
+  border-top-left-radius: $tr;
+  -webkit-border-top-right-radius: $tl;
+  -moz-border-radius-topright: $tl;
+  border-top-right-radius: $tl;
+  -webkit-border-bottom-left-radius: $bl;
+  -moz-border-radius-bottomleft: $bl;
+  border-bottom-left-radius: $bl;
+  -webkit-border-bottom-right-radius: $br;
+  -moz-border-radius-bottomright: $br;
+  border-bottom-right-radius: $br;
+}
 
 // Base
 
@@ -142,7 +158,7 @@
     // Mixins
 
     // Box properties
-    margin: 0;
+    margin: $grid / 4 0 0;
     // Background & borders
 
     // Typography
@@ -189,7 +205,7 @@
     // Mixins
 
     // Box properties
-    padding: 0 $grid * 1.5;
+    padding: 0 $grid / 2;
     // Background & borders
 
     // Typography
@@ -201,6 +217,21 @@
 
   }
 
+  hr {
+    // Mixins
+
+    // Box properties
+    margin: $grid * 1.5 0;
+    // Background & borders
+    border: none;
+    border-top: $border-dark;
+    // Typography
+    color: $color-whisper;
+    // Animation
+
+    // Other
+
+  }
 
 // Branding
 
@@ -263,6 +294,41 @@
   }
 
 // Globals
+
+  // Inline messages
+
+    .inline-message {
+      // Mixins
+      @include corners;
+      // Box properties
+      padding: $grid;
+      margin-bottom: $grid / 2;
+      position: relative;
+      // Background & borders
+      background-color: $color-ghost;
+      // Typography
+
+      // Animation
+
+      // Other
+
+      i {
+        // Mixins
+
+        // Box properties
+        position: absolute;
+        top: $grid / 4;
+        right: $grid / 2;
+        // Background & borders
+
+        // Typography
+        color: $color-whisper;
+        // Animation
+
+        // Other
+
+      }
+    }
 
   // Buttons
 
@@ -804,7 +870,7 @@
 
       // Box properties
       margin-top: $grid / 4;
-      margin-bottom: $grid / 4;
+      margin-bottom: $grid;
       // Background & borders
       border: $border-dark;
       // Typography
@@ -824,6 +890,7 @@
 
       // Typography
       color: $color-whisper;
+      line-height: $font_size;
       // Animation
 
       // Other
@@ -834,7 +901,7 @@
       // Mixins
 
       // Box properties
-      display: block;
+
       // Background & borders
       border-top: $border-dark;
       // Typography
@@ -865,10 +932,13 @@
 
       // Box properties
       display: inline-block;
-      padding: $grid / 4 2%;
+      padding: $grid / 2 2%;
       // Background & borders
 
       // Typography
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
       text-align: left;
       // Animation
 
@@ -896,6 +966,8 @@
 
       // Box properties
       width: 17%;
+      padding-left: 0;
+      padding-right: 0;
       // Background & borders
 
       // Typography
@@ -937,6 +1009,47 @@
     // Animation
 
     // Other
+
+  }
+
+  .regen {
+    // Mixins
+
+    // Box properties
+    margin-left: $grid / 4;
+    display: inline-block;
+    height: $grid;
+    width: $grid;
+    // Background & borders
+    // Typography
+    font-size: $grid;
+    text-align: right;
+    vertical-align: bottom;
+    // Animation
+
+    // Other
+
+  }
+
+  .regenerating {
+    // Mixins
+
+    // Box properties
+
+    // Background & borders
+
+    // Typography
+
+    // Animation
+    -webkit-animation: spin 1.5s linear infinite; /* Safari, Chrome and Opera > 12.1 */
+       -moz-animation: spin 1.5s linear infinite; /* Firefox < 16 */
+        -ms-animation: spin 1.5s linear infinite; /* Internet Explorer */
+         -o-animation: spin 1.5s linear infinite; /* Opera < 12.1 */
+            animation: spin 1.5s linear infinite;
+
+    // Other
+
+
 
   }
 
@@ -1015,137 +1128,155 @@ div.instruction-box {
 
 // Animations
 
+  // Fade-ins
 
-@keyframes fadeinup {
-  0% { opacity: 0; transform:translateY(5px);  }
-  25% { opacity: 0;  transform:translateY(5px); }
-  100%   { opacity: 1; transform:translateY(0);  }
-}
+    @keyframes fadeinup {
+      0% { opacity: 0; transform:translateY(5px);  }
+      25% { opacity: 0;  transform:translateY(5px); }
+      100%   { opacity: 1; transform:translateY(0);  }
+    }
 
-/* Firefox < 16 */
-@-moz-keyframes fadeinup {
-  0% { opacity: 0; transform:translateY(5px);  }
-  25% { opacity: 0;  transform:translateY(5px); }
-  100%   { opacity: 1; transform:translateY(0);  }
-}
+    /* Firefox < 16 */
+    @-moz-keyframes fadeinup {
+      0% { opacity: 0; transform:translateY(5px);  }
+      25% { opacity: 0;  transform:translateY(5px); }
+      100%   { opacity: 1; transform:translateY(0);  }
+    }
 
-/* Safari, Chrome and Opera > 12.1 */
-@-webkit-keyframes fadeinup {
-  0% { opacity: 0; transform:translateY(5px);  }
-  25% { opacity: 0;  transform:translateY(5px); }
-  100%   { opacity: 1; transform:translateY(0);  }
-}
+    /* Safari, Chrome and Opera > 12.1 */
+    @-webkit-keyframes fadeinup {
+      0% { opacity: 0; transform:translateY(5px);  }
+      25% { opacity: 0;  transform:translateY(5px); }
+      100%   { opacity: 1; transform:translateY(0);  }
+    }
 
-/* Internet Explorer */
-@-ms-keyframes fadeinup {
-  0% { opacity: 0; transform:translateY(5px);  }
-  25% { opacity: 0;  transform:translateY(5px); }
-  100%   { opacity: 1; transform:translateY(0);  }
-}
+    /* Internet Explorer */
+    @-ms-keyframes fadeinup {
+      0% { opacity: 0; transform:translateY(5px);  }
+      25% { opacity: 0;  transform:translateY(5px); }
+      100%   { opacity: 1; transform:translateY(0);  }
+    }
 
-/* Opera < 12.1 */
-@-o-keyframes fadeinup {
-  0% { opacity: 0; transform:translateY(5px);  }
-  25% { opacity: 0;  transform:translateY(5px); }
-  100%   { opacity: 1; transform:translateY(0);  }
-}
+    /* Opera < 12.1 */
+    @-o-keyframes fadeinup {
+      0% { opacity: 0; transform:translateY(5px);  }
+      25% { opacity: 0;  transform:translateY(5px); }
+      100%   { opacity: 1; transform:translateY(0);  }
+    }
 
-.smooth-fadein {
-  opacity: 0;
-    -webkit-animation: fadeinup 1.5s ease-out forwards; /* Safari, Chrome and Opera > 12.1 */
-       -moz-animation: fadeinup 1.5s ease-out forwards; /* Firefox < 16 */
-        -ms-animation: fadeinup 1.5s ease-out forwards; /* Internet Explorer */
-         -o-animation: fadeinup 1.5s ease-out forwards; /* Opera < 12.1 */
-            animation: fadeinup 1.5s ease-out forwards;
+    .smooth-fadein {
+      opacity: 0;
+        -webkit-animation: fadeinup 1.5s ease-out forwards; /* Safari, Chrome and Opera > 12.1 */
+           -moz-animation: fadeinup 1.5s ease-out forwards; /* Firefox < 16 */
+            -ms-animation: fadeinup 1.5s ease-out forwards; /* Internet Explorer */
+             -o-animation: fadeinup 1.5s ease-out forwards; /* Opera < 12.1 */
+                animation: fadeinup 1.5s ease-out forwards;
 
-}
+    }
 
-.slow-fadein {
-  opacity: 0;
-    -webkit-animation: fadeinup 3s ease-out forwards; /* Safari, Chrome and Opera > 12.1 */
-       -moz-animation: fadeinup 3s ease-out forwards; /* Firefox < 16 */
-        -ms-animation: fadeinup 3s ease-out forwards; /* Internet Explorer */
-         -o-animation: fadeinup 3s ease-out forwards; /* Opera < 12.1 */
-            animation: fadeinup 3s ease-out forwards;
+    .slow-fadein {
+      opacity: 0;
+        -webkit-animation: fadeinup 3s ease-out forwards; /* Safari, Chrome and Opera > 12.1 */
+           -moz-animation: fadeinup 3s ease-out forwards; /* Firefox < 16 */
+            -ms-animation: fadeinup 3s ease-out forwards; /* Internet Explorer */
+             -o-animation: fadeinup 3s ease-out forwards; /* Opera < 12.1 */
+                animation: fadeinup 3s ease-out forwards;
 
-}
+    }
 
-@keyframes nomo-fadein {
-  0% { opacity: 0;}
-  25% { opacity: 0;}
-  100%   { opacity: 1;}
-}
+    @keyframes nomo-fadein {
+      0% { opacity: 0;}
+      25% { opacity: 0;}
+      100%   { opacity: 1;}
+    }
 
-.nomo-fadein {
-  opacity: 0;
-    -webkit-animation: nomo-fadein 2.5s ease-out forwards; /* Safari, Chrome and Opera > 12.1 */
-       -moz-animation: nomo-fadein 2.5s ease-out forwards; /* Firefox < 16 */
-        -ms-animation: nomo-fadein 2.5s ease-out forwards; /* Internet Explorer */
-         -o-animation: nomo-fadein 2.5s ease-out forwards; /* Opera < 12.1 */
-            animation: nomo-fadein 2.5s ease-out forwards;
+    .nomo-fadein {
+      opacity: 0;
+        -webkit-animation: nomo-fadein 2.5s ease-out forwards; /* Safari, Chrome and Opera > 12.1 */
+           -moz-animation: nomo-fadein 2.5s ease-out forwards; /* Firefox < 16 */
+            -ms-animation: nomo-fadein 2.5s ease-out forwards; /* Internet Explorer */
+             -o-animation: nomo-fadein 2.5s ease-out forwards; /* Opera < 12.1 */
+                animation: nomo-fadein 2.5s ease-out forwards;
 
-}
+    }
 
-  $time-delay-1: 1.5s;
-  $time-delay-2: 3.5s;
-  $time-delay-3: 5.5s;
-  $time-delay-4: 7.5s;
-  $time-delay-5: 9.5s;
-  $time-delay-6: 11.5s;
-  $time-delay-7: 14.5s;
+      $time-delay-1: 1.5s;
+      $time-delay-2: 3.5s;
+      $time-delay-3: 5.5s;
+      $time-delay-4: 7.5s;
+      $time-delay-5: 9.5s;
+      $time-delay-6: 11.5s;
+      $time-delay-7: 14.5s;
 
-.delay-1 {
-  -webkit-animation-delay: $time-delay-1;
-     -moz-animation-delay: $time-delay-1;
-       -o-animation-delay: $time-delay-1;
-          animation-delay: $time-delay-1;
-}
+    .delay-1 {
+      -webkit-animation-delay: $time-delay-1;
+         -moz-animation-delay: $time-delay-1;
+           -o-animation-delay: $time-delay-1;
+              animation-delay: $time-delay-1;
+    }
 
-.delay-2 {
-  -webkit-animation-delay: $time-delay-2;
-     -moz-animation-delay: $time-delay-2;
-       -o-animation-delay: $time-delay-2;
-          animation-delay: $time-delay-2;
-}
+    .delay-2 {
+      -webkit-animation-delay: $time-delay-2;
+         -moz-animation-delay: $time-delay-2;
+           -o-animation-delay: $time-delay-2;
+              animation-delay: $time-delay-2;
+    }
 
-.delay-3 {
-  -webkit-animation-delay: $time-delay-3;
-     -moz-animation-delay: $time-delay-3;
-       -o-animation-delay: $time-delay-3;
-          animation-delay: $time-delay-3;
-}
+    .delay-3 {
+      -webkit-animation-delay: $time-delay-3;
+         -moz-animation-delay: $time-delay-3;
+           -o-animation-delay: $time-delay-3;
+              animation-delay: $time-delay-3;
+    }
 
-.delay-4 {
-  -webkit-animation-delay: $time-delay-4;
-     -moz-animation-delay: $time-delay-4;
-       -o-animation-delay: $time-delay-4;
-          animation-delay: $time-delay-4;
-}
+    .delay-4 {
+      -webkit-animation-delay: $time-delay-4;
+         -moz-animation-delay: $time-delay-4;
+           -o-animation-delay: $time-delay-4;
+              animation-delay: $time-delay-4;
+    }
 
-.delay-5 {
-  -webkit-animation-delay: $time-delay-5;
-     -moz-animation-delay: $time-delay-5;
-       -o-animation-delay: $time-delay-5;
-          animation-delay: $time-delay-5;
-}
+    .delay-5 {
+      -webkit-animation-delay: $time-delay-5;
+         -moz-animation-delay: $time-delay-5;
+           -o-animation-delay: $time-delay-5;
+              animation-delay: $time-delay-5;
+    }
 
-.delay-6 {
-  -webkit-animation-delay: $time-delay-6;
-     -moz-animation-delay: $time-delay-6;
-       -o-animation-delay: $time-delay-6;
-          animation-delay: $time-delay-6;
-}
+    .delay-6 {
+      -webkit-animation-delay: $time-delay-6;
+         -moz-animation-delay: $time-delay-6;
+           -o-animation-delay: $time-delay-6;
+              animation-delay: $time-delay-6;
+    }
 
-.delay-7 {
-  -webkit-animation-delay: $time-delay-7;
-     -moz-animation-delay: $time-delay-7;
-       -o-animation-delay: $time-delay-7;
-          animation-delay: $time-delay-7;
-}
+    .delay-7 {
+      -webkit-animation-delay: $time-delay-7;
+         -moz-animation-delay: $time-delay-7;
+           -o-animation-delay: $time-delay-7;
+              animation-delay: $time-delay-7;
+    }
+
+
+  // Spinner
+
+    @-moz-keyframes spin {
+      from { -moz-transform: rotate(0deg); }
+      to { -moz-transform: rotate(360deg); }
+    }
+    @-webkit-keyframes spin {
+      from { -webkit-transform: rotate(0deg); }
+      to { -webkit-transform: rotate(360deg); }
+    }
+    @keyframes spin {
+      from {transform:rotate(0deg);}
+      to {transform:rotate(360deg);}
+    }
+
 
 // Dev classes
 
- 
+
 
 
 
