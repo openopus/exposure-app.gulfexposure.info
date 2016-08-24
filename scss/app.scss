@@ -306,6 +306,8 @@
       position: relative;
       // Background & borders
       background-color: $color-ghost;
+      display: none;
+      &.shown { display: initial; }
       // Typography
 
       // Animation

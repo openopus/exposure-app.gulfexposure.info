@@ -9914,7 +9914,10 @@ div.title.title-center.header-item {
   padding: 22px;
   margin-bottom: 11px;
   position: relative;
-  background-color: rgba(201, 235, 242, 0.1); }
+  background-color: rgba(201, 235, 242, 0.1);
+  display: none; }
+  .inline-message.shown {
+    display: initial; }
   .inline-message i {
     position: absolute;
     top: 5.5px;
