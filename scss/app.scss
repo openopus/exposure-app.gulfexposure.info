@@ -7,7 +7,7 @@
 
   $grid: 22px;
 
-// Colors 
+// Colors
 
   $color-text: #c9ebf2;
   $color-quiet: darken($color-text, 20%);
@@ -37,6 +37,19 @@
 //  $ios-margin: 0px;
   $top-margin: 88px;
   $ios-margin: 44px;
+
+// Mixins
+
+  @mixin gradient($stop1, $stop2, $stop3) {
+    background: -moz-linear-gradient(top,  $stop1, $stop2, $stop3); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,0.01)), color-stop(16%,rgba(255,255,255,1)), color-stop(100%,rgba(255,255,255,1))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  $stop1,$stop2,$stop3); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  $stop1,$stop2,$stop3); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  $stop1,$stop2,$stop3); /* IE10+ */
+    background: linear-gradient(to bottom,  $stop1 0,$stop2 $grid,$stop3 100%); /* W3C */
+  }
+
+// Base
 
   body {
     // Mixins
@@ -129,7 +142,7 @@
     // Mixins
 
     // Box properties
-
+    margin: 0;
     // Background & borders
 
     // Typography
@@ -388,15 +401,14 @@
 
   .sticky-footer {
     // Mixins
-
+    @include gradient(rgba($color-dark-background, .0), $color-dark-background, $color-dark-background);
     // Box properties
     position: fixed;
     bottom: 0;
     left: 0;
     right: 0;
-    padding: $grid / 2;
+    padding: $grid $grid / 2 $grid / 2;
     // Background & borders
-    background-color: $color-dark-background;
     // Typography
 
     // Animation
@@ -720,7 +732,7 @@
     top: 66px;
     left: 0;
     right: 0;
-    bottom: 70px;
+    bottom: $grid * 2.5;
     padding-left: $grid;
     padding-right: $grid;
     padding-top: $grid;
@@ -755,6 +767,7 @@
       max-width: 600px;
       margin: 0 auto;
       position: relative;
+      padding-bottom:0;
       // Background & borders
 
       // Typography
@@ -1132,7 +1145,7 @@ div.instruction-box {
 
 // Dev classes
 
-
+ 
 
 
 

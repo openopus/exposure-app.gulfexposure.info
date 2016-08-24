@@ -9852,6 +9852,7 @@ h1, h2, h3, h4, h5, h6 {
     text-transform: lowercase; }
 
 .list-label-centered {
+  margin: 0;
   text-align: center; }
 
 a {
@@ -9921,12 +9922,23 @@ div.title.title-center.header-item {
   background-color: #1c2026; }
 
 .sticky-footer {
+  background: -moz-linear-gradient(top, rgba(28, 32, 38, 0), #1c2026, #1c2026);
+  /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(255, 255, 255, 0.01)), color-stop(16%, white), color-stop(100%, white));
+  /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, rgba(28, 32, 38, 0), #1c2026, #1c2026);
+  /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, rgba(28, 32, 38, 0), #1c2026, #1c2026);
+  /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, rgba(28, 32, 38, 0), #1c2026, #1c2026);
+  /* IE10+ */
+  background: linear-gradient(to bottom, rgba(28, 32, 38, 0) 0, #1c2026 22px, #1c2026 100%);
+  /* W3C */
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
-  padding: 11px;
-  background-color: #1c2026; }
+  padding: 22px 11px 11px; }
 
 .form-group {
   margin-bottom: 44px; }
@@ -10000,7 +10012,7 @@ input::-webkit-input-placeholder {
   top: 66px;
   left: 0;
   right: 0;
-  bottom: 70px;
+  bottom: 55px;
   padding-left: 22px;
   padding-right: 22px;
   padding-top: 22px;
@@ -10010,7 +10022,8 @@ input::-webkit-input-placeholder {
   .home-screen .info-box {
     max-width: 600px;
     margin: 0 auto;
-    position: relative; }
+    position: relative;
+    padding-bottom: 0; }
 
 .dramatic-paragraph {
   margin-bottom: 22px;
