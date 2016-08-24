@@ -9,7 +9,12 @@ Factories.factory("$api", function($http, $q) {
   service.update = function(thing, data) { return $http.put(baseURL + "/" + thing, data, service.extra_headers()); };
   service.delete = function(thing) { return $http.delete(baseURL + "/" + thing, service.extra_headers()); };
 
-  service.extra_headers = function() { return { headers: { "OLI-Device-ID" : window.oli_device_id } }; };
+  service.extra_headers = function() {
+    return {
+      /* headers: { "OLI-Device-ID" : window.oli_device_id } */
+    };
+  };
+
   return service;
 });
 
@@ -53,7 +58,7 @@ Factories.factory("ExposureCodename", function($q, $api, $localStorage) {
     if (!service.codenames) service.codenames = $localStorage.codenames || [];
 
     if (make_new_p) {
-      $api.create("user").then(function(response) {
+      $api.create("user", { "guid" : window.oli_device_id }).then(function(response) {
         service.set_current(response.data.codename);
         defer.resolve(service.codename);
       });
