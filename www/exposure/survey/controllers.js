@@ -163,10 +163,16 @@ Controllers.controller('SurveyController', function($scope, $transitions, $timeo
 
     Survey.zipper($scope.survey.groups, answers);
 
-    if (questions.length > answers.length) {
-      $rootScope.$broadcast("dashboard.show-message", { message: "incomplete-survey-message" });
-    } else {
+    var actually_answered = 0;
+    answers.forEach(function(ans) { if (ans.answer && ans.answer != "") actually_answered++; });
+
+    // console.log("Questions.length: " + questions.length + " - Answers.length " + answers.length + " - Actual " + actually_answered);
+    // console.log("answers", answers);
+
+    if (actually_answered >= questions.length) {
       $rootScope.$broadcast("dashboard.show-message", { message: "complete-survey-message" });
+    } else {
+      $rootScope.$broadcast("dashboard.show-message", { message: "incomplete-survey-message" });
     }
 
     if (answers.length > 1) {

@@ -9,7 +9,7 @@
 
 <ion-nav-view>
   <ion-content class="home-screen no-footer">
-    <div class="home-screen-content  slow-fadein" id="the-dashboard">
+    <div class="home-screen-content slow-fadein" id="the-dashboard">
       <p class="dramatic-paragraph">
         Help us shed light on the effects of the gulf spill by
 	taking this anonymous survey one time for each of your family
@@ -20,12 +20,12 @@
 	New health survey
       </button>
 
-      <div id="incomplete-survey-message" class="inline-message">
+      <div id="incomplete-survey-message" class="inline-message item-remove-animate">
         <i class="ion-close" ng-click="close_inline_message($event)"></i>
         Your survey isn't quite done yet, so we saved it below to finish when you have time.
       </div>
 
-      <div id="complete-survey-message" class="inline-message">
+      <div id="complete-survey-message" class="inline-message item-remove-animate">
         <i class="ion-close" ng-click="close_inline_message($event)"></i>
         Your survey is complete and listed below. Click to review or update your answers at any time.
       </div>
@@ -56,7 +56,7 @@
       </button>
       <p class="button-subtext">View info about the situation.</p>
 
-      <div id="submitted-story-message" class="inline-message">
+      <div id="submitted-story-message" class="inline-message fade">
         <i class="ion-close" ng-click="close_inline_message($event)"></i>
         Thank you for your telling your story. Our voices together will shed light on the truth.
       </div>
