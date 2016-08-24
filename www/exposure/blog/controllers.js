@@ -53,14 +53,14 @@ function($scope, $rootScope, $transitions, $cordovaCamera, $ionicActionSheet, $t
   ExposureCodename.get().then(function(codename) { $scope.post.author = codename; });
 
   $scope.submit_post = function() {
+    // Posts.create($scope.post).then(function(response) {
+    // });
     $rootScope.$broadcast("dashboard.show-message", { message: "submitted-story-message" });
-    $scope.submit_survey(false);
+    $transitions.go("dashboard", { type: "slide", direction: "down" }); 
   };
 
   $scope.go_list = function(post) { $transitions.go("blog", { direction: "left" }); };
-
   $scope.go_back = function() { $transitions.go("dashboard", { type: "slide", direction: "down" }); };
-  // $scope.go_back = function() { $transitions.go("dashboard", { type: "slide", direction: "right" }); };
 
   $scope.edit_image = function (index) {
     var remove_image = function() {

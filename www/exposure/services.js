@@ -3,12 +3,13 @@ Factories.factory("$api", function($http, $q) {
   var baseURL = "https://api.gulfexposure.info/api";
   // baseURL = "http://localhost:3000/api";
 
-  service.get = function(thing) { return $http.get(baseURL + "/" + thing); };
-  service.create = function(thing, data) { return $http.post(baseURL + "/" + thing, data); };
-  service.post   = function(thing, data) { return $http.post(baseURL + "/" + thing, data); };
-  service.update = function(thing, data) { return $http.put(baseURL + "/" + thing, data); };
-  service.delete = function(thing) { return $http.delete(baseURL + "/" + thing); };
+  service.get = function(thing) { return $http.get(baseURL + "/" + thing, service.extra_headers()); };
+  service.create = function(thing, data) { return $http.post(baseURL + "/" + thing, data, service.extra_headers()); };
+  service.post   = function(thing, data) { return $http.post(baseURL + "/" + thing, data, service.extra_headers()); };
+  service.update = function(thing, data) { return $http.put(baseURL + "/" + thing, data, service.extra_headers()); };
+  service.delete = function(thing) { return $http.delete(baseURL + "/" + thing, service.extra_headers()); };
 
+  service.extra_headers = function() { return { headers: { "OLI-Device-ID" : window.oli_device_id } }; };
   return service;
 });
 

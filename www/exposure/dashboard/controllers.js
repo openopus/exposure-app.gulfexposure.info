@@ -1,9 +1,12 @@
 Controllers.controller('DashboardController', function($scope, $transitions, $q, $rootScope, $stateParams, $timeout, Survey, ExposureCodename) {
 
   $scope.show_inline_message = function(id) {
-    var elt = angular.element(document.getElementById(id));
-    elt.addClass("shown");
-    $timeout(function() { elt.removeClass("shown"); }, 5000);
+    var raw = document.getElementById(id);
+    if (raw) {
+      var elt = angular.element(raw);
+      elt.addClass("shown");
+      $timeout(function() { elt.removeClass("shown"); }, 5000);
+    }
   };
 
   $scope.close_inline_message = function(event) {

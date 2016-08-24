@@ -55,12 +55,13 @@ OLIWordpress.factory('Posts', function($http, $q) {
     return result;
   };
 
-  service.createPost = function(title, content, image) {
+  service.create = function(post) {
     var authdata = "cmlzaW5nQ29udHJpYnV0b3I6ZVRzd1cmTmFrQkJQeCZaZTN4UjNVMUsx";
-    var data = { title: title, content: content };
     var config = { headers: { 'Authorization': 'Basic ' + authdata } };
 
-    return $http.post(service.url, data, config);
+    /* Do something good with the images. */
+    
+    return $http.post(service.url, post, config);
   };
 
   return service;
