@@ -17,21 +17,35 @@
       <div ng-repeat="group in groups" class="form-group">
 	<h5 class="group-name" ng-bind="group.name"></h5>
 	<div class="list list-inset" ng-repeat="question in group.questions">
-      	  <h5 class="list-label question-name answer-type-{{question.seltype}} {{question.data_type_class}}">
-	    <span ng-bind="question.name"></span>:
-	  </h5>
-      	  <span class="instructions question-instructions" ng-bind="question.instructions"></span>
+	  <span dependent-on="{{question.dependent_on}}" dependent-value="{{question.dependent_value}}">
+	    <span ng-if="question.seltype == 'boolean'">
+	      <div class="list list-inset list-has-label">
+		<ion-list>
+      		  <ion-checkbox ng-if="question.seltype == 'boolean'" class="option-name" ng-click="update_boolean(question)"
+			  ng-model="question.checked">
+		    <span ng-bind="question.name"></span>
+		  </ion-checkbox>
+		</ion-list>
+	      </div>
+	    </span>
+	    <span ng-if="!(question.seltype == 'boolean')">
+      	      <h5 class="list-label question-name answer-type-{{question.seltype}} {{question.data_type_class}}">
+		<span ng-bind="question.name"></span>:
+	      </h5>
+	    </span>
+      	    <span class="instructions question-instructions" ng-bind="question.instructions"></span>
+	  </span>
 
       	  <!-- DEBUGGING: <h2 ng-bind="question.seltype"></h2> -->
 
       	  <!-- Codename, for example -->
-      	  <span ng-if="question.seltype == 'fixed'">
+      	  <span ng-if="question.seltype == 'fixed'" dependent-on="{{question.dependent_on}}" dependent-value="{{question.dependent_value}}">
       	    <span class="answer fixed" ng-bind="question.answer"></span>
-	    <span class="regen" ng-if="question.name == 'Codename'" ng-click="regen_codename($event)"><i class="icon ion-refresh"></i></span>
+	    <span class="regen" ng-if="question.tag == 'codename'" ng-click="regen_codename($event)"><i class="icon ion-refresh"></i></span>
       	  </span>
 
       	  <!-- Should be more like radio buttons - for Gender at Birth for example. -->
-      	  <div ng-if="question.seltype == 'pick-one'">
+      	  <div ng-if="question.seltype == 'pick-one'" dependent-on="{{question.dependent_on}}" dependent-value="{{question.dependent_value}}">
       	    <div class="list list-inset list-has-label">
       	      <ion-list>
       		<ion-checkbox class="option-name" ng-click="pick_one(question, option)"
@@ -40,7 +54,7 @@
       	    </div>
       	  </div>
 
-      	  <div ng-if="question.seltype.startsWith('pick-many')">
+      	  <div ng-if="question.seltype.startsWith('pick-many')" dependent-on="{{question.dependent_on}}" dependent-value="{{question.dependent_value}}">
       	    <div class="list list-inset list-has-label">
       	      <ion-list>
       		<ion-checkbox class="option-name" ng-repeat="option in question.options" ng-model="option.checked">{{option.name}}</ion-checkbox>

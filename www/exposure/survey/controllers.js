@@ -62,45 +62,6 @@ Controllers.controller('SurveyController', function($scope, $transitions, $timeo
     });
   };
 
-  $scope.setup = function() {
-    var survey_promise;
-    var update_path = false;
-
-    $scope.get_geolocation();
-
-    if ($stateParams.codename) {
-      survey_promise = Survey.get_survey_by_codename($stateParams.codename);
-    } else {
-      survey_promise = Survey.new_survey();
-      update_path = true;
-    }
-
-    survey_promise.then(function(survey) {
-      Survey.zipper(Survey.groups, survey.answers, { location: $scope.zipcode });
-      var codename_question = Survey.get_question_by_name("Codename");
-      if (codename_question) codename_question.answer = survey.user.codename;
-      ExposureCodename.set_current(survey.user.codename);
-      $scope.survey = survey;
-      $scope.deferred_survey.resolve(true);
-      /* Don't do this in production.  It was a helper for development. */
-      if (false && update_path) {
-        $location.path("/survey/" + survey.user.codename);
-      }
-    });
-
-    $q.all([$scope.deferred_survey.promise, $scope.deferred_location.promise]).then(function(values) {
-      var location_questions = Survey.get_questions_by_seltype("location", $scope.survey.groups);
-      location_questions.forEach(function(question) {
-        if (!question.answer) {
-          if ($scope.location && $scope.location != ", ")
-            question.answer = $scope.location;
-          else
-            question.answer = $scope.zipcode;
-        }
-      });
-    });
-  };
-
   $scope.answer_of_question = function(question) {
     var answer = question.answer || "";
 
@@ -131,7 +92,7 @@ Controllers.controller('SurveyController', function($scope, $transitions, $timeo
         var api_user = response.data;
         $scope.survey.user.codename = api_user.codename;
         $scope.survey.codename = api_user.codename;
-        var codename_question = Survey.get_question_by_name("Codename");
+        var codename_question = Survey.get_question_by_tag("codename");
         if (codename_question) codename_question.answer = $scope.survey.user.codename;
         ExposureCodename.set_current($scope.survey.user.codename);
         if (elt) {
@@ -141,6 +102,28 @@ Controllers.controller('SurveyController', function($scope, $transitions, $timeo
     };
 
     $timeout(do_regen, 800);
+  };
+
+  $scope.hide_show_dependents = function(question) {
+    var dependents = document.querySelectorAll("[dependent-on='" + question.tag + "']");
+
+    if (dependents) {
+      var showing = (question.answer == "Yes");
+
+      dependents.forEach(function(dep) {
+        if (showing)
+          angular.element(dep).css("display", "inherit");
+        else
+          angular.element(dep).css("display", "none");
+      });
+    }
+  };
+
+  $scope.update_boolean = function(question) {
+    var value = (question.answer == "No" || !question.answer) ? "Yes" : "No";
+    question.answer = value;
+
+    $scope.hide_show_dependents(question);
   };
 
   $scope.submit_survey_button = function() {
@@ -188,5 +171,52 @@ Controllers.controller('SurveyController', function($scope, $transitions, $timeo
     }
   };
   
+  $scope.setup = function() {
+    var update_path = false;
+    var promises = [];
+
+    $scope.get_geolocation();
+
+    if ($stateParams.codename) {
+      promises.push(Survey.get_survey_by_codename($stateParams.codename));
+      promises.push(ExposureUser.get_by_codename($stateParams.codename));
+    } else {
+      promises.push(Survey.new_survey());
+      update_path = true;
+    }
+
+    $q.all(promises).then(function(values) {
+      var survey = values[0];
+      var user = values[1];
+      if (!survey.user) survey.user = user;
+      Survey.zipper(Survey.groups, survey.answers, { location: $scope.zipcode });
+      var codename_question = Survey.get_question_by_tag("codename");
+      if (codename_question) codename_question.answer = survey.user.codename;
+      ExposureCodename.set_current(survey.user.codename);
+      $scope.survey = survey;
+      $scope.deferred_survey.resolve(true);
+
+      var cancer_question = Survey.get_question_by_tag("has_cancer");
+      if (cancer_question) $scope.hide_show_dependents(cancer_question);
+
+      /* Don't do this in production.  It was a helper for development. */
+      if (false && update_path) {
+        $location.path("/survey/" + survey.user.codename);
+      }
+    });
+
+    $q.all([$scope.deferred_survey.promise, $scope.deferred_location.promise]).then(function(values) {
+      var location_questions = Survey.get_questions_by_seltype("location", $scope.survey.groups);
+      location_questions.forEach(function(question) {
+        if (!question.answer) {
+          if ($scope.location && $scope.location != ", ")
+            question.answer = $scope.location;
+          else
+            question.answer = $scope.zipcode;
+        }
+      });
+    });
+  };
+
   $scope.setup();
 });

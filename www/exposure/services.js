@@ -1,7 +1,7 @@
 Factories.factory("$api", function($http, $q) {
   var service = {};
   var baseURL = "https://api.gulfexposure.info/api";
-  // baseURL = "http://localhost:3000/api";
+  baseURL = "http://localhost:3000/api";
 
   service.get = function(thing) { return $http.get(baseURL + "/" + thing, service.extra_headers()); };
   service.create = function(thing, data) { return $http.post(baseURL + "/" + thing, data, service.extra_headers()); };
@@ -11,7 +11,7 @@ Factories.factory("$api", function($http, $q) {
 
   service.extra_headers = function() {
     return {
-      /* headers: { "OLI-Device-ID" : window.oli_device_id } */
+      headers: { "OLI-Device-ID" : window.oli_device_id }
     };
   };
 

@@ -147,6 +147,20 @@ Services.factory('Survey', function($api, $q, ExposureCodename, ExposureUser) {
     return result;
   };
 
+  service.get_question_by_tag = function(tag) {
+    var questions = service.get_questions(service.groups);
+    var result = null;
+
+    for (var i = questions.length - 1; i >= 0; i--) {
+      if (questions[i].tag == tag) {
+        result = questions[i];
+        break;
+      }
+    }
+
+    return result;
+  };
+
   service.get_answer_by_question_id = function(question_id, answers) {
     var answer = null;
 
@@ -226,6 +240,11 @@ Services.factory('Survey', function($api, $q, ExposureCodename, ExposureUser) {
           value = answer.answer;
 
         if (value) {
+
+          if (question.seltype == "boolean") {
+            question.checked = (answer.value == 'Yes');
+          }
+
 
           if (question.seltype == "date") {
             if (typeof value == "string")
