@@ -21,8 +21,8 @@
 	    <span ng-if="question.seltype == 'boolean'">
 	      <div class="list list-inset list-has-label">
 		<ion-list>
-      		  <ion-checkbox ng-if="question.seltype == 'boolean'" class="option-name" ng-click="update_boolean(question)"
-			  ng-model="question.checked">
+      		  <ion-checkbox ng-if="question.seltype == 'boolean'" class="option-name"
+			  ng-model="question.checked" ng-change="update_boolean(question)">
 		    <span ng-bind="question.name"></span>
 		  </ion-checkbox>
 		</ion-list>

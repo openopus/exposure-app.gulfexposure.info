@@ -238,14 +238,13 @@ Services.factory('Survey', function($api, $q, ExposureCodename, ExposureUser) {
           value = answer.value;
         else if (answer.answer)
           value = answer.answer;
+      }
 
-        if (value) {
+      if (question.seltype == "boolean") {
+        question.checked = (value == 'Yes');
+      }
 
-          if (question.seltype == "boolean") {
-            question.checked = (answer.value == 'Yes');
-          }
-
-
+      if (value) {
           if (question.seltype == "date") {
             if (typeof value == "string")
               value = new Date(value);
@@ -275,10 +274,8 @@ Services.factory('Survey', function($api, $q, ExposureCodename, ExposureUser) {
               question.other_checked = true;
             }
           }
-
-          question.answer = value;
         }
-      }
+      question.answer = value;
     });
   };
 

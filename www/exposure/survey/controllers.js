@@ -108,7 +108,7 @@ Controllers.controller('SurveyController', function($scope, $transitions, $timeo
     var dependents = document.querySelectorAll("[dependent-on='" + question.tag + "']");
 
     if (dependents) {
-      var showing = (question.answer == "Yes");
+      var showing = question.checked;
 
       dependents.forEach(function(dep) {
         if (showing)
@@ -120,7 +120,7 @@ Controllers.controller('SurveyController', function($scope, $transitions, $timeo
   };
 
   $scope.update_boolean = function(question) {
-    var value = (question.answer == "No" || !question.answer) ? "Yes" : "No";
+    var value = question.checked ? "Yes" : "No";
     question.answer = value;
 
     $scope.hide_show_dependents(question);
@@ -188,19 +188,30 @@ Controllers.controller('SurveyController', function($scope, $transitions, $timeo
     $q.all(promises).then(function(values) {
       var survey = values[0];
       var user = values[1];
+      var codename = user ? user.codename : "<no-codename>";
       if (!survey.user) survey.user = user;
       Survey.zipper(Survey.groups, survey.answers, { location: $scope.zipcode });
+
       var codename_question = Survey.get_question_by_tag("codename");
-      if (codename_question) codename_question.answer = survey.user.codename;
-      ExposureCodename.set_current(survey.user.codename);
+      if (user && codename_question) {
+        codename_question.answer = user.codename;
+        ExposureCodename.set_current(user.codename);
+      } else if (codename_question) {
+        codename_question.answer = "<no-codename>";
+      }
+
       $scope.survey = survey;
       $scope.deferred_survey.resolve(true);
 
-      var cancer_question = Survey.get_question_by_tag("has_cancer");
-      if (cancer_question) $scope.hide_show_dependents(cancer_question);
+      var questions = Survey.get_questions(survey.groups);
+      questions.forEach(function(q) {
+        if (q.seltype == "boolean") {
+          $scope.hide_show_dependents(q);
+        }
+      });
 
       /* Don't do this in production.  It was a helper for development. */
-      if (false && update_path) {
+      if (/* false && */ update_path) {
         $location.path("/survey/" + survey.user.codename);
       }
     });
