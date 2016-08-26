@@ -185,15 +185,15 @@ Controllers.controller('SurveyController', function($scope, $transitions, $timeo
 
     $q.all(promises).then(function(values) {
       var survey = values[0];
-      var user = values[1];
-      var codename = user ? user.codename : "<no-codename>";
+      var user = values[1] ? values[1] : survey.user;
+
       if (!survey.user) survey.user = user;
       Survey.zipper(Survey.groups, survey.answers, { location: $scope.zipcode });
 
       var codename_question = Survey.get_question_by_tag("codename");
-      if (user && codename_question) {
-        codename_question.answer = user.codename;
-        ExposureCodename.set_current(user.codename);
+      if (survey.user && codename_question) {
+        codename_question.answer = survey.user.codename;
+        ExposureCodename.set_current(survey.user.codename);
       } else if (codename_question) {
         codename_question.answer = "<no-codename>";
       }
