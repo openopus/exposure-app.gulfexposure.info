@@ -20,31 +20,43 @@ angular.module('angular-content-editable', [])
 
     var noEscape = true;
     var originalElement = elem[0];
+    var placeholder = null;
     // get default usage options
     var options = angular.copy(contentEditable);
     // update options with attributes
     angular.forEach(options, function (val, key) {
-      if( key in attrs && typeof attrs[key] !== 'undefined' ) { options[key] = attrs[key]; }
+      if (key in attrs && typeof attrs[key] !== 'undefined') { options[key] = attrs[key]; }
     })
 
     // if model is invalid or null
     // fill his value with elem html content
-    if( !scope.ngModel ) {
-      ngModel.$setViewValue( elem.html() );
+    if (!scope.ngModel) {
+      placeholder = elem.html();
+      elem.css("opacity", "0.7");
+      elem.css("font-style", "italic");
+      // ngModel.$setViewValue(elem.html());
     }
 
-    // add editable class
+    // Add editable class.
     attrs.$addClass(options.editableClass);
 
     // render always with model value
     ngModel.$render = function() {
-      elem.html( ngModel.$modelValue || '' );
+      if (!scope.ngModel)
+        elem.html(placeholder || "Edit this area");
+      else
+        elem.html(ngModel.$modelValue || '');
     }
 
     // handle click on element
     function onClick(e){
       e.preventDefault();
       attrs.$set('contenteditable', 'true');
+      if (elem.html() == placeholder) {
+        elem.html("");
+        elem.css("opacity", "1.0");
+        elem.css("font-style", "inherit");
+      }
       return originalElement.focus();
     }
 
@@ -59,12 +71,6 @@ angular.module('angular-content-editable', [])
         range.selectNodeContents( originalElement );
         $window.getSelection().addRange(range);
       }
-      // if render-html is enabled convert
-      // all text content to plaintext
-      // in order to modify html tags
-//      if( options.renderHtml ) {
-//        originalElement.textContent = elem.html();
-//      }
     }
 
     function onBlur(e) {
@@ -80,20 +86,30 @@ angular.module('angular-content-editable', [])
         // replace all blank spaces
         html = originalElement.textContent.replace(/\u00a0/g, " ");
         // update elem html value
+        if (!html) {
+          html = placeholder;
+          elem.css("opacity", "0.7");
+          elem.css("font-style", "italic");
+        } else {
+          elem.css("opacity", "1.0");
+          elem.css("font-style", "inherit");
+        }
+        
         elem.html(html);
-
       } else {
-        // get element content replacing html tag
-        // html = elem.html().replace(/&nbsp;/g, ' ');
         html = elem.html();
+        if (!html) {
+          elem.html(placeholder);
+          elem.css("opacity", "0.7");
+          elem.css("font-style", "italic");
+        }
       }
 
       // if element value is
       // different from model value
       if (html != ngModel.$modelValue) {
-
         /* This method should be called  when a controller wants to change the view value. */
-        ngModel.$setViewValue(html)
+        if (html) ngModel.$setViewValue(html);
         /* if user passed a variable and is a function */
         if (scope.editCallback && angular.isFunction(scope.editCallback)) {
           /* Apply the callback with arguments: current text and element. */
