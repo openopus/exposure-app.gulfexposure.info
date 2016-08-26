@@ -21,8 +21,7 @@
 	    <span ng-if="question.seltype == 'boolean'">
 	      <div class="list list-inset list-has-label">
 		<ion-list>
-      		  <ion-checkbox ng-if="question.seltype == 'boolean'" class="option-name"
-			  ng-model="question.checked" ng-change="update_boolean(question)">
+      		  <ion-checkbox ng-if="question.seltype == 'boolean'" class="option-name" ng-click="update_boolean(question)" ng-model="question.checked">
 		    <span ng-bind="question.name"></span>
 		  </ion-checkbox>
 		</ion-list>
@@ -35,8 +34,6 @@
 	    </span>
       	    <span class="instructions question-instructions" ng-bind="question.instructions"></span>
 	  </span>
-
-      	  <!-- DEBUGGING: <h2 ng-bind="question.seltype"></h2> -->
 
       	  <!-- Codename, for example -->
       	  <span ng-if="question.seltype == 'fixed'" dependent-on="{{question.dependent_on}}" dependent-value="{{question.dependent_value}}">
@@ -75,7 +72,6 @@
       	  <div class="list list-inset list-has-label" ng-if="question.seltype == 'location'">
       	    <input type="location" ng-model="question.answer" placeholder="City and State, or ZIP code"/>
       	  </div>
-
 	</div>
       </div>
       <button style="width: 90%; margin-left: auto; margin-right: auto;"

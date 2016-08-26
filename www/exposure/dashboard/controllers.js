@@ -5,12 +5,14 @@ Controllers.controller('DashboardController', function($scope, $transitions, $q,
     if (raw) {
       var elt = angular.element(raw);
       elt.addClass("shown");
-      $timeout(function() { elt.removeClass("shown"); }, 5000);
+      $scope.inline_message_showing = true;
+      // $timeout(function() { elt.removeClass("shown"); }, 5000);
     }
   };
 
   $scope.close_inline_message = function(event) {
     angular.element(event.currentTarget).parent().removeClass("shown");
+    $scope.inline_message_showing = false;
   };
   
   $scope.get_surveys = function() {
@@ -70,8 +72,8 @@ Controllers.controller('DashboardController', function($scope, $transitions, $q,
 
   $rootScope.$on("dashboard.i-fucking-hate-ionic-controller-caching", $scope.get_surveys);
   $rootScope.$on("dashboard.show-message", function(event, args) {
-    if (args && args.message)
-      $scope.show_inline_message(args.message);
+    if (args && args.message) $scope.show_inline_message(args.message);
+    if (args && args.codename) $scope.messaged_codename = args.codename;
   });
 
   $scope.on_enter();

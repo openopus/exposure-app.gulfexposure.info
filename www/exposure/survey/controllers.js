@@ -65,8 +65,8 @@ Controllers.controller('SurveyController', function($scope, $transitions, $timeo
   $scope.answer_of_question = function(question) {
     var answer = question.answer || "";
 
-    if (question.seltype == 'fixed') {
-      /* Do nothing special. */
+    if (question.seltype == 'fixed' || question.seltype == "boolean") {
+      /* Do nothing special, question.answer is already the right thing. */
     } else if (question.seltype.startsWith('pick')) {
       if (!question.other_checked) answer = "";
       question.options.forEach(function(option) {
@@ -110,19 +110,17 @@ Controllers.controller('SurveyController', function($scope, $transitions, $timeo
     if (dependents) {
       var showing = question.checked;
 
-      dependents.forEach(function(dep) {
+      for (var i = 0; i < dependents.length; i++) {
+        var dep = dependents[i];
         if (showing)
           angular.element(dep).css("display", "inherit");
         else
           angular.element(dep).css("display", "none");
-      });
+      }
     }
   };
 
   $scope.update_boolean = function(question) {
-    var value = question.checked ? "Yes" : "No";
-    question.answer = value;
-
     $scope.hide_show_dependents(question);
   };
 
@@ -153,9 +151,9 @@ Controllers.controller('SurveyController', function($scope, $transitions, $timeo
     // console.log("answers", answers);
 
     if (actually_answered >= questions.length) {
-      $rootScope.$broadcast("dashboard.show-message", { message: "complete-survey-message" });
+      $rootScope.$broadcast("dashboard.show-message", { message: "complete-survey-message", codename: $scope.survey.codename });
     } else {
-      $rootScope.$broadcast("dashboard.show-message", { message: "incomplete-survey-message" });
+      $rootScope.$broadcast("dashboard.show-message", { message: "incomplete-survey-message", codename: $scope.survey.codename });
     }
 
     if (answers.length > 1) {
@@ -211,7 +209,7 @@ Controllers.controller('SurveyController', function($scope, $transitions, $timeo
       });
 
       /* Don't do this in production.  It was a helper for development. */
-      if (/* false && */ update_path) {
+      if (!window.cordova && update_path) {
         $location.path("/survey/" + survey.user.codename);
       }
     });

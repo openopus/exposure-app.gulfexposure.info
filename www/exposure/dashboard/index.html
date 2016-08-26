@@ -10,7 +10,22 @@
 <ion-nav-view>
   <ion-content class="home-screen no-footer">
     <div class="home-screen-content slow-fadein" id="the-dashboard">
-      <p class="dramatic-paragraph">
+      <div id="submitted-story-message" class="inline-message fade">
+        <i class="ion-close" ng-click="close_inline_message($event)"></i>
+        Thank you for your telling your story. Our voices together will shed light on the truth.
+      </div>
+
+      <div id="incomplete-survey-message" class="inline-message item-remove-animate">
+        <i class="ion-close" ng-click="close_inline_message($event)"></i>
+        Your survey for {{messaged_codename}} isn't quite done yet, so we saved it below to finish when you have time.
+      </div>
+
+      <div id="complete-survey-message" class="inline-message item-remove-animate">
+        <i class="ion-close" ng-click="close_inline_message($event)"></i>
+        Your survey for {{messaged_codename}} is complete and listed below. Click to review or update your answers at any time.
+      </div>
+
+      <p class="dramatic-paragraph" ng-if="!inline_message_showing">
         Help us shed light on the effects of the gulf spill by
 	taking this anonymous survey one time for each of your family
 	members who became sick.
@@ -20,20 +35,10 @@
 	New health survey
       </button>
 
-      <div id="incomplete-survey-message" class="inline-message item-remove-animate">
-        <i class="ion-close" ng-click="close_inline_message($event)"></i>
-        Your survey isn't quite done yet, so we saved it below to finish when you have time.
-      </div>
-
-      <div id="complete-survey-message" class="inline-message item-remove-animate">
-        <i class="ion-close" ng-click="close_inline_message($event)"></i>
-        Your survey is complete and listed below. Click to review or update your answers at any time.
-      </div>
-
       <div ng-if="surveys && surveys.length > 0" class="">
       	<h6 class="list-label list-label-centered">Your previous surveys:</h6>
         <div class="previous-surveys-list">
-          <div ng-repeat="survey in surveys" ng-click="go_survey(survey.user.codename)" class="previous-surveys-list-item survey-status-{{survey.status}}">
+          <ion-item ng-repeat="survey in surveys" ng-click="go_survey(survey.user.codename)" class="previous-surveys-list-item survey-status-{{survey.status}}">
             <span class="survey-item-cell survey-subject" ng-bind="survey.user.codename"></span>
             <span class="survey-item-cell survey-age">Age <span ng-bind="get_birthdate(survey) | asAge"></span></span>
             <span class="survey-item-cell survey-status survey-status-{{ survey.status }}">
@@ -41,10 +46,11 @@
               &nbsp;
               <span class="icon ion-chevron-right"></span>
             </span>
-          </div>
+	    <ion-delete-button class="ion-minus-circled" ng-click="remove_survey(survey, $index)"></ion-delete-button>
+          </ion-item>
         </div>
       </div>
-      <hr>
+      <!-- <hr> -->
 
       <button class="button button-block button-light button-light-home button-light-cta button-has-subtext" ng-click="go_map()">
 	See the map
@@ -55,11 +61,6 @@
 	Read the blog
       </button>
       <p class="button-subtext">View info about the situation.</p>
-
-      <div id="submitted-story-message" class="inline-message fade">
-        <i class="ion-close" ng-click="close_inline_message($event)"></i>
-        Thank you for your telling your story. Our voices together will shed light on the truth.
-      </div>
 
       <button class="button button-block button-light button-light-home button-light-cta button-has-subtext" ng-click="go_create()">
 	Tell your story
