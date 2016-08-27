@@ -46,17 +46,32 @@ Controllers.controller('BlogDetailController', function($scope, $stateParams, Po
   });
 });
 
+/* *************************************************************** */
+/*                                                                 */
+/*                    WORDPRESS POST CREATION                      */
+/*                                                                 */
+/* *************************************************************** */
 Controllers.controller('BlogCreateController',
-function($scope, $rootScope, $transitions, $cordovaCamera, $ionicActionSheet, $timeout, ExposureCodename) {
+function($scope, $rootScope, $transitions, $cordovaCamera, $ionicActionSheet, $timeout, Posts, ExposureCodename) {
   $scope.post = { title: undefined, author: undefined, date: new Date(), content: undefined, images: [] };
 
   ExposureCodename.get().then(function(codename) { $scope.post.author = codename; });
 
+  $scope.busy = false;
+  $scope.submit_button_text = "Submit Post";
+
   $scope.submit_post = function() {
-    // Posts.create($scope.post).then(function(response) {
-    // });
-    $rootScope.$broadcast("dashboard.show-message", { message: "submitted-story-message" });
-    $transitions.go("dashboard", { type: "slide", direction: "down" }); 
+    var orig_button = $scope.submit_button_text;
+    $scope.submit_button_text = "Saving Story";
+    $scope.busy = true;
+
+    Posts.create($scope.post).then(function(response) {
+      $rootScope.$broadcast("dashboard.show-message", { message: "submitted-story-message" });
+    }).finally(function() {
+      $transitions.go("dashboard", { type: "slide", direction: "down" }); 
+      $scope.busy = false;
+      $scope.submit_button_text = orig_button;
+    });
   };
 
   $scope.go_list = function(post) { $transitions.go("blog", { direction: "left" }); };

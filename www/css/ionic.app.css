@@ -10315,6 +10315,13 @@ div.blog-detail-content.blog-post-content {
   to {
     transform: rotate(360deg); } }
 
+.fade.ng-enter {
+  transition: 0.5s linear all;
+  opacity: 0; }
+
+.fade.ng-enter.ng-enter-active {
+  opacity: 1; }
+
 .heatmap-wrapper .google-map {
   height: 100%; }
 
@@ -10375,6 +10382,22 @@ div.blog-image {
   font-size: 90%;
   font-style: italic;
   display: none; }
+
+.full-screen-spinner {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 10000; }
+  .full-screen-spinner .spinner-widget {
+    position: relative;
+    top: 50%;
+    left: calc(50% - 20px);
+    transform: translate(-50%, -50%); }
 
 ion-nav-view {
   background-color: transparent !important; }

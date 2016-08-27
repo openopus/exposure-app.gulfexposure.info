@@ -7,6 +7,7 @@
   </ion-nav-buttons>
 </ion-nav-bar>
 <ion-nav-view>
+  <div class="full-screen-spinner" ng-show="busy"><div class="spinner-widget ball-loader"></div></div>
   <ion-content class="blog-screen-content">
     <div class="list blog">
       <div class="item item-text-wrap blog-detail-image" style="border-top: none;">
@@ -42,7 +43,7 @@
   </ion-content>
   <div class="sticky-footer">
     <button class="button button-block button-light button-light-home button-light-cta" type="item-text-wrap" ng-click="submit_post()">
-      Submit Post
+      <span ng-bind="submit_button_text"></span>
     </button>
   </div>
 </ion-nav-view>
