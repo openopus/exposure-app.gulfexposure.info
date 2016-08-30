@@ -10020,13 +10020,16 @@ input[disabled] {
 .item-radio .radio-icon {
   color: #77cdde; }
 
-.checkbox input:before, .checkbox-icon:before {
+.checkbox input:before,
+.checkbox-icon:before {
   background-color: black; }
 
-.checkbox input:before, .checkbox .checkbox-icon:before {
+.checkbox input:before,
+.checkbox .checkbox-icon:before {
   border-color: #164e5a; }
 
-.checkbox input:checked:before, .checkbox input:checked + .checkbox-icon:before {
+.checkbox input:checked:before,
+.checkbox input:checked + .checkbox-icon:before {
   background-color: #248498;
   border-color: #248498; }
 
@@ -10081,7 +10084,7 @@ input::-webkit-input-placeholder {
 .previous-surveys-list-item + .previous-surveys-list-item {
   border-top: 1px solid #164e5a; }
 
-.survey-status-incomplete {
+.survey-status-incomplete, .incomplete {
   color: #fbae17; }
 
 .survey-item-cell {

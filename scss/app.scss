@@ -297,7 +297,7 @@
 
 // Globals
 
-  // Inline messages
+// Inline messages
 
     .inline-message {
       // Mixins
@@ -534,86 +534,86 @@
 
     }
 
-      // Ionic style orrides
+    // Ionic style orrides
 
-        .list-inset, .item {
-          // Mixins
+    .list-inset, .item {
+        // Mixins
 
-          // Box properties
+        // Box properties
 
-          // Background & borders
-          background-color: $color-dark-background;
-          border-color: $color-border;
-          // Typography
-          color: $color-quiet;
-          // Animation
+        // Background & borders
+        background-color: $color-dark-background;
+        border-color: $color-border;
+        // Typography
+        color: $color-quiet;
+        // Animation
 
-          // Other
+        // Other
 
-        }
+    }
 
-        input[type=location], input[type=text] {
-          // Mixins
+    input[type=location], input[type=text] {
+        // Mixins
 
-          // Box properties
-          padding: $grid / 2;
-          width: 100%;
-          height: auto;
-          // Background & borders
-          background-color: $color-dark-background;
-          border: $border-dark;
-          // Typography
-          color: $color-text;
-          // Animation
+        // Box properties
+        padding: $grid / 2;
+        width: 100%;
+        height: auto;
+        // Background & borders
+        background-color: $color-dark-background;
+        border: $border-dark;
+        // Typography
+        color: $color-text;
+        // Animation
 
-          // Other
+        // Other
 
-        }
+    }
 
-        input[disabled] {
-          // Mixins
+    input[disabled] {
+        // Mixins
 
-          // Box properties
+        // Box properties
 
-          // Background & borders
-          background-color: $color-dark-background;
-          // Typography
-          color: $color-quiet !important;
-          // Animation
+        // Background & borders
+        background-color: $color-dark-background;
+        // Typography
+        color: $color-quiet !important;
+        // Animation
 
-          // Other
+        // Other
 
-        }
+    }
 
-        .input-label {
-          // Mixins
+    .input-label {
+        // Mixins
 
-          // Box properties
+        // Box properties
 
-          // Background & borders
+        // Background & borders
 
-          // Typography
-          color: $color-quiet;
-          // Animation
+        // Typography
+        color: $color-quiet;
+        // Animation
 
-          // Other
+        // Other
 
-        }
+    }
 
-        .item-radio .item-content {
-          // Mixins
+    .item-radio .item-content {
+        // Mixins
 
-          // Box properties
+        // Box properties
 
-          // Background & borders
-          background-color: $color-dark-background;
-          // Typography
+        // Background & borders
+        background-color: $color-dark-background;
+        // Typography
 
-          // Animation
+        // Animation
 
-          // Other
+        // Other
 
-          span {
+        span {
             // Mixins
 
             // Box properties
@@ -627,24 +627,24 @@
 
             // Other
 
-          }
         }
+    }
 
-        .item-radio input:checked + .radio-content .item-content {
-          // Mixins
+    .item-radio input:checked + .radio-content .item-content {
+        // Mixins
 
-          // Box properties
+        // Box properties
 
-          // Background & borders
-          background-color: $color-dark-background;
+        // Background & borders
+        background-color: $color-dark-background;
 
-          // Typography
+        // Typography
 
-          // Animation
+        // Animation
 
-          // Other
+        // Other
 
-          span {
+        span {
             // Mixins
 
             // Box properties
@@ -658,73 +658,76 @@
 
             // Other
 
-          }
         }
+    }
 
-        .item-radio .radio-icon {
-          // Mixins
+    .item-radio .radio-icon {
+        // Mixins
 
-          // Box properties
+        // Box properties
 
-          // Background & borders
+        // Background & borders
 
-          // Typography
-          color: $color-quiet;
-          // Animation
+        // Typography
+        color: $color-quiet;
+        // Animation
 
-          // Other
+        // Other
 
-        }
+    }
 
-        .checkbox input:before, .checkbox-icon:before {
-          // Mixins
+    .checkbox input:before,
+    .checkbox-icon:before {
+	// Mixins
 
-          // Box properties
+	// Box properties
 
-          // Background & borders
-          background-color: black;
-          // Typography
+	// Background & borders
+	background-color: black;
+	// Typography
 
-          // Animation
+	// Animation
 
-          // Other
+	// Other
 
-        }
+    }
 
-        .checkbox input:before, .checkbox .checkbox-icon:before {
-          // Mixins
+    .checkbox input:before,
+    .checkbox .checkbox-icon:before {
+	// Mixins
 
-          // Box properties
+	// Box properties
 
-          // Background & borders
-          border-color: $color-border;
-          // Typography
+	// Background & borders
+	border-color: $color-border;
+	// Typography
 
-          // Animation
+	// Animation
 
-          // Other
+	// Other
 
-        }
+    }
 
-        .checkbox input:checked:before, .checkbox input:checked + .checkbox-icon:before {
-          // Mixins
+    .checkbox input:checked:before,
+    .checkbox input:checked + .checkbox-icon:before {
+	// Mixins
 
-          // Box properties
+	// Box properties
 
-          // Background & borders
-          background-color: $color-whisper;
-          border-color: $color-whisper;
-          // Typography
+	// Background & borders
+	background-color: $color-whisper;
+	border-color: $color-whisper;
+	// Typography
 
-          // Animation
+	// Animation
 
-          // Other
+	// Other
 
-        }
+    }
 
         textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"] {
-          // Mixins
-
+            // Mixins
+	    
           // Box properties
 
           // Background & borders
@@ -847,6 +850,22 @@
       // Other
 
     }
+
+    i.ion-close {
+      // Mixins
+
+      // Box properties
+      padding-bottom: 5px 10px;
+
+      // Background & borders
+
+      // Typography
+
+      // Animation
+
+      // Other
+
+    }
   }
 
   .dramatic-paragraph {
@@ -916,7 +935,7 @@
 
     }
 
-    .survey-status-incomplete {
+    .survey-status-incomplete, .incomplete {
       // Mixins
 
       // Box properties

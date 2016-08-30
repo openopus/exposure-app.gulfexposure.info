@@ -14,7 +14,7 @@
 	<p> Please fill out the form as best you can. It's entirely anonymous. Use the <em>codenames</em> to keep track of your family member's surveys on the dashboard.
 	</p>
       </div>
-      <div ng-repeat="group in groups" class="form-group">
+      <div ng-repeat="group in survey.groups" class="form-group">
 	<h5 class="group-name" ng-bind="group.name"></h5>
 	<div class="list list-inset" ng-repeat="question in group.questions">
 	  <span dependent-on="{{question.dependent_on}}" dependent-value="{{question.dependent_value}}">

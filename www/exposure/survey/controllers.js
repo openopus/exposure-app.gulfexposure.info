@@ -52,8 +52,6 @@ Controllers.controller('SurveyController', function($scope, $transitions, $timeo
     $transitions.go("dashboard", { type: "slide", direction: "down" });
   };
 
-  $scope.groups = groups;
-
   $scope.pick_one = function(question, option) {
     /* There can be only one. */
     question.options.forEach(function(o) {
@@ -71,7 +69,10 @@ Controllers.controller('SurveyController', function($scope, $transitions, $timeo
       if (!question.other_checked) answer = "";
       question.options.forEach(function(option) {
         if (option.checked) {
-          answer += (", " + option.name);
+          if (answer && answer != "")
+            answer += (", " + option.name);
+          else
+            answer += option.name;
         }
       });
     }
@@ -108,10 +109,11 @@ Controllers.controller('SurveyController', function($scope, $transitions, $timeo
     var dependents = document.querySelectorAll("[dependent-on='" + question.tag + "']");
 
     if (dependents) {
-      var showing = question.checked;
+      var showing;
 
       for (var i = 0; i < dependents.length; i++) {
-        var dep = dependents[i];
+        var dep = angular.element(dependents[i]);
+        showing = (question.answer == angular.element(dep).attr("dependent-value"));
         if (showing)
           angular.element(dep).css("display", "inherit");
         else
@@ -121,6 +123,7 @@ Controllers.controller('SurveyController', function($scope, $transitions, $timeo
   };
 
   $scope.update_boolean = function(question) {
+    question.answer = question.checked ? "Yes" : "No";
     $scope.hide_show_dependents(question);
   };
 
@@ -132,33 +135,30 @@ Controllers.controller('SurveyController', function($scope, $transitions, $timeo
     var questions, answers = [];
 
     try {
-      questions = Survey.get_questions($scope.survey.groups);
+      questions = Survey.get_questions($scope.survey);
     } catch(e) {
       questions = [];
     }
 
     questions.forEach(function(question) {
       var answer = $scope.answer_of_question(question);
-      answers.push({ question_id: question.id, answer: answer });
+      console.log("SUBMIT - " + question.tag + ": " + answer);
+      if (answer)
+        answers.push({ survey_question_id: question.id, value: answer });
+      question.answer = answer;
     });
 
-    Survey.zipper($scope.survey.groups, answers);
+    $scope.survey.answers = answers;
+    Survey.set_status($scope.survey);
 
-    var actually_answered = 0;
-    answers.forEach(function(ans) { if (ans.answer && ans.answer != "") actually_answered++; });
-
-    // console.log("Questions.length: " + questions.length + " - Answers.length " + answers.length + " - Actual " + actually_answered);
-    // console.log("answers", answers);
-
-    if (actually_answered >= questions.length) {
+    if ($scope.survey.status == "complete") {
       $rootScope.$broadcast("dashboard.show-message", { message: "complete-survey-message", codename: $scope.survey.codename });
     } else {
       $rootScope.$broadcast("dashboard.show-message", { message: "incomplete-survey-message", codename: $scope.survey.codename });
     }
 
     if (answers.length > 1) {
-      $api.post("survey_submit", { codename: $scope.survey.codename, answers: answers }).then(function(response) {
-        Survey.remove_survey_by_codename($scope.survey.codename);
+      $api.post("survey_submit", { codename: Survey.codename_of($scope.survey), answers: answers }).then(function(response) {
         if (!skip_trans)
           $transitions.go("dashboard", { type: "slide", direction: "down" });
       });
@@ -171,42 +171,41 @@ Controllers.controller('SurveyController', function($scope, $transitions, $timeo
   
   $scope.setup = function() {
     var update_path = false;
-    var promises = [];
+    var survey_promise;
 
     $scope.get_geolocation();
 
     if ($stateParams.codename) {
-      promises.push(Survey.get_survey_by_codename($stateParams.codename));
-      promises.push(ExposureUser.get_by_codename($stateParams.codename));
+      survey_promise = Survey.get_survey_by_codename($stateParams.codename);
     } else {
-      promises.push(Survey.new_survey());
+      survey_promise = Survey.new_survey();
       update_path = true;
     }
 
-    $q.all(promises).then(function(values) {
-      var survey = values[0];
-      var user = values[1] ? values[1] : survey.user;
-
-      if (!survey.user) survey.user = user;
-      Survey.zipper(Survey.groups, survey.answers, { location: $scope.zipcode });
-
-      var codename_question = Survey.get_question_by_tag("codename");
-      if (survey.user && codename_question) {
-        codename_question.answer = survey.user.codename;
-        ExposureCodename.set_current(survey.user.codename);
-      } else if (codename_question) {
-        codename_question.answer = "<no-codename>";
-      }
+    survey_promise.then(function(survey) {
+      var codename_question = Survey.get_question_by_tag("codename", survey);
+      codename_question.answer = survey.user.codename;
+      ExposureCodename.set_current(survey.user.codename);
 
       $scope.survey = survey;
       $scope.deferred_survey.resolve(true);
 
-      var questions = Survey.get_questions(survey.groups);
-      questions.forEach(function(q) {
-        if (q.seltype == "boolean") {
-          $scope.hide_show_dependents(q);
-        }
-      });
+      var questions = Survey.get_questions(survey);
+
+      /* We have wrapped this in a $timeout of 0 because the DOM hasn't been rendered yet!
+       * The $timeout give this "digest cycle" a chance to finish, and once the DOM has
+       * been rendered, the ability to find the DOM elements that we want to manipulate
+       * can work.  Alternatively, we could have a more complex system, in which we arrange
+       * to let angular do everything for us - once we have connected everything as we
+       * are doing here.  This sucks, but it's the "best way".
+       * (bfox: Mon Aug 29 07:56:17 2016) */
+      $timeout(function(surprise) {
+        questions.forEach(function(q) {
+          if (q.seltype == "boolean") {
+            $scope.hide_show_dependents(q);
+          }
+        });
+      }, 0);
 
       /* Don't do this in production.  It was a helper for development. */
       if (!window.cordova && update_path) {
@@ -215,7 +214,7 @@ Controllers.controller('SurveyController', function($scope, $transitions, $timeo
     });
 
     $q.all([$scope.deferred_survey.promise, $scope.deferred_location.promise]).then(function(values) {
-      var location_questions = Survey.get_questions_by_seltype("location", $scope.survey.groups);
+      var location_questions = Survey.get_questions_by_seltype("location", $scope.survey);
       location_questions.forEach(function(question) {
         if (!question.answer) {
           if ($scope.location && $scope.location != ", ")

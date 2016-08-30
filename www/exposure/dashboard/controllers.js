@@ -28,7 +28,11 @@ Controllers.controller('DashboardController', function($scope, $transitions, $q,
     $q.all(promises).then(function(surveys) {
       if (surveys) {
         for (var i = surveys.length; i >= 0; i--) {
-          if (surveys[i] && !surveys[i].user) surveys.splice(i, 1);
+          if (!surveys[i] || !surveys[i].user) {
+            surveys.splice(i, 1);
+          } else {
+            Survey.set_status(surveys[i]);
+          }
         }
       }
       $scope.surveys = surveys;
@@ -39,8 +43,7 @@ Controllers.controller('DashboardController', function($scope, $transitions, $q,
     var result = (survey && survey.user) ? survey.user.birthdate : null;
 
     if (!result) {
-      var answer = Survey.get_answer_by_name("Birthdate", survey);
-      if (answer) { result = answer.value; }
+      result = Survey.get_value_by_tag("birthdate", survey);
     }
 
     return result;

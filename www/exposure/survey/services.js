@@ -33,7 +33,6 @@ Services.factory('Survey', function($api, $q, ExposureCodename, ExposureUser) {
   };
 
   service.remove_survey_by_codename = function(codename, force) {
-    /* See if there's a survey here. */
     for (var i = 0; i < service.surveys.length; i++) {
       if (service.surveys[i].codename == codename) {
         service.surveys.splice(i, 1);
@@ -42,84 +41,121 @@ Services.factory('Survey', function($api, $q, ExposureCodename, ExposureUser) {
     }
   };
 
-  service.set_status = function(info) {
-    info.num_answered = info.answers.length;
-    info.num_questions = service.num_questions;
-    // console.log(info.user.codename + ":" + info.num_answered + " out of " + info.num_questions);
-    info.complete = info.num_answered >= info.num_questions;
-    info.status = info.complete ? "complete" : "incomplete";
-  };
-
   service.get_survey_by_codename = function(codename, force) {
     var defer = $q.defer();
     var result = defer.promise;
-    var info = null;
+    var survey = null;
     var i;
 
     /* See if there's a survey here. */
     for (i = 0; i < service.surveys.length; i++) {
       if (service.surveys[i].codename == codename) {
-        info = service.surveys[i];
+        survey = service.surveys[i];
         break;
       }
     }
 
     /* Get rid of the one that's there if we are forcing a refresh. */
-    if (info && force) {
+    if (survey && force) {
       service.surveys.splice(i, 1);
-      info = null;
+      survey = null;
     }
 
-    if (info) {
-      if (!info.status) service.set_status(info);
-      defer.resolve(info);
+    if (survey) {
+      service.set_status(survey);
+      defer.resolve(survey);
     } else {
-      info = { codename: codename, user: null, answers: [] };
-      var answers = service.answers_for(codename);
-      var user = ExposureUser.get_by_codename(codename);
+      survey = { codename: codename, user: null, answers: [] };
+      var answers_promise = service.answers_for(codename);
+      var user_promise = ExposureUser.get_by_codename(codename);
 
-      $q.all([answers, user, service.initialized]).then(function(values) {
-        info.answers = values[0];
-        info.user = values[1];
-        service.set_status(info);
-        service.surveys.push(info);
-        defer.resolve(info)
+      $q.all([answers_promise, user_promise, service.initialized]).then(function(values) {
+        survey.groups = JSON.parse(JSON.stringify(service.groups));
+        survey.answers = values[0];
+        survey.user = values[1];
+        service.zipper(survey);
+        service.set_status(survey);
+        service.surveys.push(survey);
+        defer.resolve(survey)
       });
     }
     return result;
   };
 
-  service.compute_metadata = function(survey) {
+  /* Can only be called on a survey that's been zippered. */
+  service.set_status = function(survey) {
+    if (!survey) {
+      console.log("Shouldn't happen, ever");
+      return;
+    }
+
+    var all_answered = false;
     survey.num_answered = survey.answers.length;
     survey.num_questions = service.num_questions;
-    survey.complete = survey.num_answered >= survey.num_questions;
+    
+    if (survey.num_answered != survey.num_questions) {
+      var questions = service.get_questions(survey);
+      var answered = 0;
+      questions.forEach(function(q) {
+        console.log("SET-STATUS - " + q.tag + ": " + q.answer);
+
+        if (q.dependent_on) {
+          var dans = service.get_question_by_tag(q.dependent_on, questions);
+          if (!dans) {
+            answered++;
+          } else {
+            console.log("dans.answer, q.dependent_answer", dans.answer, q.dependent_answer);
+            if (dans.answer == q.dependent_answer) {
+              answered++;
+            }
+          }
+        } else {
+          if (q.answer) answered++;
+        }
+      });
+
+      if (answered >= survey.num_questions) {
+        all_answered = true;
+      }
+    } else {
+      all_answered = true;
+    }
+    // console.log(info.codename + ":" + info.num_answered + " out of " + info.num_questions);
+    survey.complete = all_answered;
     survey.status = survey.complete ? "complete" : "incomplete";
-  }
+  };
 
   service.new_survey = function() {
     var defer = $q.defer();
     var result = defer.promise;
-    var info = { answers: [] };
+    var survey = { answers: [] };
     var codename_promise = ExposureCodename.make_new();
 
-    codename_promise.then(function(codename) {
-      info.codename = codename;
-      ExposureUser.get_by_codename(codename).then(function(user) {
-        info.user = user;
-        service.surveys.push(info);
-        defer.resolve(info);
+    $q.all([codename_promise, service.initialized]).then(function(values) {
+      survey.codename = values[0];
+      ExposureUser.get_by_codename(survey.codename).then(function(user) {
+        survey.user = user;
+        survey.groups = JSON.parse(JSON.stringify(service.groups));
+        service.zipper(survey);
+        service.set_status(survey);
+        service.surveys.push(survey);
+        defer.resolve(survey);
       });
     });
 
     return result;
   };
 
-  service.get_question_by_id = function(question_id) {
+  service.codename_of = function(survey) {
+    return survey.user.codename;
+  };
+
+  service.get_question_by_id = function(question_id, survey) {
     var question = null;
 
-    if (service.groups) {
-      for (var i = service.groups.length - 1; i >= 0 && !question; i--) {
-        var questions = service.groups[i].questions;
+    if (survey.groups) {
+      for (var i = survey.groups.length - 1; i >= 0 && !question; i--) {
+        var questions = survey.groups[i].questions;
 
         for (var j = questions.length - 1; j >= 0; j--) {
           if (questions[j].id == question_id) {
@@ -133,78 +169,44 @@ Services.factory('Survey', function($api, $q, ExposureCodename, ExposureUser) {
     return question;
   };
 
-  service.get_question_by_name = function(name) {
-    var questions = service.get_questions(service.groups);
-    var result = null;
+  service.get_question_by_tag = function(tag, survey) {
+    var question = null;
 
-    for (var i = questions.length - 1; i >= 0; i--) {
-      if (questions[i].name == name) {
-        result = questions[i];
-        break;
-      }
-    }
+    if (survey.groups) {
+      for (var i = survey.groups.length - 1; i >= 0 && !question; i--) {
+        var questions = survey.groups[i].questions;
 
-    return result;
-  };
-
-  service.get_question_by_tag = function(tag) {
-    var questions = service.get_questions(service.groups);
-    var result = null;
-
-    for (var i = questions.length - 1; i >= 0; i--) {
-      if (questions[i].tag == tag) {
-        result = questions[i];
-        break;
-      }
-    }
-
-    return result;
-  };
-
-  service.get_answer_by_question_id = function(question_id, answers) {
-    var answer = null;
-
-    if (answers) {
-      for (var i = answers.length - 1; i >= 0; i--) {
-        if (answers[i].survey_question_id == question_id) {
-          answer = answers[i];
-          break;
+        for (var j = questions.length - 1; j >= 0; j--) {
+          if (questions[j].tag == tag) {
+            question = questions[j];
+            break;
+          }
         }
       }
     }
-    return answer;
+
+    return question;
   };
 
-  service.get_answer_by_name = function(name, info) {
-    var question, answer;
+  service.get_value_by_tag = function(tag, survey) {
+    var question = service.get_question_by_tag(tag, survey);
+    return question ? question.answer : null;
+  };
 
-    try {
-      question = service.get_question_by_name(name);
-      answer = service.get_answer_by_question_id(question.id, info.answers);
-    } catch(e) {
-      console.log("FAILED: Survey.get_answer_by_name(" + name + ", ...");
-    }
-
-    return answer;
-  }
-
-  service.get_questions = function(from_groups) {
+  service.get_questions = function(survey) {
     var questions = [];
-    if (!from_groups) from_groups = service.groups;
-    if (from_groups) {
-      for (var i = from_groups.length - 1; i >= 0; i--) {
-        for (var j = from_groups[i].questions.length - 1; j >= 0; j--) {
-          questions.push(from_groups[i].questions[j]);
-        }
+    for (var i = 0; i < survey.groups.length; i++) {
+      for (var j = 0; j < survey.groups[i].questions.length; j++) {
+        questions.push(survey.groups[i].questions[j]);
       }
     }
 
     return questions;
   };
 
-  service.get_questions_by_seltype = function(wanted, from_groups) {
+  service.get_questions_by_seltype = function(wanted, survey) {
     var result = [];
-    var questions = service.get_questions(from_groups);
+    var questions = service.get_questions(survey);
 
     questions.forEach(function(question) {
       if (question.seltype == wanted)
@@ -214,67 +216,70 @@ Services.factory('Survey', function($api, $q, ExposureCodename, ExposureUser) {
     return result;
   };
 
-  service.set_question_answer = function(answer) {
-    var question = service.get_question_by_id(answer.survey_question_id);
-    if (question) question.answer = answer.value;
-  };
-        
-    
   /* Zipper the answers into the questions. */
-  service.zipper = function(groups, answers) {
-    var questions = service.get_questions(groups);
+  service.zipper = function(survey) {
+    var questions = service.get_questions(survey);
+    var answer_for_question = function(question) {
+      var result = undefined;
+      survey.answers.forEach(function(a) {
+        if ((a.survey_question_id == question.id) || (a.question_id == question.id))
+          result = a;
+      });
+
+      return result;
+    };
 
     questions.forEach(function(question) {
       var value = undefined;
-      var answer = service.get_answer_by_question_id(question.id, answers);
+      var answer = answer_for_question(question);
+      var value = answer ? answer.value : null;
+
+      console.log("ZIPPER - " + question.tag + ": " + value);
 
       /* Zero out the answer locations. */
       delete question.other_checked;
       question.options.forEach(function(option) { option.checked = false; });
-      question.answer = undefined;
+      question.answer = value;
 
-      if (answer) {
-        if (answer.value)
-          value = answer.value;
-        else if (answer.answer)
-          value = answer.answer;
-      }
-
+      /* Complicated? Yes: But also correct. */
       if (question.seltype == "boolean") {
         question.checked = (value == 'Yes');
+        question.answer = value ? value : "No";
+        value = question.answer;
       }
 
       if (value) {
-          if (question.seltype == "date") {
-            if (typeof value == "string")
-              value = new Date(value);
+        if (question.seltype == "date") {
+          if (typeof value == "string")
+            value = new Date(value);
+        }
+
+        if (typeof value == "string" && question.seltype.startsWith("pick")) {
+          var value_options = value.replace(/^[,\s]+|[\s,]+$/gm, "").replace(/, /g, ",").split(",");
+
+          for (var i = 0; i < question.options.length; i++) {
+            var option = question.options[i];
+            var offset = value_options.indexOf(option.name);
+            
+            if (offset > -1) {
+              option.checked = true;
+              value_options[offset] = undefined;
+            }
           }
 
-          if (typeof value == "string" && question.seltype.startsWith("pick")) {
-            var value_options = value.replace(/^[,\s]+|[\s,]+$/gm, "").replace(/, /g, ",").split(",");
+          var temp = [];
+          for (var j = 0; j < value_options.length; j++) {
+            if (typeof value_options[j] != "undefined")
+              temp.push(value_options[j]);
+          }
+          value = temp.join();
 
-            for (var i = 0; i < question.options.length; i++) {
-              var option = question.options[i];
-              var offset = value_options.indexOf(option.name);
-
-              if (offset > -1) {
-                option.checked = true;
-                value_options[offset] = undefined;
-              }
-            }
-
-            var temp = [];
-            for (var j = 0; j < value_options.length; j++) {
-              if (typeof value_options[j] != "undefined")
-                temp.push(value_options[j]);
-            }
-            value = temp.join();
-
-            if (value) {
-              question.other_checked = true;
-            }
+          if (value) {
+            question.other_checked = true;
           }
         }
+      }
+
       question.answer = value;
     });
   };
