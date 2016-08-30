@@ -1,7 +1,7 @@
 Factories.factory("$api", function($http, $q) {
   var service = {};
   var baseURL = "https://api.gulfexposure.info/api";
-  // baseURL = "http://localhost:3000/api";
+  baseURL = "http://localhost:3000/api";
 
   if (window.cordova && (baseURL == "http://localhost:3000/api")) {
     baseURL = "https://api.gulfexposure.info/api";

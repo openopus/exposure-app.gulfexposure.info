@@ -41,6 +41,22 @@ Services.factory('Survey', function($api, $q, ExposureCodename, ExposureUser) {
     }
   };
 
+  service.destroy = function(survey) {
+    var defer = $q.defer();
+    var result = defer.promise;
+    try {
+      service.remove_survey_by_codename(survey.codename);
+      $api.delete("survey_remove/" + survey.codename).then(function(response) {
+        defer.resolve(response.data);
+      });
+    } catch(e) {
+      console.log("ERROR DELETING SURVEY DATA: ", e);
+      defer.resolve(e);
+    }
+
+    return result;
+  };
+
   service.get_survey_by_codename = function(codename, force) {
     var defer = $q.defer();
     var result = defer.promise;

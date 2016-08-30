@@ -48,8 +48,9 @@ function($scope, $transitions, $timeout, $stateParams, $q, $api, $location, $htt
     Geolocation.getCurrentPosition(success, failure);
   };
 
-  $scope.go_dashboard = function() {
-    $scope.submit_survey(true);
+  $scope.go_dashboard = function(skip_submit) {
+    if (!skip_submit)
+      $scope.submit_survey(true);
     $transitions.go("dashboard", { type: "slide", direction: "down" });
   };
 
@@ -63,7 +64,9 @@ function($scope, $transitions, $timeout, $stateParams, $q, $api, $location, $htt
 
     popup.then(function(res) {
       if (res) {
-        
+        Survey.destroy(survey).then(function() {
+          $scope.go_dashboard();
+        });
       }
     });
   };
@@ -181,7 +184,7 @@ function($scope, $transitions, $timeout, $stateParams, $q, $api, $location, $htt
 
     questions.forEach(function(question) {
       var answer = $scope.answer_of_question(question);
-      console.log("SUBMIT - " + question.tag + ": " + answer);
+      // console.log("SUBMIT - " + question.tag + ": " + answer);
       if (answer)
         answers.push({ survey_question_id: question.id, value: answer });
       question.answer = answer;
@@ -222,6 +225,7 @@ function($scope, $transitions, $timeout, $stateParams, $q, $api, $location, $htt
     }
 
     survey_promise.then(function(survey) {
+      if (!survey.user) { $scope.go_dashboard(true); return; }
       var codename_question = Survey.get_question_by_tag("codename", survey);
       codename_question.answer = survey.user.codename;
       ExposureCodename.set_current(survey.user.codename);
