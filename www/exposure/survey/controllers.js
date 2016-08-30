@@ -52,14 +52,6 @@ Controllers.controller('SurveyController', function($scope, $transitions, $timeo
     $transitions.go("dashboard", { type: "slide", direction: "down" });
   };
 
-  $scope.pick_one = function(question, option) {
-    /* There can be only one. */
-    question.options.forEach(function(o) {
-      if (o != option)
-        o.checked = undefined;
-    });
-  };
-
   $scope.answer_of_question = function(question) {
     var answer = question.answer || "";
 
@@ -123,10 +115,17 @@ Controllers.controller('SurveyController', function($scope, $transitions, $timeo
   };
 
   $scope.blur_others = function() {
-    var date_fields = document.querySelectionAll("[type=date]");
+    var date_fields = document.querySelectorAll("[type=date]");
+    var text_fields = document.querySelectorAll("[type=text]");
     if (date_fields) {
       for (var i = 0; i < date_fields.length; i++) {
-        var field = angular.element(date_fields[i]);
+        var field = date_fields[i];
+        field.blur();
+      }
+    }
+    if (text_fields) {
+      for (var i = 0; i < text_fields.length; i++) {
+        var field = text_fields[i];
         field.blur();
       }
     }
@@ -136,6 +135,15 @@ Controllers.controller('SurveyController', function($scope, $transitions, $timeo
     $scope.blur_others();
     question.answer = question.checked ? "Yes" : "No";
     $scope.hide_show_dependents(question);
+  };
+
+  $scope.pick_one = function(question, option) {
+    /* There can be only one. */
+    $scope.blur_others();
+    question.options.forEach(function(o) {
+      if (o != option)
+        o.checked = undefined;
+    });
   };
 
   $scope.submit_survey_button = function() {

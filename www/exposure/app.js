@@ -22,7 +22,7 @@ App.run(function($ionicPlatform) {
     }
 
     window.oli_device_id = device_id;
-    console.log("OLI DEVICE ID: " + window.oli_device_id);
+    // console.log("OLI DEVICE ID: " + window.oli_device_id);
   });
 });
 
