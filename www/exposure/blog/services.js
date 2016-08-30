@@ -1,6 +1,6 @@
 var OLIWordpress = angular.module('oli.wordpress', []);
 
-OLIWordpress.factory('Posts', function($http, $q) {
+OLIWordpress.factory('Posts', function($http, $q, $api) {
   var service = { url: "http://therisingmovie.info/wp-json/wp/v2/posts/", posts: [] };
 
   service.all = function(force) {
@@ -55,7 +55,19 @@ OLIWordpress.factory('Posts', function($http, $q) {
     return result;
   };
 
+  // post = { title: undefined, author: undefined, date: new Date(), content: undefined, images: [] };
   service.create = function(post) {
+    var defer = $q.defer();
+    var result = defer.promise;
+
+    $api.post("blog/create", post).then(function(result) {
+      console.log("BLOG+CREATE: ", result);
+      defer.resolve(result);
+    });
+    return result;
+  };
+
+  service.wp_create = function(post) {
     var authdata = "cmlzaW5nQ29udHJpYnV0b3I6ZVRzd1cmTmFrQkJQeCZaZTN4UjNVMUsx";
     var config = { headers: { 'Authorization': 'Basic ' + authdata } };
 

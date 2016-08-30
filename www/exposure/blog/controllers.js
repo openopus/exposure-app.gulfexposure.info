@@ -67,6 +67,8 @@ function($scope, $rootScope, $transitions, $cordovaCamera, $ionicActionSheet, $t
 
     Posts.create($scope.post).then(function(response) {
       $rootScope.$broadcast("dashboard.show-message", { message: "submitted-story-message" });
+    }).catch(function(error) {
+      console.log("Got an error creating the post: ", error);
     }).finally(function() {
       $transitions.go("dashboard", { type: "slide", direction: "down" }); 
       $scope.busy = false;
