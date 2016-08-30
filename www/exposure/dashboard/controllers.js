@@ -1,5 +1,4 @@
 Controllers.controller('DashboardController', function($scope, $transitions, $q, $rootScope, $stateParams, $timeout, Survey, ExposureCodename, Posts) {
-
   $scope.show_inline_message = function(id) {
     var raw = document.getElementById(id);
     if (raw) {

@@ -12,7 +12,7 @@
     <div class="home-screen-content slow-fadein" id="the-dashboard">
       <div id="submitted-story-message" class="inline-message fade">
         <i class="ion-close" ng-click="close_inline_message($event)"></i>
-        Thank you for your telling your story. Our voices together will shed light on the truth.
+        Thank you for telling your story. Our voices together will shed light on the truth.
       </div>
 
       <div id="incomplete-survey-message" class="inline-message item-remove-animate">
@@ -37,22 +37,24 @@
       <div ng-if="surveys && surveys.length > 0" class="">
       	<h6 class="list-label list-label-centered">Your previous surveys:</h6>
         <div class="previous-surveys-list">
-          <ion-item ng-repeat="survey in surveys" ng-click="go_survey(survey.user.codename)"
-		  class="previous-surveys-list-item survey-status-{{survey.status}}">
-            <span class="survey-item-cell survey-subject" ng-bind="survey.user.codename"></span>
-            <span class="survey-item-cell survey-age">Age <span ng-bind="get_birthdate(survey) | asAge"></span></span>
-            <span class="survey-item-cell survey-status survey-status-{{survey.status}}">
-	      <span ng-if="survey.status == 'complete'">
-		completed
-	      </span>
-	      <span ng-if="survey.status != 'complete'">
-		continue
-		&nbsp;
-		<span class="icon ion-chevron-right"></span>
-	      </span>
-            </span>
-	    <ion-delete-button class="ion-minus-circled" ng-click="remove_survey(survey, $index)"></ion-delete-button>
-          </ion-item>
+	  <ion-list can-swipe="nottrue" show-delete="nottrue">
+            <ion-item ng-repeat="survey in surveys" ng-click="go_survey(survey.user.codename)"
+		    class="previous-surveys-list-item survey-status-{{survey.status}}">
+              <span class="survey-item-cell survey-subject" ng-bind="survey.user.codename"></span>
+              <span class="survey-item-cell survey-age">Age <span ng-bind="get_birthdate(survey) | asAge"></span></span>
+              <span class="survey-item-cell survey-status survey-status-{{survey.status}}">
+		<span ng-if="survey.status == 'complete'">
+		  completed
+		</span>
+		<span ng-if="survey.status != 'complete'">
+		  continue
+		  &nbsp;
+		  <span class="icon ion-chevron-right"></span>
+		</span>
+              </span>
+	      <ion-delete-button class="ion-minus-circled" ng-click="remove_survey(survey, $index)"></ion-delete-button>
+            </ion-item>
+	  </ion-list>
         </div>
       </div>
       <hr ng-if="!surveys || surveys.length == 0">

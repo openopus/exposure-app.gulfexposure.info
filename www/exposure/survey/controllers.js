@@ -1,4 +1,5 @@
-Controllers.controller('SurveyController', function($scope, $transitions, $timeout, $stateParams, $q, $api, $location, $http, $rootScope,
+Controllers.controller('SurveyController',
+function($scope, $transitions, $timeout, $stateParams, $q, $api, $location, $http, $rootScope, $ionicPopup,
                                                     groups, Survey, ExposureCodename, ExposureUser) {
 
   $scope.deferred_location = $q.defer();
@@ -50,6 +51,21 @@ Controllers.controller('SurveyController', function($scope, $transitions, $timeo
   $scope.go_dashboard = function() {
     $scope.submit_survey(true);
     $transitions.go("dashboard", { type: "slide", direction: "down" });
+  };
+
+  $scope.delete_survey = function(survey) {
+    var codename = Survey.codename_of(survey);
+    var popup = $ionicPopup.confirm({
+      cssClass: "confirmation-dialog",
+      title: "Remove Survey Data",
+      template: "Really remove anonymous survey data?"
+    });
+
+    popup.then(function(res) {
+      if (res) {
+        
+      }
+    });
   };
 
   $scope.answer_of_question = function(question) {

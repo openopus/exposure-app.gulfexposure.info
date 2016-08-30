@@ -10065,6 +10065,8 @@ input::-webkit-input-placeholder {
     margin: 0 auto;
     position: relative;
     padding-bottom: 0; }
+  .home-screen i.ion-close {
+    padding-bottom: 5px 10px; }
 
 .dramatic-paragraph {
   margin-bottom: 22px;
@@ -10401,6 +10403,11 @@ div.blog-image {
     top: 50%;
     left: calc(50% - 20px);
     transform: translate(-50%, -50%); }
+
+.confirmation-dialog .popup {
+  background: #333;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px; }
 
 ion-nav-view {
   background-color: transparent !important; }

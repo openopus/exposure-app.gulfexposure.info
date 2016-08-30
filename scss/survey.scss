@@ -21,3 +21,11 @@
 	transform: translate(-50%, -50%);
     }
 }
+
+.confirmation-dialog {
+    .popup {
+	background: #333;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+    }
+}
