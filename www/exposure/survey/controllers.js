@@ -115,19 +115,11 @@ Controllers.controller('SurveyController', function($scope, $transitions, $timeo
   };
 
   $scope.blur_others = function() {
-    var date_fields = document.querySelectorAll("[type=date]");
-    var text_fields = document.querySelectorAll("[type=text]");
-    if (date_fields) {
-      for (var i = 0; i < date_fields.length; i++) {
-        var field = date_fields[i];
-        field.blur();
-      }
-    }
-    if (text_fields) {
-      for (var i = 0; i < text_fields.length; i++) {
-        var field = text_fields[i];
-        field.blur();
-      }
+    console.log("BLURRING OTHERS");
+    var fields = document.querySelectorAll("[type=date], [type=text], [type=location]");
+
+    for (var i = fields.length - 1; i > -1; i--) {
+      fields[i].blur();
     }
   };
 

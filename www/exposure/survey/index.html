@@ -54,9 +54,8 @@
       	  <div ng-if="question.seltype.startsWith('pick-many')" dependent-on="{{question.dependent_on}}" dependent-value="{{question.dependent_value}}">
       	    <div class="list list-inset list-has-label">
       	      <ion-list>
-      		<ion-checkbox class="option-name" ng-repeat="option in question.options" ng-model="option.checked">{{option.name}}</ion-checkbox>
-      		<ion-checkbox class="option-name other-option" ng-model="question.other_checked" ng-if="question.seltype == 'pick-many-with-other'"
-      			ng-click="toggle_other(question)">Other...</ion-checkbox>
+      		<ion-checkbox class="option-name" ng-repeat="option in question.options" ng-click="blur_others()" ng-model="option.checked">{{option.name}}</ion-checkbox>
+      		<ion-checkbox class="option-name other-option" ng-click="blur_others();" ng-model="question.other_checked" ng-if="question.seltype == 'pick-many-with-other'">Other...</ion-checkbox>
       		<input type="text" ng-model="question.answer" ng-if="question.other_checked" placeholder="Please tell us here..." />
       	      </ion-list>
       	    </div>
