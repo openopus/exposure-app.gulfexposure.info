@@ -20,6 +20,8 @@
     "cordova-plugin-whitelist",
     "cordova-plugin-splashscreen",
     "cordova-plugin-statusbar",
+    "cordova-plugin-camera",
+    "cordova-plugin-socialsharing",
     "ionic-plugin-keyboard",
     {
       "variables": {

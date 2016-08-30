@@ -40,6 +40,7 @@
     <feature name="CDVWKWebViewEngine">
         <param name="ios-package" value="CDVWKWebViewEngine" />
     </feature>
+    <hook src="package-hooks/ios9_allow_http.sh" type="after_prepare" />
     <platform name="ios">
         <content src="http://localhost:16382" />
         <icon height="57" src="resources/ios/icon/icon.png" width="57" />
@@ -89,4 +90,6 @@
         <splash density="port-xxxhdpi" src="resources/android/splash/drawable-port-xxxhdpi-screen.png" />
     </platform>
     <icon src="resources/android/icon/drawable-xhdpi-icon.png" />
+    <plugin name="cordova-plugin-socialsharing" spec="~4.3.81" />
+    <plugin name="cordova-plugin-camera" spec="~2.2.0" />
 </widget>
