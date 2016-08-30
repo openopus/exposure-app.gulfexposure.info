@@ -1,4 +1,4 @@
-Controllers.controller('DashboardController', function($scope, $transitions, $q, $rootScope, $stateParams, $timeout, Survey, ExposureCodename) {
+Controllers.controller('DashboardController', function($scope, $transitions, $q, $rootScope, $stateParams, $timeout, Survey, ExposureCodename, Posts) {
 
   $scope.show_inline_message = function(id) {
     var raw = document.getElementById(id);
@@ -79,5 +79,7 @@ Controllers.controller('DashboardController', function($scope, $transitions, $q,
     if (args && args.codename) $scope.messaged_codename = args.codename;
   });
 
+  /* The following code is only executed when this controller is created. */
+  Posts.all();
   $scope.on_enter();
 });

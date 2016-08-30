@@ -97,14 +97,14 @@ Services.factory('Survey', function($api, $q, ExposureCodename, ExposureUser) {
       var questions = service.get_questions(survey);
       var answered = 0;
       questions.forEach(function(q) {
-        console.log("SET-STATUS - " + q.tag + ": " + q.answer);
+        // console.log("SET-STATUS - " + q.tag + ": " + q.answer);
 
         if (q.dependent_on) {
           var dans = service.get_question_by_tag(q.dependent_on, questions);
           if (!dans) {
             answered++;
           } else {
-            console.log("dans.answer, q.dependent_answer", dans.answer, q.dependent_answer);
+            // console.log("dans.answer, q.dependent_answer", dans.answer, q.dependent_answer);
             if (dans.answer == q.dependent_answer) {
               answered++;
             }
@@ -234,7 +234,7 @@ Services.factory('Survey', function($api, $q, ExposureCodename, ExposureUser) {
       var answer = answer_for_question(question);
       var value = answer ? answer.value : null;
 
-      console.log("ZIPPER - " + question.tag + ": " + value);
+      // console.log("ZIPPER - " + question.tag + ": " + value);
 
       /* Zero out the answer locations. */
       delete question.other_checked;
