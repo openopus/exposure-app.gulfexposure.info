@@ -23,6 +23,7 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 // Include all of Ionic
 @import "www/lib/ionic/scss/ionic";
 @import "./chrome.scss";
+@import "./map.scss";
 @import "./app.scss";
 @import "./blog.scss";
 @import "./survey.scss";

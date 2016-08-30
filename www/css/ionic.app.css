@@ -9821,6 +9821,12 @@ a.button {
 button.header-item.back-button {
   color: white; }
 
+#exposure-heatmap {
+  height: 100%;
+  width: auto;
+  display: block;
+  height: 200px; }
+
 /* app.scss: -*- css -*- Base styles and manifest for styles.
 
    Copyright (c) 2016 Brian J. Fox
