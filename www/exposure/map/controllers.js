@@ -1,7 +1,10 @@
 Controllers.controller('MapController', function($scope, $rootScope, $timeout, $api, $timeout, $transitions, NgMap) {
 
   $scope.go_dashboard = function() { $transitions.go("dashboard", { type: "slide", direction: "right" }); };
-  $scope.mapdata = null;
+
+  $scope.update_markers = function() {
+    console.log("I hope this is unnecessary.")
+  };
 
   $scope.map_setup = function() {
     var heatmap = document.getElementById("exposure-heatmap");
@@ -12,7 +15,20 @@ Controllers.controller('MapController', function($scope, $rootScope, $timeout, $
 
     try {
       $api.get("heatmap").then(function(response) {
-        $scope.map_points = response.data;
+        var markers = [];
+        var data = response.data;
+        var bounds = new google.maps.LatLngBounds();
+
+        for (var i = data.length - 1; i > -1; i--) {
+          var latlng = new google.maps.LatLng(data[i].latitude, data[i].longitude);
+          var marker = new google.maps.Marker({ title: data[i].codename, position: latlng, map: $scope.map });
+          markers.push(marker);
+          bounds.extend(latlng);
+        }
+        $scope.markers = markers;
+        $scope.heatmap = data;
+        $scope.update_markers();
+        $scope.map.fitBounds(bounds);
       });
     } catch(x) {
       console.error("Couldn't talk to the API server in map/controllers.js", x);
