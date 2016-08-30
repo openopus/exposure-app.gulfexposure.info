@@ -122,7 +122,18 @@ Controllers.controller('SurveyController', function($scope, $transitions, $timeo
     }
   };
 
+  $scope.blur_others = function() {
+    var date_fields = document.querySelectionAll("[type=date]");
+    if (date_fields) {
+      for (var i = 0; i < date_fields.length; i++) {
+        var field = angular.element(date_fields[i]);
+        field.blur();
+      }
+    }
+  };
+
   $scope.update_boolean = function(question) {
+    $scope.blur_others();
     question.answer = question.checked ? "Yes" : "No";
     $scope.hide_show_dependents(question);
   };
