@@ -114,6 +114,19 @@ Controllers.controller('SurveyController', function($scope, $transitions, $timeo
     }
   };
 
+  $scope.focus_on_me = function(event, question) {
+    $scope.blur_others();
+
+    if (question.other_checked) {
+      var dom = event.currentTarget;
+      var elt = angular.element(dom);
+      var elem_id = elt.attr("id");
+      var peer_id = elem_id + "-target";
+      var peer = document.getElementById(peer_id);
+      peer.focus();
+    }
+  };
+
   $scope.blur_others = function() {
     var fields = document.querySelectorAll("[type=date], [type=text], [type=location]");
 

@@ -55,8 +55,8 @@
       	    <div class="list list-inset list-has-label">
       	      <ion-list>
       		<ion-checkbox class="option-name" ng-repeat="option in question.options" ng-click="blur_others()" ng-model="option.checked">{{option.name}}</ion-checkbox>
-      		<ion-checkbox class="option-name other-option" ng-click="blur_others();" ng-model="question.other_checked" ng-if="question.seltype == 'pick-many-with-other'">Other...</ion-checkbox>
-      		<input type="text" ng-model="question.answer" ng-if="question.other_checked" placeholder="Please tell us here..." />
+      		<ion-checkbox class="option-name other-option" id="other-checkbox-{{$index}}" ng-click="focus_on_me($event, question);" ng-model="question.other_checked" ng-if="question.seltype == 'pick-many-with-other'">Other...</ion-checkbox>
+      		<input type="text" id="other-checkbox-{{$index}}-target" ng-model="question.answer" ng-if="question.other_checked" placeholder="Please tell us here..." />
       	      </ion-list>
       	    </div>
       	  </div>
