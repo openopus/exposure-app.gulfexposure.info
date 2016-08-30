@@ -115,7 +115,6 @@ Controllers.controller('SurveyController', function($scope, $transitions, $timeo
   };
 
   $scope.blur_others = function() {
-    console.log("BLURRING OTHERS");
     var fields = document.querySelectorAll("[type=date], [type=text], [type=location]");
 
     for (var i = fields.length - 1; i > -1; i--) {
