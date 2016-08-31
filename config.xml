@@ -10,7 +10,7 @@
     <plugin name="cordova-plugin-whitelist" spec="1" />
     <plugin name="cordova-plugin-camera" spec="~2.2.0" />
     <plugin name="cordova-plugin-x-socialsharing" spec="https://github.com/EddyVerbruggen/SocialSharing-PhoneGap-Plugin.git" />
-    <content src="http://localhost:16382" />
+    <content src="http://localhost:0" />
     <allow-navigation href="gap://ready" />
     <allow-navigation href="http://localhost:*" />
     <allow-navigation href="http://*/*" />
@@ -29,7 +29,7 @@
     <preference name="AndroidPersistentFileLocation" value="Compatibility" />
     <preference name="StatusBarOverlayWebView" value="false" />
     <preference name="CordovaWebViewEngine" value="CDVWKWebViewEngine" />
-    <preference name="AlternateContentSrc" value="http://localhost:0" />
+    <preference name="AlternateContentSrc" value="http://localhost:16382" />
     <preference name="xwalkVersion" value="20+" />
     <preference name="xwalkCommandLine" value="--disable-pull-to-refresh-effect" />
     <preference name="xwalkMode" value="embedded" />
