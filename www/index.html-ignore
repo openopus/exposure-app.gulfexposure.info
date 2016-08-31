@@ -6,7 +6,7 @@
     <title>Exposure</title>
     <link href="css/ionic.app.css" rel="stylesheet" />
     <link href="lib/css-spinners/css/spinners.css" rel="stylesheet" />
-    <script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+    <script src="https:///maps.googleapis.com/maps/api/js?key=AIzaSyBAb1CB3qRSUfgZNgiqxm8zvVm3Tc43jVc&libraries=visualization,drawing,geometry,places"></script>
 
     <script src="lib/ionic/js/ionic.bundle.js"></script>
     <script src="cordova.js"></script>

@@ -12,6 +12,26 @@ App.config(function($stateProvider, $urlRouterProvider) {
 
   .state('blog_detail', {
     url: '/blog/show/:id',
+    resolve: {
+      the_post: function($q, $stateParams, $sce, Posts) {
+        var defer = $q.defer();
+        Posts.get($stateParams.id).then(function(post) {
+          var parser = new DOMParser(), doc;
+          try {
+            doc = parser.parseFromString(post.content.rendered, 'text/html');
+          } catch(e) {
+            console.error("Got an error trying to get the detail:", e);
+          }
+          if (doc) {
+            var html = doc.getElementsByTagName("html");
+            if (html) { html = html[0]; html.className += "wordpress-parsed"; }
+            post.post_content = $sce.trustAsHtml(doc.firstChild.outerHTML);
+          }
+          defer.resolve(post);
+        });
+        return defer.promise;
+      }
+    },
     templateUrl: 'exposure/blog/detail.html',
     controller: 'BlogDetailController'
   })

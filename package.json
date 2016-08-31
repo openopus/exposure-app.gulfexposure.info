@@ -21,6 +21,7 @@
     "cordova-plugin-splashscreen",
     "cordova-plugin-statusbar",
     "ionic-plugin-keyboard",
+    "cordova-plugin-crosswalk-webview",
     {
       "locator": "https://github.com/mapsplugin/cordova-plugin-googlemaps",
       "id": "cordova-plugin-googlemaps"

@@ -15,6 +15,9 @@
     <allow-navigation href="http://localhost:*" />
     <allow-navigation href="http://*/*" />
     <allow-navigation href="http://*:*/*" />
+    <allow-navigation href="https://*" />
+    <allow-navigation href="https://*/*" />
+    <allow-navigation href="https://*:*/*" />
     <allow-navigation href="file://*/*" />
     <allow-navigation href="file://*" />
     <preference name="webviewbounce" value="false" />
@@ -29,7 +32,7 @@
     <preference name="AndroidPersistentFileLocation" value="Compatibility" />
     <preference name="StatusBarOverlayWebView" value="false" />
     <preference name="CordovaWebViewEngine" value="CDVWKWebViewEngine" />
-    <preference name="AlternateContentSrc" value="http://localhost:16382" />
+    <preference name="AlternateContentSrc" value="http://localhost:0" />
     <preference name="xwalkVersion" value="20+" />
     <preference name="xwalkCommandLine" value="--disable-pull-to-refresh-effect" />
     <preference name="xwalkMode" value="embedded" />

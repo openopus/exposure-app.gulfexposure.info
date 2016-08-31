@@ -13,7 +13,12 @@ Controllers.controller('BlogController', function($scope, $transitions, Posts) {
   $scope.go_create = function() { $transitions.go("blog_create", { type: "slide", direction: "up" }); };
 });
 
-Controllers.controller('BlogDetailController', function($scope, $stateParams, Posts, $sce, $transitions, $cordovaSocialSharing) {
+/* *************************************************************** */
+/*                                                                 */
+/*                    WORDPRESS DETAIL VIEW POST                   */
+/*                                                                 */
+/* *************************************************************** */
+Controllers.controller('BlogDetailController', function($scope, $stateParams, Posts, $sce, $transitions, $cordovaSocialSharing, the_post) {
   $scope.shareable = window.cordova;
   $scope.go_list = function(post) { $transitions.go("blog", { type: "slide", direction: "right" }); };
 
@@ -25,25 +30,7 @@ Controllers.controller('BlogDetailController', function($scope, $stateParams, Po
     $cordovaSocialSharing.shareWithOptions(options, onSuccess, onFailure);
   };
 
-  Posts.get($stateParams.id).then(function(post) {
-    var parser = new DOMParser(), doc;
-    $scope.post = post;
-
-    try {
-      doc = parser.parseFromString(post.content.rendered, 'text/html');
-    } catch(e) {
-      console.error("Got an error trying to get the detail:", e);
-    }
-
-    if (doc) {
-      var html = doc.getElementsByTagName("html");
-      if (html) { html = html[0]; html.className += "wordpress-parsed"; }
-
-      post.post_content = $sce.trustAsHtml(doc.firstChild.outerHTML);
-    }
-
-    $scope.post = post;
-  });
+  $scope.post = the_post;
 });
 
 /* *************************************************************** */
