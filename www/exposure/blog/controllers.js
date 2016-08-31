@@ -14,15 +14,15 @@ Controllers.controller('BlogController', function($scope, $transitions, Posts) {
 });
 
 Controllers.controller('BlogDetailController', function($scope, $stateParams, Posts, $sce, $transitions, $cordovaSocialSharing) {
+  $scope.shareable = window.cordova;
   $scope.go_list = function(post) { $transitions.go("blog", { type: "slide", direction: "right" }); };
 
-  $scope.share_post = function() {
-    $cordovaSocialSharing.share(
-      "Check out this blog post from The Rising",
-      "The Rising: " + $scope.post.title.rendered,
-      null, null)
-    .then(function(result) { console.log("Successfully shared."); },
-          function(error)  { console.log("Share: got error: " + error); });
+  $scope.share_post = function(post) {
+    var onSuccess = function(result) { console.log("Successfully shared."); };
+    var onFailure = function(error)  { console.log("Share: got error: " + error); };
+    var options = { url: post.link, subject: "Check out this blog post from The Rising", message: "This impacted me, and I thought I'd share" };
+
+    $cordovaSocialSharing.shareWithOptions(options, onSuccess, onFailure);
   };
 
   Posts.get($stateParams.id).then(function(post) {

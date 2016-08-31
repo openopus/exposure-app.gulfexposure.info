@@ -5,8 +5,8 @@
       <i class="ion-arrow-left-c" style="margin-right: 2px;"></i> Stories
     </button>
   </ion-nav-buttons>
-  <ion-nav-buttons side="secondary">
-    <button class="button button-clear" ng-click="share_post()">
+  <ion-nav-buttons side="secondary" ng-if="shareable">
+    <button class="button button-clear" ng-click="share_post(post)">
       Share <i class="ion-share" style="margin-left: 2px;"></i>
     </button>
   </ion-nav-buttons>

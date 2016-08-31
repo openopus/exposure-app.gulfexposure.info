@@ -41,7 +41,7 @@
         <param name="ios-package" value="CDVWKWebViewEngine" />
     </feature>
     <hook src="package-hooks/allow-http.sh" type="after_prepare" />
-    <hook src="package-hooks/app-doesnt-need-encryptions.sh" type="after_prepare" />
+    <hook src="package-hooks/app-doesnt-need-encryption.sh" type="after_prepare" />
     <platform name="ios">
         <content src="http://localhost:16382" />
         <icon height="57" src="resources/ios/icon/icon.png" width="57" />
