@@ -43,7 +43,7 @@
       	  <!-- Codename, for example -->
       	  <span ng-if="question.seltype == 'fixed'" dependent-on="{{question.dependent_on}}" dependent-value="{{question.dependent_value}}">
       	    <span class="answer fixed" ng-bind="question.answer"></span>
-	    <span class="regen" ng-if="question.tag == 'codename'" ng-click="regen_codename($event)"><i class="icon ion-refresh"></i></span>
+	    <span ng-click="regen_codename($event)" class="regen" ng-if="question.tag == 'codename'"><i class="icon ion-refresh"></i></span>
       	  </span>
 
       	  <!-- Should be more like radio buttons - for Gender at Birth for example. -->

@@ -10125,11 +10125,12 @@ input::-webkit-input-placeholder {
   float: right;
   margin-right: 5.5px;
   display: inline-block;
-  height: 22px;
-  width: 22px;
+  height: 24px;
+  width: 24px;
   font-size: 22px;
   text-align: right;
-  vertical-align: bottom; }
+  vertical-align: top;
+  line-height: 0px; }
 
 .regenerating {
   -webkit-animation: spin 1.5s linear infinite;

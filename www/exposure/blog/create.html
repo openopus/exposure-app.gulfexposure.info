@@ -40,7 +40,8 @@
 
   </ion-content>
   <div class="sticky-footer">
-    <button class="button button-block button-light button-light-home button-light-cta" type="item-text-wrap" ng-click="submit_post()">
+    <button class="button button-block button-light button-light-home button-light-cta" ng-disabled="!post.title || !post.content"
+	    type="item-text-wrap" ng-click="submit_post()">
       <span ng-bind="submit_button_text"></span>
     </button>
   </div>

@@ -104,7 +104,7 @@ function($scope, $transitions, $timeout, $stateParams, $q, $api, $location, $htt
         var api_user = response.data;
         $scope.survey.user.codename = api_user.codename;
         $scope.survey.codename = api_user.codename;
-        var codename_question = Survey.get_question_by_tag("codename");
+        var codename_question = Survey.get_question_by_tag("codename", $scope.survey);
         if (codename_question) codename_question.answer = $scope.survey.user.codename;
         ExposureCodename.set_current($scope.survey.user.codename);
         if (elt) {

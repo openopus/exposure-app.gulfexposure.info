@@ -1040,15 +1040,17 @@
 
     // Box properties
     float: right;
-    margin-right: $grid / 4;
+    margin-right: ($grid / 4);
     display: inline-block;
-    height: $grid;
-    width: $grid;
+    height: $grid + 2px;
+    width: $grid + 2px;
     // Background & borders
     // Typography
     font-size: $grid;
     text-align: right;
-    vertical-align: bottom;
+    vertical-align: top;
+    line-height: 0px;
+
     // Animation
 
     // Other

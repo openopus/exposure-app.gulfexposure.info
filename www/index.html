@@ -6,6 +6,24 @@
     <title>Exposure</title>
     <link href="css/ionic.app.css" rel="stylesheet" />
     <link href="lib/css-spinners/css/spinners.css" rel="stylesheet" />
+
+    <script>
+      var theRealConsole = console;
+      var setConsoleOutput = function(on) {
+	if (!on) {
+	  theRealConsole = console;
+	  console = {};
+	  console.log = function() {};
+	  console.warn = function() {};
+	  console.error = function() {};
+	} else {
+	  console = theRealConsole;
+	}
+	window.console = console;
+      }
+      setConsoleOutput(false);
+    </script>
+
     <script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
 
     <script src="lib/ionic/js/ionic.bundle.js"></script>
