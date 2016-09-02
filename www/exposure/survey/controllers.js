@@ -90,6 +90,17 @@ function($scope, $transitions, $timeout, $stateParams, $q, $api, $location, $htt
     return answer;
   };
 
+  $scope.handle_keydown = function(event) {
+    var key = event.key || event.keycode || event.which;
+
+    if ((key == "Enter") || (key == 13)) {
+      $scope.blur_others();
+      event.preventDefault();
+      event.stopPropagation();
+      return(false);
+    }
+  };
+
   $scope.regen_codename = function($event) {
     var existing = $scope.survey.codename;
     var elt;
