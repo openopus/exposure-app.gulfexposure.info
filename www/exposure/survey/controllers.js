@@ -1,5 +1,5 @@
 Controllers.controller('SurveyController',
-function($scope, $transitions, $timeout, $stateParams, $q, $api, $location, $http, $rootScope, $ionicPopup,
+function($scope, $transitions, $timeout, $stateParams, $q, $api, $location, $http, $rootScope, $ionicPopup, 
                                                     groups, Survey, ExposureCodename, ExposureUser) {
 
   $scope.deferred_location = $q.defer();

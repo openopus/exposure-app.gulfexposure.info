@@ -22,6 +22,8 @@
     "cordova-plugin-statusbar",
     "ionic-plugin-keyboard",
     "cordova-plugin-crosswalk-webview",
+    "cordova-plugin-email-composer",
+    "cordova-plugin-apprate",
     {
       "locator": "https://github.com/mapsplugin/cordova-plugin-googlemaps",
       "id": "cordova-plugin-googlemaps"

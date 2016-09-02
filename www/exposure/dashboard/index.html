@@ -15,6 +15,18 @@
 <ion-nav-view>
   <ion-content class="home-screen no-footer">
     <div class="home-screen-content slow-fadein" id="the-dashboard">
+      <div id="thanks-for-rating-this-app-message" class="inline-message fade">
+        <i class="ion-close" ng-click="close_inline_message($event)"></i>
+        Thank you for taking the time to rate The Exposure App!  Our voices together will shed light on the truth.
+      </div>
+      <div id="thanks-for-sending-us-email-message" class="inline-message fade">
+        <i class="ion-close" ng-click="close_inline_message($event)"></i>
+        Thank you for taking the time to send us an email.  We love communication and feedback!  Our voices together will shed light on the truth.
+      </div>
+      <div id="thanks-for-sharing-message" class="inline-message fade">
+        <i class="ion-close" ng-click="close_inline_message($event)"></i>
+        Thank you for sharing The Exposure App with others! Our voices together will shed light on the truth.
+      </div>
       <div id="submitted-story-message" class="inline-message fade">
         <i class="ion-close" ng-click="close_inline_message($event)"></i>
         Thank you for telling your story. Our voices together will shed light on the truth.

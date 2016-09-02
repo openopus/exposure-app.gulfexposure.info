@@ -10426,8 +10426,7 @@ div.blog-image {
   margin-left: auto;
   margin-right: auto;
   border-radius: 6px;
-  background: #ddd;
-  color: #333;
+  background: none;
   padding: 10px; }
   .share-instructions .share-buttons {
     margin: 30px auto;
@@ -10435,25 +10434,33 @@ div.blog-image {
     padding: 0;
     text-align: center; }
     .share-instructions .share-buttons .tile {
-      width: 132px;
-      height: 132px;
+      width: calc(35vw - 2px);
+      height: calc(35vw - 2px);
+      max-width: 140px;
+      max-height: 140px;
+      padding: 5% 0;
       border: 1px solid black;
-      border-radius: 5px;
+      border-radius: 10px;
       background: #333;
       color: #eee;
-      padding: 4px;
       display: inline-block;
       text-align: center;
-      vertical-align: middle;
-      margin: 2px; }
-      .share-instructions .share-buttons .tile span {
+      margin: 2px 0px;
+      vertical-align: middle; }
+      .share-instructions .share-buttons .tile .tile-contents {
         display: block;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        max-height: 60px; }
-      .share-instructions .share-buttons .tile i {
-        font-size: 60px;
-        color: lightblue; }
+        vertical-align: middle;
+        margin: auto;
+        padding: 5% 10px; }
+        .share-instructions .share-buttons .tile .tile-contents span {
+          line-height: 110%;
+          display: block;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          max-height: 60px; }
+        .share-instructions .share-buttons .tile .tile-contents i {
+          font-size: 60px;
+          color: lightblue; }
 
 ion-nav-view {
   background-color: transparent !important; }

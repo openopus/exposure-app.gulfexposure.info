@@ -1,9 +1,83 @@
-Controllers.controller('ShareAppController', function($scope, $transitions, $q, $rootScope, $cordovaContacts) {
-  $scope.go_dashboard = function() { $transitions.go("dashboard", { type: "flip", direction: "down", duration: 600 }); };
+Controllers.controller('ShareAppController', function($scope, $transitions, $q, $rootScope, $cordovaContacts, $cordovaSocialSharing) {
+
+  $scope.exposure_rated = localStorage.getItem("exposure-rated");
+
+  $scope.go_dashboard = function(show_message) {
+    if (show_message) {
+      var message = "thanks-for-sharing-message";
+      if (typeof show_message == "string") message = show_message;
+      $rootScope.$broadcast("dashboard.show-message", { message: message });
+    }
+
+    $transitions.go("dashboard", { type: "flip", direction: "down", duration: 600 });
+  };
+
+  $scope.rate_this_app = function() {
+    try {
+      AppRate.preferences.callbacks.onButtonClicked = function(button_index) {
+        console.log("RATING BUTTON: " + button_index);
+        if (button_index == 3) {
+          localStorage.setItem("exposure-rated", "true");
+          $scope.exposure_rated = true;
+          $scope.go_dashboard("thanks-for-rating-this-app-message");
+        }
+      };
+
+      AppRate.promptForRating();
+    } catch(e) {
+      console.log("Error rating: " + e);
+      $scope.go_dashboard();
+    }
+  };
+
+  $scope.share_this_app = function() {
+    var onSuccess = function(result) {
+      console.log("Successfully shared.");
+      $scope.go_dashboard(true);
+    };
+    var onFailure = function(error) {
+      console.log("Share: got error: " + error);
+      $scope.go_dashboard();
+    };
+    var options = { url: "http://theexposureapp.com/",
+                    subject: "Check out this app for helping oil spill victims...",
+                    message: "This impacted me, and I thought I'd share.  This app is helping to expose the relationship between oil spills and unusual illnesses and health problems." };
+
+    try {
+      $cordovaSocialSharing.shareWithOptions(options, onSuccess, onFailure);
+    } catch(e) {
+      console.log("Couldn't call share function: " + e);
+      $scope.go_dashboard();
+    }
+  };
+
 
   $scope.share_with_contacts = function() {
-    $cordovaContacts.pickContact().then(function (contactPicked) {
-      $scope.contact = contactPicked;
-    });
+    try {
+      $cordovaContacts.pickContact().then(function (contactPicked) {
+        $scope.contact = contactPicked;
+        console.log("Got this contact: ", contactPicked);
+        $scope.go_dashboard(true);
+      });
+    } catch (e) {
+      console.log("Must be in a browser.");
+      $scope.go_dashboard(true);
+    }
+  };
+
+  $scope.email_the_exposure = function() {
+    var opts = {
+        to: ["The Exposure <info@theexposureapp.com>"],
+        subject: "Email from a user of The Exposure App",
+        body: "Say what you need to!"
+    }
+    try {
+      cordova.plugins.email.open(opts, function() {
+        $scope.go_dashboard("thanks-for-sending-us-email-message");
+      });
+    } catch(e) {
+      console.log(e);
+      $scope.go_dashboard();
+    }
   };
 });

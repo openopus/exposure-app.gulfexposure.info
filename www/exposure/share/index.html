@@ -16,21 +16,30 @@
 	  and send us your feedback, comments, and suggestions so that we can
 	  keep improving it.</p>
 	<div class="share-buttons">
-	  <div class="tile">
-	    <i class="icon ion-heart"></i>
-	    <span>Rate The Exposure on the App Store</span>
+	  <div class="tile" ng-click="rate_this_app()">
+	    <span class="tile-contents">
+	      <i class="icon ion-heart"></i>
+	      <span ng-if="!exposure_rated">Rate The Exposure</span>
+	      <span ng-if="exposure_rated">Thanks for Rating!</span>
+	    </span>
+	  </div>
+	  <div class="tile" ng-click="email_the_exposure()">
+	    <span class="tile-contents">
+	      <i class="icon ion-email"></i>
+	      <span>Email the Developers</span>
+	    </span>
 	  </div>
 	  <div class="tile">
-	    <i class="icon ion-email"></i>
-	    <span>Email the Developers</span>
-	  </div>
-	  <div class="tile">
-	    <i class="icon ion-android-share-alt"></i>
-	    <span>Shore via Social Networks</span>
+	    <span class="tile-contents" ng-click="share_this_app()">
+	      <i class="icon ion-android-share-alt"></i>
+	      <span>Share via Networks</span>
+	    </span>
 	  </div>
 	  <div class="tile" ng-click="share_with_contacts()">
-	    <i class="icon ion-android-contacts"></i>
-	    <span>Shore with Contacts</span>
+	    <span class="tile-contents">
+	      <i class="icon ion-android-contacts"></i>
+	      <span>Share with Contacts</span>
+	    </span>
 	  </div>
 	</div>
       </div>
