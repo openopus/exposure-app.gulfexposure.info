@@ -42,7 +42,7 @@
         Your survey for {{messaged_codename}} is complete and listed below. Click to review or update your answers at any time.
       </div>
 
-      <p class="dramatic-paragraph" ng-if="!inline_message_showing && (surveys.length == 0)">
+      <p class="dramatic-paragraph" ng-show="!inline_message_showing && (!surveys || surveys.length == 0)">
         Help us shed light on the effects of the gulf spill by
 	taking this anonymous survey once for each of your family
 	members who became sick.
