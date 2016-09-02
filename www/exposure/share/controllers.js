@@ -1,7 +1,7 @@
 Controllers.controller('ShareAppController', function($scope, $transitions, $q, $rootScope, $cordovaContacts, $cordovaSocialSharing, $cordovaEmailComposer) {
 
   $scope.exposure_rated = localStorage.getItem("exposure-rated");
-  $scope.share_body = "<p>This impacted me, and I thought I'd share.  This app is helping to expose the relationship between oil spills and unual illnesses and health problems.</p><p>You can find out more about the app from here: <a href='http://theexposureapp.com'>http://theexposureapp.com</a>.";
+  $scope.share_body = "<p>This impacted me, and I thought I'd share.  This app is helping to expose the relationship between oil spills and unusual illnesses and health problems.</p><p>You can find out more about the app from here: <a href='http://theexposureapp.com'>http://theexposureapp.com</a>.";
   $scope.go_dashboard = function(show_message) {
     if (show_message) {
       var message = "thanks-for-sharing-message";
@@ -59,9 +59,10 @@ Controllers.controller('ShareAppController', function($scope, $transitions, $q, 
         console.log("Got this contact: ", contactPicked);
         var email = contactPicked.emails[0].value;
         var opts = {
-          to: contactPicked.displayName + " <" + email + ">",
+          to: [contactPicked.displayName + " <" + email + ">"],
           subject: "Check out this app for helping oil spill victims...",
-          body: $scope.share_body
+          body: $scope.share_body,
+          isHtml: true
         };
         
         $cordovaEmailComposer.open(opts).then(function() {
@@ -78,7 +79,8 @@ Controllers.controller('ShareAppController', function($scope, $transitions, $q, 
     var opts = {
         to: ["The Exposure <info@theexposureapp.com>"],
         subject: "Email from a user of The Exposure App",
-        body: "Say what you need to!"
+        body: "I wanted to tell you about something in the app:",
+      isHtml: true
     }
     try {
       $cordovaEmailComposer.open(opts).then(function() {
