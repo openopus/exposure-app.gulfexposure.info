@@ -9821,11 +9821,16 @@ a.button {
 button.header-item.back-button {
   color: white; }
 
+.heatmap-wrapper h4 {
+  margin-bottom: 1px;
+  margin-top: 6px;
+  padding-left: 3px; }
+
 #exposure-heatmap {
   height: 100%;
   width: auto;
   display: block;
-  height: 200px; }
+  height: 500px; }
 
 /* app.scss: -*- css -*- Base styles and manifest for styles.
 
@@ -10415,6 +10420,40 @@ div.blog-image {
   background: #333;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px; }
+
+.share-instructions {
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 6px;
+  background: #ddd;
+  color: #333;
+  padding: 10px; }
+  .share-instructions .share-buttons {
+    margin: 30px auto;
+    width: 100%;
+    padding: 0;
+    text-align: center; }
+    .share-instructions .share-buttons .tile {
+      width: 132px;
+      height: 132px;
+      border: 1px solid black;
+      border-radius: 5px;
+      background: #333;
+      color: #eee;
+      padding: 4px;
+      display: inline-block;
+      text-align: center;
+      vertical-align: middle;
+      margin: 2px; }
+      .share-instructions .share-buttons .tile span {
+        display: block;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-height: 60px; }
+      .share-instructions .share-buttons .tile i {
+        font-size: 60px;
+        color: lightblue; }
 
 ion-nav-view {
   background-color: transparent !important; }

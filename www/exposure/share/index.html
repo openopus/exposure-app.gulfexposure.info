@@ -1,0 +1,40 @@
+<ion-nav-bar>
+  <ion-nav-title>Exposure</ion-nav-title>
+  <ion-nav-buttons side="primary">
+    <button class="button button-clear" ng-click="go_dashboard()">
+      <i class="ion-help-circled"></i>Home
+    </button>
+  </ion-nav-buttons>
+</ion-nav-bar>
+
+<ion-nav-view>
+  <ion-content class="home-screen no-footer">
+    <div class="home-screen-content slow-fadein" id="share-the-app">
+      <div class="share-instructions">
+	<p>The most powerful tool we have is our voices, together.</p>
+	<p>Please share this app with your friends, rate it on iTunes,
+	  and send us your feedback, comments, and suggestions so that we can
+	  keep improving it.</p>
+	<div class="share-buttons">
+	  <div class="tile">
+	    <i class="icon ion-heart"></i>
+	    <span>Rate The Exposure on the App Store</span>
+	  </div>
+	  <div class="tile">
+	    <i class="icon ion-email"></i>
+	    <span>Email the Developers</span>
+	  </div>
+	  <div class="tile">
+	    <i class="icon ion-android-share-alt"></i>
+	    <span>Shore via Social Networks</span>
+	  </div>
+	  <div class="tile" ng-click="share_with_contacts()">
+	    <i class="icon ion-android-contacts"></i>
+	    <span>Shore with Contacts</span>
+	  </div>
+	</div>
+      </div>
+    </div>
+  </ion-content>
+</ion-nav-view>
+

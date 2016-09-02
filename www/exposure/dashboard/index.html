@@ -1,8 +1,13 @@
 <ion-nav-bar>
   <ion-nav-title>Exposure</ion-nav-title>
   <ion-nav-buttons side="primary">
-    <button class="button button-clear" ng-click="go_story();">
+    <button class="button button-clear" ng-click="go_why()">
       <i class="ion-help-circled"></i>Why
+    </button>
+  </ion-nav-buttons>
+  <ion-nav-buttons side="secondary">
+    <button class="button button-clear" ng-click="go_share()">
+      <i class="ion-android-share-alt"></i>Share
     </button>
   </ion-nav-buttons>
 </ion-nav-bar>
@@ -15,7 +20,7 @@
         Thank you for telling your story. Our voices together will shed light on the truth.
       </div>
 
-      <div id="incomplete-survey-message" class="inline-message item-remove-animate">
+      <div ng-if="surveys && (surveys.length > 0)"id="incomplete-survey-message" class="inline-message item-remove-animate">
         <i class="ion-close" ng-click="close_inline_message($event)"></i>
         Your survey for {{messaged_codename}} isn't quite done yet, so we saved it below to finish when you have time.
       </div>
@@ -25,13 +30,23 @@
         Your survey for {{messaged_codename}} is complete and listed below. Click to review or update your answers at any time.
       </div>
 
-      <p class="dramatic-paragraph" ng-if="!inline_message_showing">
+      <p class="dramatic-paragraph" ng-if="!inline_message_showing && (surveys.length == 0)">
         Help us shed light on the effects of the gulf spill by
 	taking this anonymous survey once for each of your family
 	members who became sick.
       </p>
+
+      <span ng-if="!inline_message_showing && (surveys.length > 0)">
+      <button class="button button-block button-light button-light-home button-light-cta button-has-subtext" ng-click="go_share()">
+	Share The App
+      </button>
+      <p class="button-subtext">spread the word, help friends</p>
+      </span>
+
       <button class="button button-block button-light button-light-home button-light-cta button-has-subtext" ng-click="go_survey()">
-	New health survey
+	<span ng-if="!surveys || (surveys.length == 0)">Take the Health Survey</span>
+	<span ng-if="surveys && (surveys.length == 1)")">Add a New Survey</span>
+	<span ng-if="surveys && (surveys.length > 1)")">Add More Surveys</span>
       </button>
 
       <div ng-if="surveys && surveys.length > 0" class="">
@@ -62,17 +77,17 @@
       <button class="button button-block button-light button-light-home button-light-cta button-has-subtext" ng-click="go_map()">
 	See the map
       </button>
-      <p class="button-subtext">See how the damage has spread.</p>
+      <p class="button-subtext">view the affected health areas</p>
 
       <button class="button button-block button-light button-light-home button-light-cta button-has-subtext" ng-click="go_blog()">
 	Read the blog
       </button>
-      <p class="button-subtext">View info about the situation.</p>
+      <p class="button-subtext">get the latest news</p>
 
       <button class="button button-block button-light button-light-home button-light-cta button-has-subtext" ng-click="go_create()">
 	Tell your story
       </button>
-      <p class="button-subtext slow-fadein">We might add your story to our blog!</p>
+      <p class="button-subtext">tell the world what is happening</p>
     </div>
   </ion-content>
 </ion-nav-view>

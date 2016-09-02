@@ -3,13 +3,13 @@ App.config(function($stateProvider) {
 
   .state('intro', {
     url: '/intro',
-    templateUrl: 'exposure/intro/first.html',
+    templateUrl: 'exposure/intro/intro.html',
     controller: 'IntroController'
   })
 
-  .state('story', {
-    url: '/story',
-    templateUrl: 'exposure/intro/story.html',
+  .state('why', {
+    url: '/why',
+    templateUrl: 'exposure/intro/why.html',
     controller: 'IntroController'
   })
 });
