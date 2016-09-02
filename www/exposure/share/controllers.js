@@ -1,7 +1,7 @@
-Controllers.controller('ShareAppController', function($scope, $transitions, $q, $rootScope, $cordovaContacts, $cordovaSocialSharing) {
+Controllers.controller('ShareAppController', function($scope, $transitions, $q, $rootScope, $cordovaContacts, $cordovaSocialSharing, $cordovaEmailComposer) {
 
   $scope.exposure_rated = localStorage.getItem("exposure-rated");
-
+  $scope.share_body = "<p>This impacted me, and I thought I'd share.  This app is helping to expose the relationship between oil spills and unual illnesses and health problems.</p><p>You can find out more about the app from here: <a href='http://theexposureapp.com'>http://theexposureapp.com</a>.";
   $scope.go_dashboard = function(show_message) {
     if (show_message) {
       var message = "thanks-for-sharing-message";
@@ -16,7 +16,7 @@ Controllers.controller('ShareAppController', function($scope, $transitions, $q, 
     try {
       AppRate.preferences.callbacks.onButtonClicked = function(button_index) {
         console.log("RATING BUTTON: " + button_index);
-        if (button_index == 3) {
+        if (button_index == 1) {
           localStorage.setItem("exposure-rated", "true");
           $scope.exposure_rated = true;
           $scope.go_dashboard("thanks-for-rating-this-app-message");
@@ -57,7 +57,16 @@ Controllers.controller('ShareAppController', function($scope, $transitions, $q, 
       $cordovaContacts.pickContact().then(function (contactPicked) {
         $scope.contact = contactPicked;
         console.log("Got this contact: ", contactPicked);
-        $scope.go_dashboard(true);
+        var email = contactPicked.emails[0].value;
+        var opts = {
+          to: contactPicked.displayName + " <" + email + ">",
+          subject: "Check out this app for helping oil spill victims...",
+          body: $scope.share_body
+        };
+        
+        $cordovaEmailComposer.open(opts).then(function() {
+          $scope.go_dashboard(true);
+        });
       });
     } catch (e) {
       console.log("Must be in a browser.");
@@ -72,7 +81,7 @@ Controllers.controller('ShareAppController', function($scope, $transitions, $q, 
         body: "Say what you need to!"
     }
     try {
-      cordova.plugins.email.open(opts, function() {
+      $cordovaEmailComposer.open(opts).then(function() {
         $scope.go_dashboard("thanks-for-sending-us-email-message");
       });
     } catch(e) {
