@@ -9929,7 +9929,7 @@ div.title.title-center.header-item {
   position: relative;
   background-color: rgba(201, 235, 242, 0.1);
   display: none; }
-  .inline-message.shown {
+  .inline-message.message-shown {
     display: block; }
   .inline-message i {
     position: absolute;
@@ -10421,6 +10421,9 @@ div.blog-image {
   border-top-left-radius: 5px;
   border-top-right-radius: 5px; }
 
+.ion-contact-us:before {
+  content: url("../img/icon-support.png"); }
+
 .share-instructions {
   width: 90%;
   margin-left: auto;
@@ -10429,7 +10432,7 @@ div.blog-image {
   background: none;
   padding: 10px; }
   .share-instructions .share-buttons {
-    margin: 30px auto;
+    margin: 30px auto 0px auto;
     width: 100%;
     padding: 0;
     text-align: center; }
@@ -10461,6 +10464,12 @@ div.blog-image {
         .share-instructions .share-buttons .tile .tile-contents i {
           font-size: 60px;
           color: lightblue; }
+
+.action-sheet-group .button {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding: 0px 10px; }
 
 ion-nav-view {
   background-color: transparent !important; }

@@ -3,14 +3,14 @@ Controllers.controller('DashboardController', function($scope, $transitions, $q,
     var raw = document.getElementById(id);
     if (raw) {
       var elt = angular.element(raw);
-      elt.addClass("shown");
+      elt.addClass("messaage-shown");
       $scope.inline_message_showing = true;
-      // $timeout(function() { elt.removeClass("shown"); }, 5000);
+      // $timeout(function() { elt.removeClass("message-shown"); }, 5000);
     }
   };
 
   $scope.close_inline_message = function(event) {
-    angular.element(event.currentTarget).parent().removeClass("shown");
+    angular.element(event.currentTarget).parent().removeClass("message-shown");
     $scope.inline_message_showing = false;
   };
   
@@ -73,7 +73,7 @@ Controllers.controller('DashboardController', function($scope, $transitions, $q,
     $scope.get_surveys();
   };
 
-  $rootScope.$on("dashboard.i-fucking-hate-ionic-controller-caching", $scope.get_surveys);
+  $rootScope.$on("dashboard.i-fucking-hate-ionic-controller-caching", $scope.on_enter);
   $rootScope.$on("dashboard.show-message", function(event, args) {
     if (args && args.message) $scope.show_inline_message(args.message);
     if (args && args.codename) $scope.messaged_codename = args.codename;

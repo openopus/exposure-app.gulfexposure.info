@@ -1,4 +1,5 @@
-Controllers.controller('ShareAppController', function($scope, $transitions, $q, $rootScope, $cordovaContacts, $cordovaSocialSharing, $cordovaEmailComposer) {
+Controllers.controller('ShareAppController', function($scope, $transitions, $q, $rootScope, $ionicActionSheet,
+                                                      $cordovaSms, $cordovaContacts, $cordovaSocialSharing, $cordovaEmailComposer) {
 
   $scope.exposure_rated = localStorage.getItem("exposure-rated");
   $scope.share_body = "<p>This impacted me, and I thought I'd share.  This app is helping to expose the relationship between oil spills and unusual illnesses and health problems.</p><p>You can find out more about the app from here: <a href='http://theexposureapp.com'>http://theexposureapp.com</a>.";
@@ -55,22 +56,77 @@ Controllers.controller('ShareAppController', function($scope, $transitions, $q, 
   $scope.share_with_contacts = function() {
     try {
       $cordovaContacts.pickContact().then(function (contactPicked) {
-        $scope.contact = contactPicked;
         console.log("Got this contact: ", contactPicked);
-        var email = contactPicked.emails[0].value;
-        var opts = {
-          to: [contactPicked.displayName + " <" + email + ">"],
-          subject: "Check out this app for helping oil spill victims...",
-          body: $scope.share_body,
-          isHtml: true
+        $scope.contact = contactPicked;
+        var email, name, number;
+
+        if (contactPicked.emails && contactPicked.emails[0]) email = contactPicked.emails[0].value;
+        if (contactPicked.phoneNumbers && contactPicked.phoneNumbers[0]) number = contactPicked.phoneNumbers[0].value;
+        name = contactPicked.displayName || contactPicked.name.formatted;
+
+        /* How to compose an email... */
+        var send_email = function(email_address) {
+          var email_opts = {
+            to: [name + " <" + email_address + ">"],
+            subject: "Check out this app for helping oil spill victims...",
+            body: $scope.share_body,
+            isHtml: true
+          };
+
+          $cordovaEmailComposer.open(email_opts).then(function() {
+            $scope.go_dashboard(true);
+          });
         };
-        
-        $cordovaEmailComposer.open(opts).then(function() {
-          $scope.go_dashboard(true);
-        });
+
+        /* How to compose a text message... */
+        var send_sms = function(phone_number) {
+          var sms_opts = {
+              replaceLineBreaks: true,
+              android: { intent: 'INTENT' }
+          };
+          var body = $scope.share_body.replace("</p><p>", "\n\n").replace("<p>", "").replace("</p>", "");
+          body = body.replace(/<a\b[^>]*>/i,"").replace(/<\/a>/i, "");
+          $cordovaSms.send(phone_number, body, sms_opts).then(function() {
+            $scope.go_dashboard(true);
+          });
+        };
+
+        /* Okay, let's ask them how they want to share, based on the available items. */
+        var buttons = [];
+        var clicked = function(index, button) {
+          if (button.tag == "email") {
+            send_email(button.email);
+          } else if (button.tag == "text") {
+            send_sms(button.number);
+            console.log("Send them a text");
+          }
+        };
+
+        if (email) {
+          for (var i = 0; i < contactPicked.emails.length; i++) {
+            var addr = contactPicked.emails[i].value;
+            buttons.push({ text: 'Email: ' + addr, tag: "email", email: addr });
+          }
+        }
+
+        if (number) {
+          for (var i = 0; i < contactPicked.phoneNumbers.length; i++) {
+            var num = contactPicked.phoneNumbers[i].value;
+            buttons.push({ text: 'SMS: ' + num, tag: "text", number: num  });
+          }
+        }
+
+        var drawer = { buttons: buttons, cancelText: 'Cancel', cancel: function() { return true; }, buttonClicked: clicked };
+
+        if (buttons.length > 0) {
+          $ionicActionSheet.show(drawer);
+        } else {
+          alert("It looks like that contact doesn't have an email or phone number.");
+        }
       });
     } catch (e) {
       console.log("Must be in a browser.");
+      alert("A problem was enountered: + e");
       $scope.go_dashboard(true);
     }
   };
