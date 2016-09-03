@@ -48,6 +48,7 @@ Controllers.controller('ShareAppController', function($scope, $transitions, $q, 
       $cordovaSocialSharing.shareWithOptions(options, onSuccess, onFailure);
     } catch(e) {
       console.log("Couldn't call share function: " + e);
+      alert("Couldn't call share function: " + e);
       $scope.go_dashboard();
     }
   };
@@ -126,7 +127,7 @@ Controllers.controller('ShareAppController', function($scope, $transitions, $q, 
       });
     } catch (e) {
       console.log("Must be in a browser.");
-      alert("A problem was enountered: + e");
+      alert("A problem was encountered: " + e);
       $scope.go_dashboard(true);
     }
   };
@@ -144,6 +145,7 @@ Controllers.controller('ShareAppController', function($scope, $transitions, $q, 
       });
     } catch(e) {
       console.log(e);
+      alert("A problem was encountered: " + e);
       $scope.go_dashboard();
     }
   };

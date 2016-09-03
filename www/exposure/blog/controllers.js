@@ -30,6 +30,25 @@ Controllers.controller('BlogDetailController', function($scope, $stateParams, Po
     $cordovaSocialSharing.shareWithOptions(options, onSuccess, onFailure);
   };
 
+  $scope.set_anchor_targets = function(post, target) {
+    var parser = new DOMParser(), doc;
+    try {
+      doc = parser.parseFromString(post.content.rendered, 'text/html');
+    } catch(e) {
+      console.error("Got an error trying to get the detail:", e);
+    }
+
+    if (doc) {
+      var anchors = doc.getElementsByTagName("a");
+      if (anchors) {
+        for (var i = 0; i < anchors.length; i++) {
+          var anchor = angular.element(anchor);
+          anchor.attr("target", "_system");
+        }
+      }
+    }
+  };
+
   $scope.post = the_post;
 });
 

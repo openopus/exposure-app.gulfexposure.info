@@ -24,7 +24,17 @@ App.config(function($stateProvider, $urlRouterProvider) {
           }
           if (doc) {
             var html = doc.getElementsByTagName("html");
+            var anchors = doc.getElementsByTagName("a");
+
             if (html) { html = html[0]; html.className += "wordpress-parsed"; }
+
+            if (anchors) {
+              for (var i = 0; i < anchors.length; i++) {
+                var anchor = angular.element(anchors[i]);
+                anchor.attr("target", "_system");
+              }
+            }
+
             post.post_content = $sce.trustAsHtml(doc.firstChild.outerHTML);
           }
           defer.resolve(post);
