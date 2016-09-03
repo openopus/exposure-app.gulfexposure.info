@@ -31,7 +31,10 @@ App.config(function($stateProvider, $urlRouterProvider) {
             if (anchors) {
               for (var i = 0; i < anchors.length; i++) {
                 var anchor = angular.element(anchors[i]);
-                anchor.attr("target", "_system");
+                var href = anchor.attr("href");
+                anchor.attr("onclick", "window.open(this.getAttribute('xref'), '_system', 'location=yes');");
+                anchor.attr("xref", href);
+                anchor.attr("href", "#");
               }
             }
 

@@ -1,8 +1,11 @@
 var OLIWordpress = angular.module('oli.wordpress', []);
 
-OLIWordpress.factory('Posts', function($http, $q, $api) {
+OLIWordpress.factory('Posts', function($http, $q, $api, $cordovaInAppBrowser) {
   var service = { url: "http://therisingmovie.info/wp-json/wp/v2/posts/", posts: [] };
 
+  /* "preload" the browser code so that clicking links in blog details work fast. */
+  $cordovaInAppBrowser.open(service.url, '_blank', "hidden='yes'").then(function(event) { console.log("inAppBrowser primed"); $cordovaInAppBrowser.close(); });
+  
   service.all = function(force) {
     var defer = $q.defer()
     var result = defer.promise;
