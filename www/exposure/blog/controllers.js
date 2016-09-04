@@ -31,7 +31,6 @@ Controllers.controller('BlogDetailController', function($scope, $stateParams, Po
   };
 
   $scope.open_external = function(dom_element) {
-    debugger;
     var anchor = angular.element(dom_element);
     var link = anchor.attr("xref");
     window.open(encodeURI(link), '_system', 'location=yes');
