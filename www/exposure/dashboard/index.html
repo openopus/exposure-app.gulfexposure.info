@@ -32,7 +32,7 @@
         Thank you for telling your story. Our voices together will shed light on the truth.
       </div>
 
-      <div ng-if="surveys && (surveys.length > 0)"id="incomplete-survey-message" class="inline-message item-remove-animate">
+      <div id="incomplete-survey-message" class="inline-message item-remove-animate">
         <i class="ion-close" ng-click="close_inline_message($event)"></i>
         Your survey for {{messaged_codename}} isn't quite done yet, so we saved it below to finish when you have time.
       </div>
@@ -42,17 +42,17 @@
         Your survey for {{messaged_codename}} is complete and listed below. Click to review or update your answers at any time.
       </div>
 
-      <p class="dramatic-paragraph" ng-show="!inline_message_showing && (!surveys || surveys.length == 0)">
+      <p class="dramatic-paragraph" ng-show="show_blurb">
         Help us shed light on the effects of the gulf spill by
 	taking this anonymous survey once for each of your family
 	members who became sick.
       </p>
 
-      <span ng-if="!inline_message_showing && (surveys.length > 0)">
-      <button class="button button-block button-light button-light-home button-light-cta button-has-subtext" ng-click="go_share()">
-	Share The App
-      </button>
-      <p class="button-subtext">spread the word, help friends</p>
+      <span ng-show="show_share"">
+	<button class="button button-block button-light button-light-home button-light-cta button-has-subtext" ng-click="go_share()">
+	  Share The App
+	</button>
+	<p class="button-subtext">spread the word, help friends</p>
       </span>
 
       <button class="button button-block button-light button-light-home button-light-cta button-has-subtext" ng-click="go_survey()">

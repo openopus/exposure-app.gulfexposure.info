@@ -5,6 +5,7 @@ Controllers.controller('DashboardController', function($scope, $transitions, $q,
       var elt = angular.element(raw);
       elt.addClass("messaage-shown");
       $scope.inline_message_showing = true;
+      $scope.blurb_or_button();
       // $timeout(function() { elt.removeClass("message-shown"); }, 5000);
     }
   };
@@ -12,6 +13,7 @@ Controllers.controller('DashboardController', function($scope, $transitions, $q,
   $scope.close_inline_message = function(event) {
     angular.element(event.currentTarget).parent().removeClass("message-shown");
     $scope.inline_message_showing = false;
+    $scope.blurb_or_button();
   };
   
   $scope.get_surveys = function() {
@@ -35,7 +37,24 @@ Controllers.controller('DashboardController', function($scope, $transitions, $q,
         }
       }
       $scope.surveys = surveys;
+      $scope.blurb_or_button();
     });
+  };
+
+  $scope.blurb_or_button = function() {
+    if ($scope.inline_message_showing) {
+      $scope.show_blurb = false;
+      $scope.show_share = false;
+    } else if ($scope.surveys.length == 0) {
+      $scope.show_blurb = true;
+      $scope.show_share = false;
+    } else if ($scope.surveys.length == 1) {
+      $scope.show_blurb = false;
+      $scope.show_share = true;
+    } else {
+      $scope.show_blurb = false;
+      $scope.show_share = true;
+    }
   };
 
   $scope.get_birthdate = function(survey) {
