@@ -65,7 +65,7 @@ function($scope, $transitions, $timeout, $stateParams, $q, $api, $location, $htt
     popup.then(function(res) {
       if (res) {
         Survey.destroy(survey).then(function() {
-          $scope.go_dashboard();
+          $scope.go_dashboard(true);
         });
       }
     });
