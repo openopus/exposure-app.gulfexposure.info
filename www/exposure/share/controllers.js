@@ -14,6 +14,11 @@ Controllers.controller('ShareAppController', function($scope, $transitions, $q, 
   };
 
   $scope.rate_this_app = function() {
+    if (typeof AppRate == "undefined") {
+      alert("Sorry, you can't rate this app unless you are on an actual phone.");
+      return;
+    }
+
     try {
       AppRate.preferences.callbacks.onButtonClicked = function(button_index) {
         console.log("RATING BUTTON: " + button_index);
