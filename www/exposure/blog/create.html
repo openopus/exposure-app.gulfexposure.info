@@ -12,26 +12,25 @@
     <div class="list blog">
       <div class="item item-text-wrap blog-detail-image" style="border-top: none;">
       	<h2 content-editable ng-model="post.title" render-html="true" class="blog-title">
-	  Your Post Title
+	  Your Story's Title
 	</h2>
       	<p ng-bind="post.date | date:'EEEE, MMM dd, yyyy'"></p>
-      	<p ng-bind="post.author"></p>
+      	<p style="display: none" ng-bind="post.author"></p>
       </div>
       <div class="blog-detail-content">
         <div class="post-actions">
             <div class="image-adder" ng-click="image_chooser()">
-              <i class="ion-camera"></i>
+              <i class="ion-camera">+</i>
             </div>
         </div>
-      	<p content-editable ng-model="post.content">
-	  Edit this content to tell your story, by simply touching the
-	  text that you want to change.  After you submit your story, it will
-	  be reviewed. Each week, new stories are chosen to be included in the
-	  blog.  Tell us your story, because it's important, and we're
-	  listening to you.
+      	<div content-editable ng-model="post.content" style="width: 100%; display: block; padding: 8px;">
+	  Tell us your story!<br /><br />
+	  Touch this area to start typing in your story.  You can touch the title above to set that as well.
+	  After you submit your story, it will be reviewed. Each week, new stories are chosen to be included in the
+	  blog.  Tell us your story, because it's important, and we're listening to you.
 	  <br /><br />
 	  You can add pictures and videos by clicking the camera icon at the top of this section.
-	</p>
+	</div>
 	<div class="blog-image" ng-repeat="image in post.images">
 	  <img ng-src="{{image}}" ng-click="edit_image($index)" />
 	</div>
