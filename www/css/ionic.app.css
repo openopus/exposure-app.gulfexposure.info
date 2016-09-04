@@ -9924,7 +9924,7 @@ div.title.title-center.header-item {
   -webkit-border-bottom-right-radius: 4px;
   -moz-border-radius-bottomright: 4px;
   border-bottom-right-radius: 4px;
-  padding: 22px;
+  padding: 28px 22px;
   margin-bottom: 11px;
   position: relative;
   background-color: rgba(201, 235, 242, 0.1);

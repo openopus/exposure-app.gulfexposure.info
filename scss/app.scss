@@ -303,7 +303,7 @@
       // Mixins
       @include corners;
       // Box properties
-      padding: $grid;
+      padding: ($grid + 6px) $grid;
       margin-bottom: $grid / 2;
       position: relative;
       // Background & borders
