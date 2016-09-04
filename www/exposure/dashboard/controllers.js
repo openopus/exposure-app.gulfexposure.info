@@ -3,7 +3,7 @@ Controllers.controller('DashboardController', function($scope, $transitions, $q,
     var raw = document.getElementById(id);
     if (raw) {
       var elt = angular.element(raw);
-      elt.addClass("messaage-shown");
+      elt.addClass("message-shown");
       $scope.inline_message_showing = true;
       $scope.blurb_or_button();
       // $timeout(function() { elt.removeClass("message-shown"); }, 5000);
