@@ -15,6 +15,14 @@ Controllers.controller('DashboardController', function($scope, $transitions, $q,
     $scope.inline_message_showing = false;
     $scope.blurb_or_button();
   };
+
+  $scope.close_all_inline_messages = function() {
+    var open_elements = document.getElementsByClassName("message-shown");
+
+    for (var i = 0; open_elements && i < open_elements.length; i++) {
+      angular.element(open_elements[i]).removeClass("message-shown");
+    }
+  };
   
   $scope.get_surveys = function() {
     ExposureCodename.get_all();
@@ -85,6 +93,7 @@ Controllers.controller('DashboardController', function($scope, $transitions, $q,
 
   $scope.go_survey = function(codename) {
     $scope.fade_no_more();
+    $scope.close_all_inline_messages();
     $transitions.go("survey", { type: "slide", direction: "up" }, { codename: codename });
   };
 
