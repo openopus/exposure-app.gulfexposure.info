@@ -113,15 +113,15 @@ Services.factory('Survey', function($api, $q, ExposureCodename, ExposureUser) {
       var questions = service.get_questions(survey);
       var answered = 0;
       questions.forEach(function(q) {
-        // console.log("SET-STATUS - " + q.tag + ": " + q.answer);
+        console.log("SET-STATUS - " + q.tag + ": " + q.answer);
 
         if (q.dependent_on) {
-          var dans = service.get_question_by_tag(q.dependent_on, questions);
+          var dans = service.get_question_by_tag(q.dependent_on, survey);
           if (!dans) {
             answered++;
           } else {
-            // console.log("dans.answer, q.dependent_answer", dans.answer, q.dependent_answer);
-            if (dans.answer == q.dependent_answer) {
+            // console.log("dans.answer, q.dependent_value", dans.answer, q.dependent_value);
+            if (dans.answer == q.dependent_value) {
               answered++;
             }
           }
@@ -257,6 +257,11 @@ Services.factory('Survey', function($api, $q, ExposureCodename, ExposureUser) {
       question.options.forEach(function(option) { option.checked = false; });
       question.answer = value;
 
+      if (question.dependent_on) {
+        var dq = service.get_question_by_tag(question.dependent_on, survey);
+        dq.has_dependents = true;
+      }
+        
       /* Complicated? Yes: But also correct. */
       if (question.seltype == "boolean") {
         question.checked = (value == 'Yes');

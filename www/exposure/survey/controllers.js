@@ -130,6 +130,8 @@ function($scope, $transitions, $timeout, $stateParams, $q, $api, $location, $htt
   $scope.hide_show_dependents = function(question) {
     var dependents = document.querySelectorAll("[dependent-on='" + question.tag + "']");
 
+    console.log("HIDE_SHOW: " + question.tag);
+
     if (dependents) {
       var showing;
 
@@ -168,7 +170,8 @@ function($scope, $transitions, $timeout, $stateParams, $q, $api, $location, $htt
   $scope.update_boolean = function(question) {
     $scope.blur_others();
     question.answer = question.checked ? "Yes" : "No";
-    $scope.hide_show_dependents(question);
+    if (question.has_dependents)
+      $scope.hide_show_dependents(question);
   };
 
   $scope.pick_one = function(question, option) {
@@ -178,6 +181,14 @@ function($scope, $transitions, $timeout, $stateParams, $q, $api, $location, $htt
       if (o != option)
         o.checked = undefined;
     });
+
+    if (option.checked) {
+      question.answer = option.name;
+    } else {
+      question.answer = null;
+    }
+    if (question.has_dependents)
+      $scope.hide_show_dependents(question);
   };
 
   $scope.submit_survey_button = function() {
@@ -255,7 +266,7 @@ function($scope, $transitions, $timeout, $stateParams, $q, $api, $location, $htt
        * (bfox: Mon Aug 29 07:56:17 2016) */
       $timeout(function(surprise) {
         questions.forEach(function(q) {
-          if (q.seltype == "boolean") {
+          if (q.has_dependents) {
             $scope.hide_show_dependents(q);
           }
         });

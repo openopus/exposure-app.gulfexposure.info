@@ -67,7 +67,7 @@
       	    </div>
       	  </div>
 
-      	  <div class="list list-inset list-has-label" ng-if="question.seltype == 'date'">
+      	  <div class="list list-inset list-has-label" dependent-on="{{question.dependent_on}}" dependent-value="{{question.dependent_value}}" ng-if="question.seltype == 'date'">
             <label class="item item-input">
               <span class="input-label">Date</span>
               <input type="date" ng-model="question.answer">
