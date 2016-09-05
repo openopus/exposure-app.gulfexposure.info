@@ -130,8 +130,6 @@ function($scope, $transitions, $timeout, $stateParams, $q, $api, $location, $htt
   $scope.hide_show_dependents = function(question) {
     var dependents = document.querySelectorAll("[dependent-on='" + question.tag + "']");
 
-    console.log("HIDE_SHOW: " + question.tag);
-
     if (dependents) {
       var showing;
 

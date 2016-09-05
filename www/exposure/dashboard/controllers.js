@@ -94,7 +94,7 @@ Controllers.controller('DashboardController', function($scope, $transitions, $q,
 
   $rootScope.$on("dashboard.i-fucking-hate-ionic-controller-caching", $scope.on_enter);
   $rootScope.$on("dashboard.show-message", function(event, args) {
-    if (args && args.message) $scope.show_inline_message(args.message);
+    if (args && args.message) { $timeout(function() { $scope.show_inline_message(args.message); }, 0); }
     if (args && args.codename) $scope.messaged_codename = args.codename;
   });
 

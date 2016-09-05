@@ -113,19 +113,28 @@ Services.factory('Survey', function($api, $q, ExposureCodename, ExposureUser) {
       var questions = service.get_questions(survey);
       var answered = 0;
       questions.forEach(function(q) {
-        console.log("SET-STATUS - " + q.tag + ": " + q.answer);
+        // console.log("SET-STATUS - " + q.tag + ": " + q.answer);
 
         if (q.dependent_on) {
           var dans = service.get_question_by_tag(q.dependent_on, survey);
+
+          // console.log(q.tag + " is dependent on " + q.dependent_on + " being answered, and having the answer " + q.dependent_value);
+          // console.log("   The dependent question is of type " + dans.seltype + ", and has the answer of " + dans.answer);
+
+          /* If there's no dependent question, that's an error in the data, so consider this
+             question answered.  Otherwise, examine the answer to the dependent to see if the
+             current question needed to be answered. */
           if (!dans) {
             answered++;
-          } else {
-            // console.log("dans.answer, q.dependent_value", dans.answer, q.dependent_value);
-            if (dans.answer == q.dependent_value) {
+          } else if (dans.seltype == "boolean" && !dans.answer) {
+            /* When you're dependent on a boolean question, if that question
+               is unanswered OR false, then this question doesn't count. */
+            answered++;
+            } else if ((dans.answer != q.dependent_value) || q.answer) {
               answered++;
             }
-          }
         } else {
+          /* Just count this answer if there is one.  It's not dependent on anything else. */
           if (q.answer) answered++;
         }
       });
@@ -136,7 +145,7 @@ Services.factory('Survey', function($api, $q, ExposureCodename, ExposureUser) {
     } else {
       all_answered = true;
     }
-    // console.log(info.codename + ":" + info.num_answered + " out of " + info.num_questions);
+
     survey.complete = all_answered;
     survey.status = survey.complete ? "complete" : "incomplete";
   };
@@ -269,6 +278,8 @@ Services.factory('Survey', function($api, $q, ExposureCodename, ExposureUser) {
         value = question.answer;
       }
 
+      if (question.tag == "life-status" && survey.codename == "HobbilUnite") console.log(survey.codename + " life-status value: " + value);
+
       if (value) {
         if (question.seltype == "date") {
           if (typeof value == "string")
@@ -293,10 +304,11 @@ Services.factory('Survey', function($api, $q, ExposureCodename, ExposureUser) {
             if (typeof value_options[j] != "undefined")
               temp.push(value_options[j]);
           }
-          value = temp.join();
+          var other = temp.join();
 
-          if (value) {
+          if (other && question.seltype.endsWith("with-other")) {
             question.other_checked = true;
+            value = other;
           }
         }
       }
