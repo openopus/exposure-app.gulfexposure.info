@@ -10351,15 +10351,24 @@ div.blog-detail-content.blog-post-content {
   user-select: text; }
 
 div.network-status {
+  z-index: 10000;
   position: absolute;
   left: 0;
   right: 0;
   top: 0;
-  height: 45px;
+  height: 60px;
   width: 100%;
+  border-bottom: 3px solid white;
   background: #333;
   color: red;
-  text-transform: uppercase; }
+  font-weight: bold;
+  text-transform: uppercase;
+  text-align: center;
+  line-height: 60px; }
+  div.network-status .network-message {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: normal; }
 
 .blog-list {
   background: black;
