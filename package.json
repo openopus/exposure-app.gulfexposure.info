@@ -66,7 +66,15 @@
     "cordova-plugin-badge",
     "cordova-plugin-app-event",
     "com.cordova.plugins.sms",
-    "cordova-plugin-inappbrowser"
+    "cordova-plugin-inappbrowser",
+    "cordova-plugin-app-preferences",
+    {
+      "id": "phonegap-plugin-push",
+      "locator": "phonegap-plugin-push",
+      "variables": {
+        "SENDER_ID": "470283661561"
+      }
+    }
   ],
   "cordovaPlatforms": [
     "android",
