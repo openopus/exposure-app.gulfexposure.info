@@ -10418,8 +10418,13 @@ div.blog-image {
 
 .confirmation-dialog .popup {
   background: #333;
+  width: 90%;
+  max-width: 380px;
+  padding: 10px;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px; }
+  .confirmation-dialog .popup .popup-buttons .button {
+    border-radius: 4px; }
 
 .ion-contact-us:before {
   content: url("../img/icon-support.png"); }

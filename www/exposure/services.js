@@ -62,7 +62,12 @@ Factories.factory("ExposureCodename", function($q, $api, $localStorage) {
     if (!service.codenames) service.codenames = $localStorage.codenames || [];
 
     if (make_new_p) {
-      $api.create("user", { "guid" : window.oli_device_id }).then(function(response) {
+      var device_info = ionic.Platform.device();
+      var device_os = ionic.Platform.isWebView() ? "web" : ionic.Platform.isIOS() ? "ios" : "android";
+      var device_uuid = device_info.uuid;
+      var user_agent = ionic.Platform.ua;
+      var create_options = { "guid" : window.oli_device_id, device_os: device_os, device_uuid: device_uuid, user_agent: user_agent };
+      $api.create("user", create_options).then(function(response) {
         service.set_current(response.data.codename);
         defer.resolve(service.codename);
       });
