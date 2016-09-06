@@ -1336,3 +1336,12 @@ transition-duration: 300ms!important;
     -webkit-user-select: text;
     user-select: text;
 }
+
+div.network-status {
+    position: absolute; left: 0; right: 0; top:0;
+    height: 45px;
+    width: 100%;
+    background: #333;
+    color: red;
+    text-transform: uppercase;
+}

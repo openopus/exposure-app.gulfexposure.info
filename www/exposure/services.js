@@ -1,3 +1,21 @@
+Factories.factory("$app", function($rootScope) {
+  var service = { network: null, online: null };
+
+  document.addEventListener("online", function(network_type) {
+    service.network = network_type;
+    service.online = true;
+    $rootScope.$broadcast("$app:network-online");
+  });
+
+  document.addEventListener("offline", function(network_type) {
+    service.network = network_type;
+    service.online = false;
+    $rootScope.$broadcast("$app:network-offline");
+  });
+
+  return service;
+});
+
 Factories.factory("$api", function($http, $q) {
   var service = {};
   var baseURL = "https://api.gulfexposure.info/api";
@@ -61,17 +79,7 @@ Factories.factory("ExposureCodename", function($q, $api, $localStorage) {
 
     if (!service.codenames) service.codenames = $localStorage.codenames || [];
 
-    if (make_new_p) {
-      var device_info = ionic.Platform.device();
-      var device_os = ionic.Platform.isWebView() ? "web" : ionic.Platform.isIOS() ? "ios" : "android";
-      var device_uuid = device_info.uuid;
-      var user_agent = ionic.Platform.ua;
-      var create_options = { "guid" : window.oli_device_id, device_os: device_os, device_uuid: device_uuid, user_agent: user_agent };
-      $api.create("user", create_options).then(function(response) {
-        service.set_current(response.data.codename);
-        defer.resolve(service.codename);
-      });
-    } else {
+    if (!make_new_p) {
       if (!service.codename) {
         service.codename = service.codenames[$localStorage.codename_index];
       }
@@ -79,12 +87,25 @@ Factories.factory("ExposureCodename", function($q, $api, $localStorage) {
       if (service.codename) {
         defer.resolve(service.codename);
       } else {
-        $api.create("user").then(function(response) {
-          var user = response.data;
-          service.set_current(user.codename);
-          defer.resolve(service.codename);
-        });
+        make_new_p = true;
       }
+    }
+
+    if (make_new_p) {
+      var device_info = ionic.Platform.device();
+      var os = ionic.Platform.isWebView() ? "web" : ionic.Platform.isIOS() ? "ios" : "android";
+      var token = device_info.uuid;
+      var ua = ionic.Platform.ua;
+      var user_options = { guid: window.oli_device_id };
+      var device_options = { user_guid: window.oli_device_id, os: os, token: token, ua: ua };
+
+      var promises = [$api.create("user", user_options), $api.create("device", device_options)];
+
+      $q.all(promises).then(function(values) {
+        var user_response = values[0], device_response = values[1];
+        service.set_current(user_response.data.codename);
+        defer.resolve(service.codename);
+      });
     }
 
     return result;
@@ -161,3 +182,14 @@ Factories.factory("ExposureUser", function($q, $api, $localStorage) {
 
   return service;
 });
+
+Factories.factory("$push", function($rootScope, $api) {
+  var service = { settings: null };
+
+  service.initialize = function(settings) {
+    /* settings: { badge: true, sound: true, alert: true, gcm_sender_id: "470283661561" } */
+    if (!settings) {
+      settings = { badge: true, sound: true, alert: true, gcm_sender_id: "470283661561" };
+    }
+  };
+})
