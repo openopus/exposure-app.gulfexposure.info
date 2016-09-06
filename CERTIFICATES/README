@@ -1,0 +1,5 @@
+It's really a pain to do this.  The file that you want is TheExposure.pem.
+It is made by concatenating the Certificate and Key pems into a single file.
+The Key pem is from your APNS private key in the "login" keychain in Keychain Access.
+The Cert pem is from you certificate - also in the "login" keychain in Keychain Access.
+This site helped with password-less conversion: https://www.sslshopper.com/ssl-converter.html
