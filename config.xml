@@ -11,7 +11,7 @@
     <plugin name="cordova-plugin-camera" spec="~2.2.0" />
     <plugin name="cordova-plugin-x-socialsharing" spec="https://github.com/EddyVerbruggen/SocialSharing-PhoneGap-Plugin.git" />
     <plugin name="phonegap-plugin-push" spec="1.6.0">
-      <param name="SENDER_ID" value="470283661561" />
+        <param name="SENDER_ID" value="470283661561" />
     </plugin>
     <content src="http://localhost:0" />
     <allow-navigation href="gap://ready" />
