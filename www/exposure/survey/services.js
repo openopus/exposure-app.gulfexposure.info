@@ -13,11 +13,12 @@ Services.factory('Survey', function($api, $q, ExposureCodename, ExposureUser) {
     $api.get("survey_template").then(function(response) {
       service.groups = response.data;
 
-      service.groups.forEach(function(group) {
-        service.num_questions += group.questions.length;
-      });
-
-      defer.resolve(true);
+      if (service.groups) {
+        service.groups.forEach(function(group) {
+          service.num_questions += group.questions.length;
+        });
+        defer.resolve(true);
+      }
     });
   };
 
@@ -93,7 +94,10 @@ Services.factory('Survey', function($api, $q, ExposureCodename, ExposureUser) {
         service.set_status(survey);
         service.surveys.push(survey);
         defer.resolve(survey)
-      });
+      }, function(errors) {
+           console.log("GET_SURVEY_BY_CODENAME(" + codename + "): ", errors);
+           defer.resolve(null);
+         });
     }
     return result;
   };

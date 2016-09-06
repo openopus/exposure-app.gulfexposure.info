@@ -25,7 +25,15 @@ Factories.factory("$api", function($http, $q) {
     baseURL = "https://api.gulfexposure.info/api";
   };
 
-  service.get = function(thing) { return $http.get(baseURL + "/" + thing, service.extra_headers()); };
+  service.get = function(thing) {
+    var defer = $q.defer();
+    var result = defer.promise;
+    $http.get(baseURL + "/" + thing, service.extra_headers()).then(
+      function(response) { defer.resolve(response); },
+      function(error_response) { console.log("ERROR: ", error_response); defer.resolve(error_response); });
+    return result;
+ };
+  service.get    = function(thing) { return $http.get(baseURL + "/" + thing, service.extra_headers()); };
   service.create = function(thing, data) { return $http.post(baseURL + "/" + thing, data, service.extra_headers()); };
   service.post   = function(thing, data) { return $http.post(baseURL + "/" + thing, data, service.extra_headers()); };
   service.update = function(thing, data) { return $http.put(baseURL + "/" + thing, data, service.extra_headers()); };
@@ -163,7 +171,7 @@ Factories.factory("ExposureUser", function($q, $api, $localStorage) {
     if (!user) {
       $api.get("users?codename=" + codename).then(function(response) {
         var users = response.data;
-        if (users.length > 0) user = users[0];
+        if (users && users.length > 0) user = users[0];
         
         if (user) {
           users = $localStorage.users || [];

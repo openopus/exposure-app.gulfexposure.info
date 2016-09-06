@@ -28,7 +28,7 @@ Controllers.controller('DashboardController', function($scope, $transitions, $q,
     if ($scope.inline_message_showing) {
       $scope.show_blurb = false;
       $scope.show_share = false;
-    } else if ($scope.surveys.length == 0) {
+    } else if (!$scope.surveys || $scope.surveys.length == 0) {
       $scope.show_blurb = true;
       $scope.show_share = false;
     } else if ($scope.surveys.length == 1) {
@@ -50,7 +50,7 @@ Controllers.controller('DashboardController', function($scope, $transitions, $q,
       promises.push(promise);
     };
 
-    $q.all(promises).then(function(surveys) {
+    $q.settled(promises).then(function(surveys) {
       if (surveys) {
         for (var i = surveys.length; i >= 0; i--) {
           if (!surveys[i] || !surveys[i].user) {
@@ -62,7 +62,11 @@ Controllers.controller('DashboardController', function($scope, $transitions, $q,
       }
       $scope.surveys = surveys;
       $scope.blurb_or_button();
-    });
+    }, function(errors) {
+         console.log("ERRORS GETTING SURVEYS:", errors);
+         $scope.surveys = [];
+         $scope.blurb_or_button();
+       });
   };
 
   $scope.get_birthdate = function(survey) {
