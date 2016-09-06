@@ -50,7 +50,7 @@ Controllers.controller('DashboardController', function($scope, $transitions, $q,
       promises.push(promise);
     };
 
-    $q.settled(promises).then(function(surveys) {
+    $q.all(promises).then(function(surveys) {
       if (surveys) {
         for (var i = surveys.length; i >= 0; i--) {
           if (!surveys[i] || !surveys[i].user) {
@@ -62,11 +62,13 @@ Controllers.controller('DashboardController', function($scope, $transitions, $q,
       }
       $scope.surveys = surveys;
       $scope.blurb_or_button();
-    }, function(errors) {
-         console.log("ERRORS GETTING SURVEYS:", errors);
-         $scope.surveys = [];
-         $scope.blurb_or_button();
-       });
+    }).catch(function(errors) {
+      console.log("ERRORS GETTING SURVEYS:", errors);
+      $scope.surveys = [];
+      $scope.blurb_or_button();
+    }).finally(function() {
+      // console.log("IN THE FINALLY BLOCK");
+    });
   };
 
   $scope.get_birthdate = function(survey) {

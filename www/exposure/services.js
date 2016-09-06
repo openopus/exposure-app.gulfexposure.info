@@ -26,14 +26,15 @@ Factories.factory("$api", function($http, $q) {
   };
 
   service.get = function(thing) {
-    var defer = $q.defer();
-    var result = defer.promise;
-    $http.get(baseURL + "/" + thing, service.extra_headers()).then(
-      function(response) { defer.resolve(response); },
-      function(error_response) { console.log("ERROR: ", error_response); defer.resolve(error_response); });
-    return result;
- };
-  service.get    = function(thing) { return $http.get(baseURL + "/" + thing, service.extra_headers()); };
+    return $http.get(baseURL + "/" + thing, service.extra_headers()).then(function(response) {
+             return response;
+           }, function(error_response) {
+                console.log("ERROR: ", error_response);
+                return $q.reject(error_response);
+              });
+  };
+
+  service.getx    = function(thing) { return $http.get(baseURL + "/" + thing, service.extra_headers()); };
   service.create = function(thing, data) { return $http.post(baseURL + "/" + thing, data, service.extra_headers()); };
   service.post   = function(thing, data) { return $http.post(baseURL + "/" + thing, data, service.extra_headers()); };
   service.update = function(thing, data) { return $http.put(baseURL + "/" + thing, data, service.extra_headers()); };
@@ -191,13 +192,42 @@ Factories.factory("ExposureUser", function($q, $api, $localStorage) {
   return service;
 });
 
-Factories.factory("$push", function($rootScope, $api) {
+Factories.factory("$push", function($rootScope, $api, $cordovaPushV5, $cordovaMedia) {
   var service = { settings: null };
 
   service.initialize = function(settings) {
-    /* settings: { badge: true, sound: true, alert: true, gcm_sender_id: "470283661561" } */
     if (!settings) {
       settings = { badge: true, sound: true, alert: true, gcm_sender_id: "470283661561" };
     }
+    service.settings = settings;
   };
-})
+
+  service.register = function() {
+    $cordovaPushV5.register(service.settings).then(function(data) {
+      var token = data.registrationId;
+      var device_options = { user_guid: window.oli_device_id, os: os, token: token, ua: ua };
+      console.log("Device Token: " + token);
+      $api.create("device", device_options);
+    }).catch(function(err) {
+               alert("Registration Error: " + JSON.stringify(e));
+             });
+  };
+
+  $rootScope.$on("$cordovaPushV5:notificationReceived", function(event, notification) {
+    console.log("GOT A FUCKING PUSH NOTIFICATION!", event, notification);
+    if (notification.sound) {
+      var snd = new $cordovaMedia.newMedia(event.sound);
+      snd.play();
+    }
+
+    if (notification.badge) {
+      $cordovaPushV5.setBadgeNumber(notification.badge).then(function(result) {
+        console.log("Set the badge to " + notification.badge);
+      }, function(err) {
+        console.log("Failed to set the badge!", notification);
+         });
+    }
+  });
+
+  return service;
+});

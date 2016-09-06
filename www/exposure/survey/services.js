@@ -19,6 +19,9 @@ Services.factory('Survey', function($api, $q, ExposureCodename, ExposureUser) {
         });
         defer.resolve(true);
       }
+    }).catch(function(error) {
+      console.log("SURVEY.initialize() failed: ", error);
+      defer.resolve(true);
     });
   };
 
@@ -86,19 +89,20 @@ Services.factory('Survey', function($api, $q, ExposureCodename, ExposureUser) {
       var answers_promise = service.answers_for(codename);
       var user_promise = ExposureUser.get_by_codename(codename);
 
-      $q.all([answers_promise, user_promise, service.initialized]).then(function(values) {
+      $q.settled([answers_promise, user_promise, service.initialized]).then(function(values) {
         survey.groups = JSON.parse(JSON.stringify(service.groups));
         survey.answers = values[0];
         survey.user = values[1];
         service.zipper(survey);
         service.set_status(survey);
         service.surveys.push(survey);
-        defer.resolve(survey)
-      }, function(errors) {
-           console.log("GET_SURVEY_BY_CODENAME(" + codename + "): ", errors);
-           defer.resolve(null);
-         });
+        defer.resolve(survey);
+      }).catch(function(errors) {
+                 console.log("GET_SURVEY_BY_CODENAME(" + codename + "): ", errors);
+                 defer.resolve(null);
+               });
     }
+
     return result;
   };
 
@@ -281,8 +285,6 @@ Services.factory('Survey', function($api, $q, ExposureCodename, ExposureUser) {
         question.answer = value ? value : "No";
         value = question.answer;
       }
-
-      if (question.tag == "life-status" && survey.codename == "HobbilUnite") console.log(survey.codename + " life-status value: " + value);
 
       if (value) {
         if (question.seltype == "date") {
