@@ -240,7 +240,8 @@ Factories.factory("$push", function($rootScope, $api, $cordovaPushV5, $cordovaMe
   });
 
   service.ask_for_permission = function(message, counter_tag, times_between_asking) {
-    if (window.cordova && window.cordova.plugins && window.cordova.plugins.diagnostic) {
+    if (window.cordova && window.cordova.plugins && window.cordova.plugins.diagnostic &&
+        window.cordova.plugins.diagnostic.isRegisteredForRemoteNotifications) {
       var diag = window.cordova.plugins.diagnostic;
       /* Hmmm: diag.isRemoteNotificationsEnabled */
       diag.isRegisteredForRemoteNotifications(function(registered) {

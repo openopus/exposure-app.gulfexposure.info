@@ -1,4 +1,4 @@
-Controllers.controller('BlogController', function($scope, $transitions, Posts) {
+Controllers.controller('BlogController', function($scope, $transitions, Posts, $push) {
 
   $scope.refresh = function(force) {
     Posts.all(force)
@@ -8,7 +8,10 @@ Controllers.controller('BlogController', function($scope, $transitions, Posts) {
 
   $scope.refresh();
 
-  $scope.go_dashboard = function() { $transitions.go("dashboard", { type: "slide", direction: "right" }); };
+  $scope.go_dashboard = function() {
+    $push.ask_for_permission("Would you like to be notified when there's new content in the blog?", "blog-content", 3);
+    $transitions.go("dashboard", { type: "slide", direction: "right" });
+  };
   $scope.go_detail = function(post) { $transitions.go("blog_detail", { type: "slide", direction: "left" }, { id: post.id }); };
   $scope.go_create = function() { $transitions.go("blog_create", { type: "slide", direction: "up" }); };
 });
