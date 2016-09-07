@@ -1,5 +1,6 @@
-Controllers.controller('DashboardController', function($scope, $transitions, $q, $rootScope, $stateParams, $timeout, Survey, ExposureCodename, Posts) {
+Controllers.controller('DashboardController', function($scope, $transitions, $q, $rootScope, $stateParams, $timeout, Survey, ExposureCodename, Posts, $push) {
   $scope.show_inline_message = function(id) {
+    $scope.current_message = id;
     var raw = document.getElementById(id);
     if (raw) {
       var elt = angular.element(raw);
@@ -7,6 +8,10 @@ Controllers.controller('DashboardController', function($scope, $transitions, $q,
       $scope.inline_message_showing = true;
       $scope.blurb_or_button();
       // $timeout(function() { elt.removeClass("message-shown"); }, 5000);
+
+      if (id == "submitted-story-message") {
+        $push.ask_for_permission("Would you like to be notified if your story is selected for the blog?");
+      }
     }
   };
 

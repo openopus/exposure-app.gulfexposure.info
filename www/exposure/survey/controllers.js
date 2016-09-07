@@ -235,6 +235,9 @@ function($scope, $transitions, $timeout, $stateParams, $q, $api, $location, $htt
     var update_path = false;
     var survey_promise;
 
+    /* It feels too aggressive to ask for the user's location in order to "track them while they are using the app". */
+    /* The language around the whole thing is kind of a nightmare.  We can ask a nicer question first, and see if they
+     * say "Yes" to that.  Would like to ask for different permissions. */
     $scope.get_geolocation();
 
     if ($stateParams.codename) {

@@ -171,9 +171,13 @@ angular.module('angular-content-editable', [])
      * (helps to prevent memory leaks)
      */
     scope.$on('$destroy', function () {
-      elem.unbind(onClick);
-      elem.unbind(onFocus);
-      elem.unbind(onBlur);
+      try {
+        elem.unbind(onClick);
+        elem.unbind(onFocus);
+        elem.unbind(onBlur);
+      } catch(e) {
+        console.log("Robust?");
+      }
     })
   }
 })

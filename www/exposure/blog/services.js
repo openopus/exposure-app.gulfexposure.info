@@ -63,9 +63,9 @@ OLIWordpress.factory('Posts', function($http, $q, $api, $cordovaInAppBrowser) {
     var defer = $q.defer();
     var result = defer.promise;
 
-    $api.post("blog/create", post).then(function(result) {
-      console.log("BLOG+CREATE: ", result);
-      defer.resolve(result);
+    $api.post("blog/create", post).then(function(response) {
+      console.log("BLOG+CREATE: ", response);
+      defer.resolve(response);
     });
     return result;
   };

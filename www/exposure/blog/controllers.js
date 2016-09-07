@@ -63,9 +63,11 @@ function($scope, $rootScope, $transitions, $cordovaCamera, $ionicActionSheet, $t
     }).catch(function(error) {
       console.log("Got an error creating the post: ", error);
     }).finally(function() {
-      $transitions.go("dashboard", { type: "slide", direction: "down" }); 
-      $scope.busy = false;
-      $scope.submit_button_text = orig_button;
+	$timeout(function() {
+            $transitions.go("dashboard", { type: "slide", direction: "down" }); 
+	    $scope.busy = false;
+	    $scope.submit_button_text = orig_button;
+	}, 1200);
     });
   };
 

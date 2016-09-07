@@ -192,7 +192,7 @@ Factories.factory("ExposureUser", function($q, $api, $localStorage) {
   return service;
 });
 
-Factories.factory("$push", function($rootScope, $api, $cordovaPushV5, $cordovaMedia) {
+Factories.factory("$push", function($rootScope, $api, $cordovaPushV5, $cordovaMedia, $cordovaDialogs) {
   var service = { settings: null };
 
   service.initialize = function(settings) {
@@ -234,6 +234,25 @@ Factories.factory("$push", function($rootScope, $api, $cordovaPushV5, $cordovaMe
          });
     }
   });
+
+  service.ask_for_permission = function(message) {
+    if (window.cordova && window.cordova.plugins && window.cordova.plugins.diagnostic) {
+      var diag = window.cordova.plugins.diagnostic;
+      diag.isRemoteNotificationsEnabled(function(enabled) {
+        if (enabled) {
+          /* We already have permission! */
+          return;
+        } else {
+          /* Don't have permission yet.  Let's ask with our nice message first. */
+          $cordovaDialogs.confirm(message, "Get Notified", ["Sure", "Not Now"]).then(function(bindex) {
+            if (bindex == 1) {
+              service.initialize();
+            }
+          });
+        }
+      });
+    }
+  };
 
   return service;
 });
