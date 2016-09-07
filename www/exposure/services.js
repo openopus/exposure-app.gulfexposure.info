@@ -261,7 +261,7 @@ Factories.factory("$push", function($rootScope, $api, $cordovaPushV5, $cordovaMe
               if (bindex == 2) {
                 service.initialize();
               } else {
-                localStorage.setItem(counter_tag, "0");
+                localStorage.setItem(counter_tag, "1");
               }
             });
           } else {
