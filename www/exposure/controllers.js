@@ -4,5 +4,5 @@ Controllers.controller("appController", function($app, $scope, $push, $ionicPlat
 
   document.addEventListener("online", function(network_type) { $scope.network = network_type.type; $scope.online = true; });
   document.addEventListener("offline", function(network_type) { $scope.network = network_type.type; $scope.online = false; });
-  $ionicPlatform.ready(function() { $push.register(); });
+  $ionicPlatform.ready(function() { $push.initialize(); });
 });

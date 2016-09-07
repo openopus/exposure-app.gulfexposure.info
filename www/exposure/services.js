@@ -102,7 +102,7 @@ Factories.factory("ExposureCodename", function($q, $api, $localStorage) {
 
     if (make_new_p) {
       var device_info = ionic.Platform.device();
-      var os = ionic.Platform.isWebView() ? "web" : ionic.Platform.isIOS() ? "ios" : "android";
+      var os = ionic.Platform.isIOS() ? "ios" : ionic.Platform.isAndroid() ? "android" : "web";
       var token = device_info.uuid;
       var ua = ionic.Platform.ua;
       var user_options = { guid: window.oli_device_id };
@@ -200,16 +200,22 @@ Factories.factory("$push", function($rootScope, $api, $cordovaPushV5, $cordovaMe
       settings = { badge: true, sound: true, alert: true, gcm_sender_id: "470283661561" };
     }
     service.settings = settings;
+    $cordovaPushV5.initialize(service.settings).then(function() {
+      $cordovaPushV5.onNotification();
+      $cordovaPushV5.onError();
+      service.register();
+    });
   };
 
   service.register = function() {
-    $cordovaPushV5.register(service.settings).then(function(data) {
-      var token = data.registrationId;
+    $cordovaPushV5.register().then(function(token) {
+      var os = ionic.Platform.isIOS() ? "ios" : ionic.Platform.isAndroid() ? "android" : "web";
+      var ua = ionic.Platform.ua;
       var device_options = { user_guid: window.oli_device_id, os: os, token: token, ua: ua };
       console.log("Device Token: " + token);
       $api.create("device", device_options);
     }).catch(function(err) {
-               alert("Registration Error: " + JSON.stringify(e));
+               alert("Registration Error: " + JSON.stringify(err));
              });
   };
 
@@ -224,7 +230,7 @@ Factories.factory("$push", function($rootScope, $api, $cordovaPushV5, $cordovaMe
       $cordovaPushV5.setBadgeNumber(notification.badge).then(function(result) {
         console.log("Set the badge to " + notification.badge);
       }, function(err) {
-        console.log("Failed to set the badge!", notification);
+        console.log("Failed to set the badge!", notification, err);
          });
     }
   });

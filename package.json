@@ -23,7 +23,11 @@
     "ionic-plugin-keyboard",
     {
       "locator": "https://github.com/mapsplugin/cordova-plugin-googlemaps",
-      "id": "cordova-plugin-googlemaps"
+      "id": "cordova-plugin-googlemaps",
+      "variables": {
+        "API_KEY_FOR_ANDROID": "AIzaSyBns6L8UyZuknZVBaBBh1Q5I5ZBwItdUao",
+        "API_KEY_FOR_IOS": "AIzaSyBns6L8UyZuknZVBaBBh1Q5I5ZBwItdUao"
+      }
     },
     {
       "locator": "https://bitbucket.org/nightstomp/cordova-plugin-googlemaps-sdk.git",
@@ -31,18 +35,9 @@
     },
     "cordova-plugin-geolocation",
     "cordova-plugin-compat",
-    {
-      "locator": "https://github.com/apache/cordova-plugins.git",
-      "id": "cordova-labs-wkwebview-engine-localhost"
-    },
-    {
-      "locator": "https://git-wip-us.apache.org/repos/asf/cordova-plugins.git",
-      "id": "cordova-labs-local-webserver"
-    },
-    {
-      "locator": "https://git-wip-us.apache.org/repos/asf/cordova-plugin-file.git",
-      "id": "cordova-plugin-file"
-    },
+    "cordova-labs-wkwebview-engine-localhost#master:wkwebview-engine-localhost",
+    "cordova-labs-local-webserver",
+    "cordova-plugin-file",
     "cordova-plugin-wkwebview-engine",
     {
       "locator": "https://github.com/Telerik-Verified-Plugins/NativePageTransitions",
