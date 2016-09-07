@@ -14,7 +14,7 @@ function($scope, $transitions, $timeout, $stateParams, $q, $api, $location, $htt
       var lon = position.coords.longitude;
       var latlng = lat + "," + lon;
 
-      $http.get("https://maps.googleapis.com/maps/api/geocode/json?latlng=" + latlng + "&sensor=true").then(function(reply) {
+      $http.get("https://maps.googleapis.com/maps/api/geocode/json?latlng=" + latlng).then(function(reply) {
         var data = reply.data;
 
         if (data.status && data.status == "OK") {

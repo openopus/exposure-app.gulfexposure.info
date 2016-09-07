@@ -235,6 +235,10 @@ Factories.factory("$push", function($rootScope, $api, $cordovaPushV5, $cordovaMe
     }
   });
 
+  $rootScope.$on('$cordovaPushV5:errorOccurred', function(event, error) {
+    console.log("$push got an error: ", event, error);
+  });
+
   service.ask_for_permission = function(message) {
     if (window.cordova && window.cordova.plugins && window.cordova.plugins.diagnostic) {
       var diag = window.cordova.plugins.diagnostic;

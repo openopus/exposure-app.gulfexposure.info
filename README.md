@@ -14,8 +14,19 @@ with short attention spans and very little patience:
  - Starting with working dev environment
     npm install
     ionic setup sass
-    ionic state reset
+    ionic state restore
     ionic serve
+
+- To build for iOS or store..
+    ionic prepare
+    open platforms/ios/TheExposure.xcodeproj
+    <build in xcode>
+
+The `prepare` step is necessary every time you change the code, and then want to build native.  `ionic run ios` does this for you automatically.
+
+# HELP!  I got the white-screen-o-death!
+
+Read the previous quick start section.  You didn't `ionic prepare`.
 
 # I need to update the icon/splashscreen?
 
