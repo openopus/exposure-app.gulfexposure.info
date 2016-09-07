@@ -20,6 +20,7 @@
       <div class="blog-detail-content">
         <div class="post-actions">
             <div class="image-adder" ng-click="image_chooser()">
+	      <span class="camera-badge" ng-show="post.images && (post.images.length > 0)">{{post.images.length}}</span>
               <i class="ion-camera">+</i>
             </div>
         </div>

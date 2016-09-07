@@ -10156,19 +10156,6 @@ div.instruction-box {
   div.instruction-box p {
     margin: 6px 10px; }
 
-.blog-screen-content {
-  padding-top: 63.8px; }
-
-div.blog-detail-content.blog-post-content {
-  padding: 11px;
-  background-color: #1c2026; }
-
-.post-actions {
-  padding: 5.5px 0;
-  text-align: center;
-  font-size: 29.33333px;
-  color: #164e5a; }
-
 @keyframes fadeinup {
   0% {
     opacity: 0;
@@ -10367,49 +10354,9 @@ div.network-status {
   line-height: 60px; }
   div.network-status .network-message {
     display: inline-block;
+    padding-top: 10px;
     vertical-align: middle;
     line-height: normal; }
-
-.blog-list {
-  background: black;
-  color: #eee; }
-  .blog-list .blog-item .item-content {
-    background: inherit;
-    color: inherit;
-    border-color: white; }
-    .blog-list .blog-item .item-content h1 {
-      background: inherit;
-      color: inherit; }
-    .blog-list .blog-item .item-content P {
-      background: inherit;
-      color: inherit; }
-
-div.blog {
-  background: black; }
-
-div.blog-detail-content {
-  background-color: black;
-  color: #eee; }
-  div.blog-detail-content p {
-    border: 0;
-    padding: 8px; }
-  div.blog-detail-content img {
-    display: block;
-    margin: 6px auto;
-    width: 90%;
-    max-width: 90%;
-    height: auto;
-    overflow-y: hidden; }
-
-div.blog-image {
-  width: 90%;
-  max-width: 90%;
-  margin: 6px auto;
-  text-align: center; }
-  div.blog-image img {
-    width: 100%;
-    height: auto;
-    margin: auto; }
 
 .answer-type-fixed {
   display: inline-block;
@@ -10495,6 +10442,82 @@ div.blog-image {
   text-overflow: ellipsis;
   white-space: nowrap;
   padding: 0px 10px; }
+
+.blog-list {
+  background: black;
+  color: #eee; }
+  .blog-list .blog-item .item-content {
+    background: inherit;
+    color: inherit;
+    border-color: white; }
+    .blog-list .blog-item .item-content h1 {
+      background: inherit;
+      color: inherit; }
+    .blog-list .blog-item .item-content P {
+      background: inherit;
+      color: inherit; }
+
+div.blog {
+  background: black; }
+
+div.blog-detail-content {
+  background-color: black;
+  color: #eee; }
+  div.blog-detail-content p {
+    border: 0;
+    padding: 8px; }
+  div.blog-detail-content img {
+    display: block;
+    margin: 6px auto;
+    width: 90%;
+    max-width: 90%;
+    height: auto;
+    overflow-y: hidden; }
+
+div.blog-image {
+  width: 90%;
+  max-width: 90%;
+  margin: 6px auto;
+  text-align: center; }
+  div.blog-image img {
+    width: 100%;
+    height: auto;
+    margin: auto; }
+
+.blog-screen-content {
+  padding-top: 63.8px; }
+
+div.blog-detail-content.blog-post-content {
+  padding: 11px;
+  background-color: #1c2026; }
+
+.post-actions {
+  padding: 5.5px 0;
+  text-align: center;
+  font-size: 29.33333px;
+  color: #164e5a; }
+
+.image-adder {
+  position: relative; }
+  .image-adder .camera-badge {
+    display: inline-block;
+    text-align: center;
+    min-width: 20px;
+    min-height: 16px;
+    line-height: 10px;
+    font: bold 10px "Helvetica Neue", sans-serif;
+    border-radius: 50%;
+    padding: 3px;
+    color: white;
+    position: relative;
+    top: -12px;
+    left: 10px;
+    border: 2px solid white;
+    background: -webkit-linear-gradient(top, #FF6969 0%, #ff0000 100%);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5), 0 1px 4px rgba(0, 0, 0, 0.4), 0 0 1px rgba(0, 0, 0, 0.7) inset, 0 10px 0px rgba(255, 255, 255, 0.11) inset;
+    -webkit-background-clip: padding-box;
+    text-decoration: none;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.6); }
 
 ion-nav-view {
   background-color: transparent !important; }

@@ -25,9 +25,9 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 @import "./chrome.scss";
 @import "./map.scss";
 @import "./app.scss";
-@import "./blog.scss";
 @import "./survey.scss";
 @import "www/exposure/share/share.scss";
+@import "www/exposure/blog/blog.scss";
 
 ion-nav-view { background-color: transparent !important; }
 $ios-transition-container-bg-color: #F00;

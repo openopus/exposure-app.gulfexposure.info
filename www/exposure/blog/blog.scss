@@ -1,0 +1,60 @@
+.blog-list {
+    background: black; color: #eee;
+    .blog-item .item-content {
+	background: inherit; color: inherit; border-color: white;
+	h1 { background: inherit; color: inherit; }
+	P { background: inherit;  color: inherit; }
+    }
+}
+div.blog { background: black; }
+div.blog-detail-content {
+    background-color: black;
+    color: #eee;
+    p { border: 0; padding: 8px; }
+    img { display: block; margin: 6px auto; width: 90%; max-width: 90%; height: auto; overflow-y: hidden; }
+}
+
+div.blog-image {
+    width: 90%; max-width: 90%; margin: 6px auto; text-align: center;
+    img { width: 100%; height: auto; margin: auto; }
+}
+
+.blog-screen-content {
+    padding-top: $grid * 2.9;
+}
+
+div.blog-detail-content.blog-post-content {
+    padding: $grid / 2;
+    background-color: $color-dark-background;
+}
+
+.post-actions {
+    padding: $grid / 4 0;
+    text-align: center;
+    font-size: $font_size * 2;
+    color: $color-border;
+    i { }
+}
+
+.image-adder {
+    position: relative;
+
+    .camera-badge {
+	display: inline-block;
+	text-align: center;
+	min-width: 20px; min-height: 16px; 
+	line-height: 10px;
+	font:bold 10px "Helvetica Neue", sans-serif;
+	border-radius: 50%;
+	padding: 3px;
+	color: white;
+	position: relative; top: -12px; left: 10px;
+	border: 2px solid white;
+	background: -webkit-linear-gradient(top, #FF6969 0%,#ff0000 100%);
+	box-shadow: 0 1px 2px rgba(0,0,0,.5), 0 1px 4px rgba(0,0,0,.4), 0 0 1px rgba(0,0,0,.7) inset, 0 10px 0px rgba(255,255,255,.11) inset;
+	-webkit-background-clip: padding-box;
+	text-decoration: none;
+	text-shadow: 0 -1px 0 rgba(0,0,0,.6);
+    }
+}
+

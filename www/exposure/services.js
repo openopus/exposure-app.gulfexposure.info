@@ -239,20 +239,35 @@ Factories.factory("$push", function($rootScope, $api, $cordovaPushV5, $cordovaMe
     console.log("$push got an error: ", event, error);
   });
 
-  service.ask_for_permission = function(message) {
+  service.ask_for_permission = function(message, counter_tag, times_between_asking) {
     if (window.cordova && window.cordova.plugins && window.cordova.plugins.diagnostic) {
       var diag = window.cordova.plugins.diagnostic;
-      diag.isRemoteNotificationsEnabled(function(enabled) {
-        if (enabled) {
-          /* We already have permission! */
+      /* Hmmm: diag.isRemoteNotificationsEnabled */
+      diag.isRegisteredForRemoteNotifications(function(registered) {
+        console.log("isRegisteredForRemoteNotifications? " + registered);
+        if (registered) {
+          /* We already have asked and gotten a "Yes"! */
           return;
         } else {
-          /* Don't have permission yet.  Let's ask with our nice message first. */
-          $cordovaDialogs.confirm(message, "Get Notified", ["Sure", "Not Now"]).then(function(bindex) {
-            if (bindex == 1) {
-              service.initialize();
-            }
-          });
+          /* Don't have permission yet.  If we aren't in the middle of asking them again, we can
+             ask with our nice message first. */
+          if (!counter_tag) counter_tag = message.replace(/[- ]/g, "").toLowerCase();
+          if (!times_between_asking) times_between_asking = 3;
+          var times_asked = localStorage.getItem(counter_tag) || times_between_asking;
+          times_asked = parseInt(times_asked);
+          if (times_asked >= times_between_asking) {
+            localStorage.removeItem(counter_tag);
+            $cordovaDialogs.confirm(message, "Get Notified", ["Not Now", "Sure"]).then(function(bindex) {
+              if (bindex == 2) {
+                service.initialize();
+              } else {
+                localStorage.setItem(counter_tag, "0");
+              }
+            });
+          } else {
+            times_asked += 1;
+            localStorage.setItem(counter_tag, times_asked);
+          }
         }
       });
     }
