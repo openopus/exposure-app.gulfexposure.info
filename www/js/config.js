@@ -1,4 +1,5 @@
 App.config(function($ionicConfigProvider, $provide) {
+  $ionicConfigProvider.views.swipeBackEnabled(false);
   $provide.decorator('$q', function ($delegate) {
     var $q = $delegate;
 

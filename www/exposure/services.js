@@ -192,7 +192,7 @@ Factories.factory("ExposureUser", function($q, $api, $localStorage) {
   return service;
 });
 
-Factories.factory("$push", function($rootScope, $api, $cordovaPushV5, $cordovaMedia, $cordovaDialogs) {
+Factories.factory("$push", function($rootScope, $api, $state, $cordovaPushV5, $cordovaMedia, $cordovaDialogs, $ionicPlatform) {
   var service = { settings: null };
 
   service.initialize = function(settings) {
@@ -203,7 +203,6 @@ Factories.factory("$push", function($rootScope, $api, $cordovaPushV5, $cordovaMe
     $cordovaPushV5.initialize(service.settings).then(function() {
       $cordovaPushV5.onNotification();
       $cordovaPushV5.onError();
-      service.register();
     });
   };
 
@@ -220,18 +219,28 @@ Factories.factory("$push", function($rootScope, $api, $cordovaPushV5, $cordovaMe
   };
 
   $rootScope.$on("$cordovaPushV5:notificationReceived", function(event, notification) {
-    console.log("GOT A FUCKING PUSH NOTIFICATION!", event, notification);
+    console.log("GOT A PUSH NOTIFICATION!", notification);
+    var notification_data = notification.additionalData;
+    var foreground = false;
+    if (notification_data) foreground = notification_data.foreground;
+
     if (notification.sound) {
-      var snd = new $cordovaMedia.newMedia(event.sound);
+      var snd = $cordovaMedia.newMedia(notification.sound);
       snd.play();
     }
 
-    if (notification.badge) {
+    if (!foreground && notification.badge) {
       $cordovaPushV5.setBadgeNumber(notification.badge).then(function(result) {
         console.log("Set the badge to " + notification.badge);
       }, function(err) {
         console.log("Failed to set the badge!", notification, err);
          });
+    } else {
+      $cordovaPushV5.setBadgeNumber(0);
+    }
+
+    if (notification_data && notification_data.route) {
+      $state.go(notification_data.route);
     }
   });
 
@@ -260,7 +269,7 @@ Factories.factory("$push", function($rootScope, $api, $cordovaPushV5, $cordovaMe
             localStorage.removeItem(counter_tag);
             $cordovaDialogs.confirm(message, "Get Notified", ["Not Now", "Sure"]).then(function(bindex) {
               if (bindex == 2) {
-                service.initialize();
+                service.register();
               } else {
                 localStorage.setItem(counter_tag, "1");
               }
@@ -273,6 +282,12 @@ Factories.factory("$push", function($rootScope, $api, $cordovaPushV5, $cordovaMe
       });
     }
   };
+
+  $ionicPlatform.ready(function() {
+    /* When loaded - flush the current badge number. */
+    $cordovaPushV5.setBadgeNumber(0);
+    service.initialize();
+  });
 
   return service;
 });
