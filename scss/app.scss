@@ -1284,7 +1284,7 @@ div.network-status {
     text-align: center;
     line-height: 60px;
 
-    .network-message {
+    span {
 	display: inline-block;
 	padding-top: 10px;
 	vertical-align: middle;
@@ -1293,7 +1293,7 @@ div.network-status {
 }
 
 div.notification-message-status {
-    z-index: 9999;
+    z-index: 10000;
     position: absolute; left: 0; right: 0; top:0;
     height: 60px; width: 100%;
     border-bottom: 3px solid white;

@@ -10352,14 +10352,14 @@ div.network-status {
   text-transform: uppercase;
   text-align: center;
   line-height: 60px; }
-  div.network-status .network-message {
+  div.network-status span {
     display: inline-block;
     padding-top: 10px;
     vertical-align: middle;
     line-height: normal; }
 
 div.notification-message-status {
-  z-index: 9999;
+  z-index: 10000;
   position: absolute;
   left: 0;
   right: 0;

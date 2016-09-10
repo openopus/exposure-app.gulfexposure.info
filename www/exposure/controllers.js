@@ -7,7 +7,7 @@ Controllers.controller("appController", function($app, $scope, $push, $ionicPlat
 
   $scope.push_notification_message_handler = function(message) {
     $scope.notification_message = message;
-    $timeout(function() { $scope.notification_message = null; }, 5000);
+    $timeout(function() { $scope.notification_message = null; }, 10000);
   };
 
   $scope.default_message_handler = $push.default_message_handler;

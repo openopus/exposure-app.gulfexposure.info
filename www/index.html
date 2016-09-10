@@ -64,12 +64,14 @@
 
   </head>
   <body ng-app="Exposure">
-    <div ng-controller="appController" ng-show="!online" class="network-status">
-      <span class="network-message">NETWORK CONNECTIVITY UNAVAILABLE</span>
-    </div>
-    <div ng-controller="appController" ng-show="notification_message" class="notification-message-status">
-      <span class="message-content" ng-bind="notification_message"></span>
-    </div>
+    <span ng-controller="appController">
+      <div ng-show="!online" class="network-status">
+	<span class="network-message">NETWORK CONNECTIVITY UNAVAILABLE</span>
+      </div>
+      <div ng-show="notification_message" class="notification-message-status" ng-click="notification_message = null">
+	<span class="message-content" ng-bind="notification_message"></span>
+      </div>
+    </span>
     <ion-nav-view></ion-nav-view>
   </body>
 </html>
