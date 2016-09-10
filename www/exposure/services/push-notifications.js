@@ -1,6 +1,11 @@
 /* In a separate file for ease of use. */
 Factories.factory("$push", function($rootScope, $api, $state, $cordovaPushV5, $cordovaMedia, $cordovaDialogs, $ionicPlatform) {
-  var service = { settings: null };
+  var service = { debug: false, settings: null };
+
+  function debug_log() {
+    if (service.debug)
+      console.log.call(arguments);
+  };
 
   service.initialize = function(settings) {
     if (!settings) {
@@ -18,11 +23,15 @@ Factories.factory("$push", function($rootScope, $api, $state, $cordovaPushV5, $c
       var os = ionic.Platform.isIOS() ? "ios" : ionic.Platform.isAndroid() ? "android" : "web";
       var ua = ionic.Platform.ua;
       var device_options = { user_guid: window.oli_device_id, os: os, token: token, ua: ua };
-      console.log("Device Token: " + token);
+      debug_log("Device Token: " + token);
       $api.create("device", device_options);
     }).catch(function(err) {
                alert("Registration Error: " + JSON.stringify(err));
              });
+  };
+
+  service.default_notification_display = function(notification) {
+    alert(notification.message);
   };
 
   /* The default notification handler.  You can replace this in your own code if you want.
@@ -42,9 +51,9 @@ Factories.factory("$push", function($rootScope, $api, $state, $cordovaPushV5, $c
     if (!foreground && (notification.count || notification.badge)) {
       var number = notification.count || notification.badge;
       $cordovaPushV5.setBadgeNumber(number).then(function(result) {
-        console.log("Set the badge to " + number);
+        debug_log("Set the badge to " + number);
       }, function(err) {
-           console.log("Failed to set the badge!", notification, err);
+           debug_log("Failed to set the badge!", notification, err);
          });
     }
 
@@ -57,12 +66,12 @@ Factories.factory("$push", function($rootScope, $api, $state, $cordovaPushV5, $c
   };
 
   $rootScope.$on("$cordovaPushV5:notificationReceived", function(event, notification) {
-    console.log("GOT A PUSH NOTIFICATION!", notification);
+    debug_log("GOT A PUSH NOTIFICATION!", notification);
     service.default_notification_handler(notification);
   });
 
   $rootScope.$on('$cordovaPushV5:errorOccurred', function(event, error) {
-    console.log("$push got an error: ", event, error);
+    debug_log("$push got an error: ", event, error);
   });
 
   service.ask_for_permission = function(message, counter_tag, times_between_asking) {
@@ -71,7 +80,7 @@ Factories.factory("$push", function($rootScope, $api, $state, $cordovaPushV5, $c
       var diag = window.cordova.plugins.diagnostic;
       /* Hmmm: diag.isRemoteNotificationsEnabled */
       diag.isRegisteredForRemoteNotifications(function(registered) {
-        console.log("isRegisteredForRemoteNotifications? " + registered);
+        debug_log("isRegisteredForRemoteNotifications? " + registered);
         if (registered) {
           /* We already have asked and gotten a "Yes"! */
           return;
