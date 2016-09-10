@@ -10358,6 +10358,27 @@ div.network-status {
     vertical-align: middle;
     line-height: normal; }
 
+div.notification-message-status {
+  z-index: 9999;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 60px;
+  width: 100%;
+  border-bottom: 3px solid white;
+  background: #333;
+  color: #eee;
+  font-weight: bold;
+  text-transform: none;
+  text-align: center;
+  line-height: 60px; }
+  div.notification-message-status span {
+    display: inline-block;
+    padding-top: 10px;
+    vertical-align: middle;
+    line-height: normal; }
+
 .answer-type-fixed {
   display: inline-block;
   margin-right: 8px; }

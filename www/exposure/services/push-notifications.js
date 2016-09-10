@@ -30,8 +30,12 @@ Factories.factory("$push", function($rootScope, $api, $state, $cordovaPushV5, $c
              });
   };
 
-  service.default_notification_display = function(notification) {
-    alert(notification.message);
+  service.default_message_handler = function(message) {
+    $cordovaDialogs.alert(message);
+  };
+
+  service.default_confirm_handler = function(message) {
+    return $cordovaDialogs.confirm(message);
   };
 
   /* The default notification handler.  You can replace this in your own code if you want.
@@ -56,6 +60,21 @@ Factories.factory("$push", function($rootScope, $api, $state, $cordovaPushV5, $c
            debug_log("Failed to set the badge!", notification, err);
          });
     }
+
+    if (foreground && notification.message) {
+      if (notification_data.confirm) {
+        service.default_confirm_handler(notification.message).then(function(button_index) {
+          if (button_index == 1) {
+            if (notification_data.confirm_route) {
+              $state.go(notification_data.confirm_route);
+            }
+          }
+        });
+      } else {
+        service.default_message_handler(notification.message);
+      }
+    }
+
 
     /* I don't believe this is necessary - we aready set the badge to zero on entry to the app. */
     // if (foreground) $cordovaPushV5.setBadgeNumber(0);
