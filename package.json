@@ -35,8 +35,8 @@
     },
     "cordova-plugin-geolocation",
     "cordova-plugin-compat",
-    "https://github.com/apache/cordova-plugins#master:local-webserver",
-    "cordova-labs-wkwebview-engine-localhost#master:wkwebview-engine-localhost",
+    "https://github.com/apache/cordova-plugins.git#master:local-webserver",
+    "https://github.com/apache/cordova-plugins.git#master:wkwebview-engine-localhost",
     "cordova-plugin-file",
     {
       "locator": "https://github.com/Telerik-Verified-Plugins/NativePageTransitions",
