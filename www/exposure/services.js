@@ -218,30 +218,40 @@ Factories.factory("$push", function($rootScope, $api, $state, $cordovaPushV5, $c
              });
   };
 
-  $rootScope.$on("$cordovaPushV5:notificationReceived", function(event, notification) {
-    console.log("GOT A PUSH NOTIFICATION!", notification);
+  /* The default notification handler.  You can replace this in your own code if you want.
+     This one handles sound, messaging alert, and changing the route. */
+  service.default_notification_handler = function(notification) {
     var notification_data = notification.additionalData;
     var foreground = false;
     if (notification_data) foreground = notification_data.foreground;
 
     if (notification.sound) {
-      var snd = $cordovaMedia.newMedia(notification.sound);
-      snd.play();
+      //var snd = $cordovaMedia.newMedia(notification.sound);
+      // snd.play();
+      if (window.navigator && window.navigator.notification && window.navigator.notification.beep)
+        window.navigator.notification.beep();
     }
 
-    if (!foreground && notification.badge) {
-      $cordovaPushV5.setBadgeNumber(notification.badge).then(function(result) {
-        console.log("Set the badge to " + notification.badge);
+    if (!foreground && (notification.count || notification.badge)) {
+      var number = notification.count || notification.badge;
+      $cordovaPushV5.setBadgeNumber(number).then(function(result) {
+        console.log("Set the badge to " + number);
       }, function(err) {
-        console.log("Failed to set the badge!", notification, err);
+           console.log("Failed to set the badge!", notification, err);
          });
-    } else {
-      $cordovaPushV5.setBadgeNumber(0);
     }
+
+    /* I don't believe this is necessary - we aready set the badge to zero on entry to the app. */
+    // if (foreground) $cordovaPushV5.setBadgeNumber(0);
 
     if (notification_data && notification_data.route) {
       $state.go(notification_data.route);
     }
+  };
+
+  $rootScope.$on("$cordovaPushV5:notificationReceived", function(event, notification) {
+    console.log("GOT A PUSH NOTIFICATION!", notification);
+    service.default_notification_handler(notification);
   });
 
   $rootScope.$on('$cordovaPushV5:errorOccurred', function(event, error) {
