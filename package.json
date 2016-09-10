@@ -53,6 +53,7 @@
     "cordova-plugin-contacts",
     "cordova-plugin-email-composer",
     "cordova-plugin-dialogs",
+    "cordova-plugin-media",
     "cordova-plugin-globalization",
     {
       "locator": "https://github.com/pushandplay/cordova-plugin-apprate.git",
