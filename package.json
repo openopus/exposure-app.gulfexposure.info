@@ -59,6 +59,7 @@
       "locator": "https://github.com/pushandplay/cordova-plugin-apprate.git",
       "id": "cordova-plugin-apprate"
     },
+    "cordova-plugin-local-notifications",
     "cordova-plugin-badge",
     "cordova-plugin-app-event",
     "com.cordova.plugins.sms",
