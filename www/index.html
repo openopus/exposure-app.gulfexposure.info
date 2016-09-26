@@ -6,23 +6,7 @@
     <title>Exposure</title>
     <link href="css/ionic.app.css" rel="stylesheet" />
     <link href="lib/css-spinners/css/spinners.css" rel="stylesheet" />
-
-    <script>
-      var theRealConsole = console;
-      var setConsoleOutput = function(on) {
-	if (!on) {
-	  theRealConsole = console;
-	  console = {};
-	  console.log = function() {};
-	  console.warn = function() {};
-	  console.error = function() {};
-	} else {
-	  console = theRealConsole;
-	}
-	window.console = console;
-      }
-      setConsoleOutput(true);
-    </script>
+    <script src="lib/oli/set-console-output.js"></script>
 
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCrc_asiQHTOAApPedszqShFWbpPD4vwSo"></script>
 
@@ -69,7 +53,7 @@
 	<span class="network-message">NETWORK CONNECTIVITY UNAVAILABLE</span>
       </div>
       <div ng-show="notification_message" class="notification-message-status" ng-click="notification_message = null">
-	<span class="message-content" ng-bind="notification_message"></span>
+	<span class="message-content" ng-bind="notification_message">should see this message</span>
       </div>
     </span>
     <ion-nav-view></ion-nav-view>

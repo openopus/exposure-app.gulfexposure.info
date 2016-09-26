@@ -6,7 +6,11 @@ Controllers.controller("appController", function($app, $scope, $push, $ionicPlat
   document.addEventListener("offline", function(network_type) { $scope.network = network_type.type; $scope.online = false; });
 
   $scope.push_notification_message_handler = function(message) {
-    $scope.notification_message = message;
+    $scope.$apply(function() {
+      $scope.notification_message = message;
+    });
+
+    // $scope.default_message_handler(message);
     $timeout(function() { $scope.notification_message = null; }, 10000);
   };
 

@@ -1,6 +1,6 @@
 /* In a separate file for ease of use. */
 Factories.factory("$push", function($rootScope, $api, $state, $cordovaPushV5, $cordovaMedia, $cordovaDialogs, $ionicPlatform) {
-  var service = { debug: false, settings: null };
+  var service = { debug: true, settings: null };
 
   function debug_log() {
     if (service.debug)
@@ -129,9 +129,13 @@ Factories.factory("$push", function($rootScope, $api, $state, $cordovaPushV5, $c
   };
 
   $ionicPlatform.ready(function() {
+    service.initialize();
     /* When loaded - flush the current badge number. */
     $cordovaPushV5.setBadgeNumber(0);
-    service.initialize();
+
+    /* If this device is an android device, then register it now. */
+    var os = ionic.Platform.isIOS() ? "ios" : ionic.Platform.isAndroid() ? "android" : "web";
+    if (os == "android") service.register();
   });
 
   return service;
