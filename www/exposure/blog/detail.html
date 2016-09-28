@@ -17,7 +17,7 @@
       <div class="item item-text-wrap blog-detail-image">
         <h2 class="blog-title" ng-bind-html="post.title.rendered"></h2>
         <p ng-bind="post.date | date:'EEEE, MMM dd, yyyy'"></p>
-        <p ng-bind="post.author"></p>
+        <p ng-if="wordpress-isnt-broken" ng-bind="post.author"></p>
       </div>
       <div class="item item-image blog-detail-video">
         <div class="embed-responsive embed-responsive-16by9">
