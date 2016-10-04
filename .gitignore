@@ -17,3 +17,5 @@ my-resources
 *.apk
 jobspeaker.app.keystore
 .bundle
+*.keystore
+*.password
