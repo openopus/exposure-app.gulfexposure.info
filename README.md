@@ -1,4 +1,6 @@
 # The Exposure
+## Our AppleID: 1149126656
+Download Link for iPhone: https://itunes.apple.com/us/app/the-exposure/id1149126656?mt=8
 
 ## Quick Start
 
