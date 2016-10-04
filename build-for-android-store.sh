@@ -1,5 +1,9 @@
 #!/bin/sh
 
+if [ "$1" == "--sign-only" ]; then
+    sign_only=true
+fi
+
 if [ ! -e "theexposure.app.keystore" ]; then
     echo "Keystore file theexposure.app.keystore is not in directory."
     echo "I will attempt to get the android-artifacts git repo in order to find it."
@@ -16,8 +20,10 @@ if [ ! -e "theexposure.app.keystore" ]; then
     fi
 fi
 
-ionic build android --release
-cp ./platforms/android/build/outputs/apk/android-armv7-release-unsigned.apk ./TheExposure-release-unsigned.apk
+if [ ! "$sign_only" ]; then
+    ionic build android --release
+    cp ./platforms/android/build/outputs/apk/android-armv7-release-unsigned.apk ./TheExposure-release-unsigned.apk
+fi
 
 if [ -r ./theexposure.app.password ]; then
     signing_pass=$(cat ./theexposure.app.password)
@@ -31,7 +37,7 @@ else
 fi
 export signing_pass
 
-jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore ./theexposure.app.keystore -storepass:env signing_pass TheExposure-release-unsigned.apk theexposure
+jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore ./theexposure.app.keystore -storepass:env signing_pass TheExposure-release-unsigned.apk exposure
 
 zipalign -f 4 TheExposure-release-unsigned.apk TheExposure-release.apk
 
