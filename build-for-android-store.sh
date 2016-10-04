@@ -7,7 +7,7 @@ if [ ! -e "theexposure.app.keystore" ]; then
       if [ ! -d android-artifacts ]; then git clone git@git.opuslogica.com:android-artifacts; fi
     )
     cp ../android-artifacts/theexposure.app.keystore .
-
+    cp ../android-artifacts/theexposure.app.password .
     if [ ! -e "theexposure.app.keystore" ]; then
 	echo "But I failed!  You'll have to figure this out manually :-("
 	exit 1
@@ -19,15 +19,15 @@ fi
 ionic build android --release
 cp ./platforms/android/build/outputs/apk/android-armv7-release-unsigned.apk ./TheExposure-release-unsigned.apk
 
-if [ -r ./theexposure-pass ]; then
-    signing_pass=$(cat ./theexposure-pass)
-elif [ -r ./android-artifacts/theexposure-pass ]; then
-    signing_pass=$(cat ./android-artifacts/theexposure-pass)
-elif [ -r ../android-artifacts/theexposure-pass ]; then
-    signing_pass=$(cat ../android-artifacts/theexposure-pass)
+if [ -r ./theexposure.app.password ]; then
+    signing_pass=$(cat ./theexposure.app.password)
+elif [ -r ./android-artifacts/theexposure.app.password ]; then
+    signing_pass=$(cat ./android-artifacts/theexposure.app.password)
+elif [ -r ../android-artifacts/theexposure.app.password ]; then
+    signing_pass=$(cat ../android-artifacts/theexposure.app.password)
 else
     echo "Couldn't find the file containing the signing password.  Intelligently guessing..."
-    signing_pass="eol9gb7elov2"
+    signing_pass="idtmp2tv"
 fi
 export signing_pass
 
