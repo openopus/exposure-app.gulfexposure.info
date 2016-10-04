@@ -45,6 +45,7 @@
     </feature>
     <hook src="package-hooks/allow-http.sh" type="after_prepare" />
     <hook src="package-hooks/app-doesnt-need-encryption.sh" type="after_prepare" />
+    <hook src="package-hooks/photo-library-question.sh" type="after_prepare" />
     <hook src="package-hooks/ask-geolocation-nicely.sh" type="after_prepare" />
     <platform name="ios">
         <content src="http://localhost:16382" />
