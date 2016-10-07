@@ -20,6 +20,9 @@ Controllers.controller('ShareAppController', function($scope, $transitions, $q, 
     }
 
     try {
+      AppRate.preferences.promptAgainForEachNewVersion = true;
+      AppRate.preferences.openStoreInApp = false;
+      AppRate.preferences.storeAppURL = { ios: "1149126656", android: "market://details?id=com.opuslogica.theexposure.app" };
       AppRate.preferences.callbacks.onButtonClicked = function(button_index) {
         console.log("RATING BUTTON: " + button_index);
         if (button_index == 1) {
@@ -57,7 +60,6 @@ Controllers.controller('ShareAppController', function($scope, $transitions, $q, 
       $scope.go_dashboard();
     }
   };
-
 
   $scope.share_with_contacts = function() {
     try {
