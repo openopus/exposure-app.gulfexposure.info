@@ -22,7 +22,7 @@ fi
 
 if [ ! "$sign_only" ]; then
     ionic build android --release
-    cp ./platforms/android/build/outputs/apk/android-armv7-release-unsigned.apk ./TheExposure-release-unsigned.apk
+    cp ./platforms/android/build/outputs/apk/android-release-unsigned.apk ./TheExposure-release-unsigned.apk
 fi
 
 if [ -r ./theexposure.app.password ]; then
@@ -44,3 +44,4 @@ zipalign -f 4 TheExposure-release-unsigned.apk TheExposure-release.apk
 rm TheExposure-release-unsigned.apk
 
 echo "Your new store-ready apk is named 'TheExposure-release.apk'"
+
