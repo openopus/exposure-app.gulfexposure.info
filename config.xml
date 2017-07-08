@@ -7,9 +7,6 @@
     <author email="bfox@opuslogica.com" href="http://opuslogica.com/">
     Brian J. Fox and Kevin Ponto
   </author>
-    <plugin name="cordova-plugin-whitelist" spec="1" />
-    <plugin name="cordova-plugin-camera" spec="~2.2.0" />
-    <plugin name="cordova-plugin-x-socialsharing" spec="https://github.com/EddyVerbruggen/SocialSharing-PhoneGap-Plugin.git" />
     <content src="http://localhost:0" />
     <allow-navigation href="gap://ready" />
     <allow-navigation href="http://localhost:*" />
@@ -97,4 +94,7 @@
         <splash density="port-xxxhdpi" src="resources/android/splash/drawable-port-xxxhdpi-screen.png" />
     </platform>
     <icon src="resources/android/icon/drawable-xhdpi-icon.png" />
+    <plugin name="cordova-plugin-camera" spec="~2.2.0" />
+    <plugin name="cordova-plugin-whitelist" spec="1" />
+    <plugin name="cordova-plugin-x-socialsharing" spec="https://github.com/EddyVerbruggen/SocialSharing-PhoneGap-Plugin.git" />
 </widget>
