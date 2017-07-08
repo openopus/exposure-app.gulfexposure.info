@@ -80,7 +80,7 @@ Controllers.controller('DashboardController', function($scope, $transitions, $q,
     var result = (survey && survey.user) ? survey.user.birthdate : null;
 
     if (!result) {
-      result = Survey.get_value_by_tag("birthdate", survey);
+      result = Survey.get_value_by_tag("current-age", survey);
     }
 
     return result;

@@ -10,8 +10,12 @@ App.filter('asAge', function() {
     if (birthdate) {
       if (typeof birthdate == "string") { birthdate = new Date(input); }
       var ms_diff = Date.now() - birthdate.getTime();
-      var age = new Date(ms_diff);
-      output = "" +  (Math.abs(age.getUTCFullYear() - 1970));
+      if (isNaN(ms_diff)) {
+        output = input.replace(" years", "");
+      } else {
+        var age = new Date(ms_diff);
+        output = "" +  (Math.abs(age.getUTCFullYear() - 1970));
+      }
     }
 
     return output;
